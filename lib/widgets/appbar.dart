@@ -33,6 +33,7 @@ class StudentAppBar extends StatelessWidget {
               if (item.index == 0) {
                 await logout();
 
+                // ignore: use_build_context_synchronously
                 await Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),

@@ -34,6 +34,7 @@ class Screen extends State<FirstScreen> {
     // await prefs.remove('counter');
 
     if (email == "" && password == "" && school == "") {
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -42,6 +43,7 @@ class Screen extends State<FirstScreen> {
                 )),
       );
     } else {
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
