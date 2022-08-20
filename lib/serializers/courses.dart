@@ -40,12 +40,38 @@ Future<Courses> createCourses(
 }
 
 Future<Courses> modelCourse() async {
-  await Future.delayed(const Duration(seconds: 10));
+  await Future.delayed(const Duration(seconds: 5));
   return const Courses(courseGrades: [
     ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Photography", "Ms.AppleGate", "appgate@mtsd.com", "N/A", "Not Graded MP2"]
+    [
+      "Photography",
+      "Ms.AppleGate",
+      "appgate@mtsd.com",
+      "N/A",
+      "Not Graded MP2"
+    ],
+    ["English 168 honors", "Ms.AppleGate", "appgate@mtsd.com", "70", "N/A"],
+    ["AP nuts", "Ms.AppleGate", "appgate@mtsd.com", "80", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "93", "N/A"],
+    ["IDK", "Ms.AppleGate", "appgate@mtsd.com", "40", "N/A"],
+    ["o", "Ms.AppleGate", "appgate@mtsd.com", "92", "N/A"],
+    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "98", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
   ]);
 }

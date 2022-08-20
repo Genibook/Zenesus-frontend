@@ -24,7 +24,6 @@ class StudentAppBar extends StatelessWidget {
         style: TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.bold,
-          fontFamily: "Merriweather",
         ),
       ),
       actions: <Widget>[
@@ -76,9 +75,40 @@ class CoursesAppbar extends StatelessWidget {
           fontSize: 25,
           letterSpacing: 2,
           fontWeight: FontWeight.bold,
-          fontFamily: "Merriweather",
         ),
       ),
+      actions: <Widget>[
+        PopupMenuButton<Menu>(
+            onSelected: (Menu item) async {
+              if (item.index == 0) {
+                await logout();
+
+                // ignore: use_build_context_synchronously
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FirstScreen()),
+                );
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                  const PopupMenuItem<Menu>(
+                    value: Menu.itemOne,
+                    child: Text('Log Out'),
+                  ),
+                  const PopupMenuItem<Menu>(
+                    value: Menu.itemTwo,
+                    child: Text('Item 2'),
+                  ),
+                  const PopupMenuItem<Menu>(
+                    value: Menu.itemThree,
+                    child: Text('Item 3'),
+                  ),
+                  const PopupMenuItem<Menu>(
+                    value: Menu.itemFour,
+                    child: Text('Item 4'),
+                  ),
+                ])
+      ],
     );
   }
 }

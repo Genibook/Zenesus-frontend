@@ -113,7 +113,6 @@ class _Login extends State<MyLoginPage> {
                     fontSize: 40,
                     letterSpacing: 2,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Merriweather",
                   ),
                 ),
               ),
@@ -219,9 +218,9 @@ class _Login extends State<MyLoginPage> {
                               'View Grades ',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Merriweather"),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             Icon(CustomIcons.binoculars, size: 22)
                           ]),
