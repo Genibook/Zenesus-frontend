@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:zenesus/serializers/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/appbar.dart';
@@ -45,14 +44,76 @@ class _test extends State<TestingScreen> {
     }
   }
 
+  double calculateGradeAverage(List<dynamic> courseGrades) {
+    double totalGrade = 0;
+    int lenCourses = courseGrades.length;
+    for (int i = 0; i < courseGrades.length; i++) {
+      String grade = courseGrades[i][3];
+      if (grade != "N/A") {
+        double doubleGrade = double.parse(grade);
+        totalGrade += doubleGrade;
+      } else if (grade == "N/A") {
+        lenCourses -= 1;
+      }
+    }
+    double average = totalGrade / lenCourses;
+    return average;
+  }
+
   FutureBuilder<Courses> buildFutureBuilder() {
     return FutureBuilder(
       future: _futureCourses,
       builder: (context, snapshot) {
         List<Widget> children;
         if (snapshot.hasData) {
+          const double size = 200;
+          const double twoPi = 3.14 * 2;
           List<dynamic> data = snapshot.data!.courseGrades;
+          double average = calculateGradeAverage(snapshot.data!.courseGrades);
+          var brightness = MediaQuery.of(context).platformBrightness;
+          bool isDarkMode = brightness == Brightness.dark;
           children = [
+            Container(
+                width: size,
+                height: size,
+                child: Stack(children: [
+                  ShaderMask(
+                    shaderCallback: (rect) {
+                      return SweepGradient(
+                          startAngle: 0,
+                          endAngle: twoPi,
+                          stops: [average / 100, average / 100],
+                          // 0.0, 0.5, 0.5, 1.0
+                          center: Alignment.center,
+                          colors: [
+                            getColorFromGrade(average),
+                            Colors.grey.withAlpha(55)
+                          ]).createShader(rect);
+                    },
+                    child: Container(
+                      width: size,
+                      height: size,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      height: size - 40,
+                      width: size - 40,
+                      decoration: BoxDecoration(
+                          color: isDarkMode
+                              ? const Color.fromARGB(255, 48, 48, 48)
+                              : Colors.white,
+                          shape: BoxShape.circle),
+                      child: Center(
+                          child: Text(
+                              "${double.parse((average).toStringAsFixed(2))}%",
+                              style: const TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold))),
+                    ),
+                  )
+                ])),
             ListView.separated(
                 separatorBuilder: (_, __) => const Divider(),
                 physics: const NeverScrollableScrollPhysics(),
@@ -76,7 +137,7 @@ class _test extends State<TestingScreen> {
                             "${data[index][3]}\n${data[index][4]}",
                             textAlign: TextAlign.right,
                             style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 19,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.blue),
                           )

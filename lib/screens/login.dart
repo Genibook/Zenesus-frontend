@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/studentpage.dart';
-import 'package:zenesus/icons/custom_icons_icons.dart';
-
 //TODO Implement grade check using future builder??
 
 class Highschool {

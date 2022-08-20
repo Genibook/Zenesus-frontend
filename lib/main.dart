@@ -3,11 +3,13 @@ import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/screens/testing.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+  if (UniversalPlatform.isWindows ||
+      UniversalPlatform.isLinux ||
+      UniversalPlatform.isMacOS) {
     setWindowMinSize(const Size(400, 800));
     setWindowMaxSize(Size.infinite);
   }

@@ -53,9 +53,9 @@ Future<Courses> modelCourse() async {
       "N/A",
       "Not Graded MP2"
     ],
-    ["English 168 honors", "Ms.AppleGate", "appgate@mtsd.com", "70", "N/A"],
+    ["AP Lunch", "Ms.AppleGate", "appgate@mtsd.com", "200", "N/A"],
     ["AP nuts", "Ms.AppleGate", "appgate@mtsd.com", "80", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "93", "N/A"],
+    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "99", "N/A"],
     ["IDK", "Ms.AppleGate", "appgate@mtsd.com", "40", "N/A"],
     ["o", "Ms.AppleGate", "appgate@mtsd.com", "92", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "98", "N/A"],
