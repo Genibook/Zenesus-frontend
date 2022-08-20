@@ -1,0 +1,22 @@
+{
+  "name": "CustomIcons",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "3f0d0458a388097c2ca5d5324d97c450",
+      "css": "id_badge",
+      "code": 62145,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "73ffeb70554099177620847206c12457",
+      "css": "binoculars",
+      "code": 61925,
+      "src": "fontawesome"
+    }
+  ]
+}
