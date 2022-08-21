@@ -27,36 +27,21 @@ class StudentAppBar extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        PopupMenuButton<Menu>(
-            onSelected: (Menu item) async {
-              if (item.index == 0) {
-                await logout();
-
-                // ignore: use_build_context_synchronously
-                await Navigator.pushReplacement(
+        Tooltip(
+            message: 'Log out',
+            child: IconButton(
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                logout();
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),
                 );
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemOne,
-                    child: Text('Log Out'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemTwo,
-                    child: Text('Item 2'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemThree,
-                    child: Text('Item 3'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemFour,
-                    child: Text('Item 4'),
-                  ),
-                ])
+              },
+            )),
       ],
     );
   }
@@ -94,19 +79,7 @@ class CoursesAppbar extends StatelessWidget {
                   const PopupMenuItem<Menu>(
                     value: Menu.itemOne,
                     child: Text('Log Out'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemTwo,
-                    child: Text('Item 2'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemThree,
-                    child: Text('Item 3'),
-                  ),
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemFour,
-                    child: Text('Item 4'),
-                  ),
+                  )
                 ])
       ],
     );

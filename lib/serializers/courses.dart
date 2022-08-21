@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -44,8 +43,8 @@ Future<Courses> modelCourse() async {
   return const Courses(courseGrades: [
     ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["US 123123 12301203123", "Ms.AppleGate", "appgate@mtsd.com", "27", "N/A"],
     [
       "Photography",
       "Ms.AppleGate",
@@ -53,25 +52,10 @@ Future<Courses> modelCourse() async {
       "N/A",
       "Not Graded MP2"
     ],
-    ["AP Lunch", "Ms.AppleGate", "appgate@mtsd.com", "200", "N/A"],
-    ["AP nuts", "Ms.AppleGate", "appgate@mtsd.com", "80", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "99", "N/A"],
-    ["IDK", "Ms.AppleGate", "appgate@mtsd.com", "40", "N/A"],
-    ["o", "Ms.AppleGate", "appgate@mtsd.com", "92", "N/A"],
+    ["AP nuts", "Ms.AppleGate", "appgate@mtsd.com", "81", "N/A"],
+    ["Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "99", "N/A"],
+    ["IDK", "Ms.AppleGate", "appgate@mtsd.com", "71", "N/A"],
+    ["o", "Ms.AppleGate", "appgate@mtsd.com", "61", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "98", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Calculas AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US History CP", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
   ]);
 }
