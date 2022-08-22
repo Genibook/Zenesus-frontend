@@ -4,18 +4,21 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 
 class CoursesDatas {
-  final List<CoursesData> datas;
+  final List<List<CoursesData>> datas;
 
   const CoursesDatas({required this.datas});
 
   factory CoursesDatas.fromJson(Map<String, dynamic> json) {
     List<CoursesData> items = [];
+    List<List<CoursesData>> allItems = [];
     for (dynamic datas in json.values) {
       for (dynamic data in datas) {
         items.add(CoursesData.fromJson(data));
       }
+      allItems.add(items);
+      items = [];
     }
-    return CoursesDatas(datas: items);
+    return CoursesDatas(datas: allItems);
   }
 }
 
@@ -64,7 +67,7 @@ class CoursesData {
         full_dayname: json['full_date'],
         teacher: json['teacher'],
         category: json['category'],
-        assignment: json['assignments'],
+        assignment: json['assignment'],
         description: json['description'],
         grade_percent: json['grade_percent'],
         grade_num: json["grade_num"],
@@ -94,11 +97,11 @@ Future<CoursesDatas> createCoursesDatas(
 }
 
 Future<CoursesDatas> modelCourseDatas() async {
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 1));
   return CoursesDatas.fromJson({
     '1': [
       {
-        "course_name": "English 10 Honors",
+        "course_name": "English 10 honors",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
@@ -107,9 +110,95 @@ Future<CoursesDatas> modelCourseDatas() async {
         "teacher": "Ms.Applegate",
         "category": "Summative",
         "assignment": "Unit 10 Test",
-        "description": "",
-        "grade_percent": "100/100",
-        "grade_num": "100",
+        "description": "you did well eddie :D",
+        "grade_percent": "100",
+        "grade_num": "100/100",
+        "comment": "",
+        "prev": "",
+        "docs": ""
+      },
+      {
+        "course_name": "English 10 honors",
+        "mp": "MP2",
+        "dayname": "Mon",
+        "full_dayname": "Monday",
+        "date": "6/7",
+        "full_date": "6/7/2022",
+        "teacher": "Ms.Applegate",
+        "category": "Summative",
+        "assignment": "Unit 10 Test",
+        "description":
+            "heheehawhaweheehawhaweheehawhaweheehawhaweheehawhaweheehawhaweheehawhaweheehawhaw",
+        "grade_percent": "100",
+        "grade_num": "100/100",
+        "comment": "",
+        "prev": "",
+        "docs": ""
+      },
+      {
+        "course_name": "English 10 honors",
+        "mp": "MP2",
+        "dayname": "Mon",
+        "full_dayname": "Monday",
+        "date": "6/7",
+        "full_date": "6/7/2022",
+        "teacher": "Ms.Applegate",
+        "category": "Summative",
+        "assignment": "Unit 10 Test",
+        "description": "heheehawhaw",
+        "grade_percent": "100",
+        "grade_num": "100/100",
+        "comment": "",
+        "prev": "",
+        "docs": ""
+      },
+      {
+        "course_name": "English 10 honors",
+        "mp": "MP2",
+        "dayname": "Mon",
+        "full_dayname": "Monday",
+        "date": "6/7",
+        "full_date": "6/7/2022",
+        "teacher": "Ms.Applegate",
+        "category": "Summative",
+        "assignment": "Unit 10 Test",
+        "description": "heheehawhaw",
+        "grade_percent": "100",
+        "grade_num": "100/100",
+        "comment": "",
+        "prev": "",
+        "docs": ""
+      },
+      {
+        "course_name": "English 10 honors",
+        "mp": "MP2",
+        "dayname": "Mon",
+        "full_dayname": "Monday",
+        "date": "6/7",
+        "full_date": "6/7/2022",
+        "teacher": "Ms.Applegate",
+        "category": "Summative",
+        "assignment": "Unit 10 Test",
+        "description": "heheehawhaw",
+        "grade_percent": "100",
+        "grade_num": "100/100",
+        "comment": "",
+        "prev": "",
+        "docs": ""
+      },
+      {
+        "course_name": "English 10 honors",
+        "mp": "MP2",
+        "dayname": "Mon",
+        "full_dayname": "Monday",
+        "date": "6/7",
+        "full_date": "6/7/2022",
+        "teacher": "Ms.Applegate",
+        "category": "Summative",
+        "assignment": "Unit 10 Test",
+        "description": "heheehawhaw",
+        "grade_percent": "100",
+        "grade_num": "100/100",
         "comment": "",
         "prev": "",
         "docs": ""

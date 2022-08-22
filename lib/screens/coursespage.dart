@@ -3,10 +3,9 @@ import 'package:zenesus/serializers/mps.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
-import 'dart:math';
 import 'package:zenesus/screens/coursedatapage.dart';
 import 'package:zenesus/utils/cookies.dart';
-import 'package:zenesus/utils/utils.dart';
+import 'package:zenesus/utils/courses_utils.dart';
 
 class GradesPage extends StatefulWidget {
   const GradesPage(
@@ -43,11 +42,12 @@ class GradePageState extends State<GradesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureCourses = modelCourse();
-      _futureMPs = modelMPs();
+      //_futureCourses = modelCourse();
+      //_futureMPs = modelMPs();
 
-      //_futureCourses = createCourses(widget.email, widget.password, widget.school);
-      //_futureMPs = createMPs(widget.email, widget.password, widget.school);
+      _futureCourses =
+          createCourses(widget.email, widget.password, widget.school);
+      _futureMPs = createMPs(widget.email, widget.password, widget.school);
     });
 
     return buildFutureCourseBuilder(
@@ -119,7 +119,10 @@ class GradePageState extends State<GradesPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
+          final ValueNotifier<Widget> gpaCircle =
+              ValueNotifier<Widget>(weightedCircle(context, snapshot));
           List<dynamic> data = snapshot.data!.courseGrades;
+          int gpaCircleNum = 0;
           child = Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -127,11 +130,34 @@ class GradePageState extends State<GradesPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                unweightedCircle(context, snapshot),
-                //GestureDetector(onTap: () {}, child: gpaCircle),
+                InkWell(
+                  onTap: () {
+                    if (gpaCircleNum == 0) {
+                      gpaCircle.value = unweightedCircle(context, snapshot);
+                      gpaCircleNum = 1;
+                    } else {
+                      gpaCircle.value = weightedCircle(context, snapshot);
+                      gpaCircleNum = 0;
+                    }
+                  },
+                  child: ValueListenableBuilder<Widget>(
+                      valueListenable: gpaCircle,
+                      builder:
+                          (BuildContext context, Widget value, Widget? child) {
+                        return value;
+                      }),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
+                const SizedBox(
+                    height: 10,
+                    width: 200,
+                    child: Text(
+                      "Tap the indicator ubove to change modes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 10),
+                    )),
                 SizedBox(
                   height: 50,
                   width: 100,
@@ -197,7 +223,7 @@ class GradePageState extends State<GradesPage> {
                               });
                             },
                           );
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CourseDatasPage(

@@ -1,8 +1,9 @@
 import 'package:zenesus/serializers/coursedata.dart';
 import 'package:flutter/material.dart';
-import 'package:zenesus/widgets/appbar.dart';
+import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
-import 'dart:math';
+import 'package:zenesus/utils/courses_utils.dart';
+import 'package:zenesus/widgets/appbar.dart';
 
 class CourseDatasPage extends StatefulWidget {
   const CourseDatasPage(
@@ -44,7 +45,74 @@ class CourseDatasState extends State<CourseDatasPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
-          child = Column();
+          try {
+            List<List<CoursesData>> allData = snapshot.data!.datas;
+            List<CoursesData> courseAssignments =
+                getCourse(allData, widget.courseName);
+            child = Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const CourseDataPageAppbar(),
+                ListView.separated(
+                    separatorBuilder: (_, __) => const Divider(),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: getLength(allData, widget.courseName),
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        enabled: true,
+                        selected: false,
+                        title: Text(
+                          "${courseAssignments[index].assignment}",
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w400),
+                        ),
+                        subtitle: Text(
+                            "${courseAssignments[index].dayname} ${courseAssignments[index].date}"),
+                        trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${courseAssignments[index].grade_percent}",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: getColorFromGrade(double.parse(
+                                        courseAssignments[index]
+                                            .grade_percent))),
+                              ),
+                              Text("${courseAssignments[index].grade_num}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: getColorFromGrade(double.parse(
+                                          courseAssignments[index]
+                                              .grade_percent)))),
+                            ]),
+                        onTap: () {},
+                      );
+                    })
+              ],
+            );
+          } catch (e) {
+            child = child = Center(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Someone went wrong  - please refresh the app'),
+                  )
+                ]));
+          }
         } else if (snapshot.hasError) {
           child = Center(
               child: Column(

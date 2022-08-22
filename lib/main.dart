@@ -3,6 +3,7 @@ import 'package:zenesus/screens/coursespage.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:zenesus/screens/firstscreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,10 +39,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       darkTheme: ThemeData.dark(),
-      home: const GradesPage(
-          email: "eddie.tang@mtsdstudent.us",
-          password: "Don'tyyoutrytostealmypasswordbozo",
-          school: "Montgomery Highschool"),
+      home: const FirstScreen(),
     );
   }
 }

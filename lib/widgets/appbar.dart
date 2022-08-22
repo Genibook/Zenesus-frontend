@@ -47,41 +47,20 @@ class StudentAppBar extends StatelessWidget {
   }
 }
 
-class CoursesAppbar extends StatelessWidget {
-  const CoursesAppbar({Key? key}) : super(key: key);
+class CourseDataPageAppbar extends StatelessWidget {
+  const CourseDataPageAppbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
-      title: const Text(
-        "Zenesus",
-        style: TextStyle(
-          fontSize: 25,
-          letterSpacing: 2,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: <Widget>[
-        PopupMenuButton<Menu>(
-            onSelected: (Menu item) async {
-              if (item.index == 0) {
-                await logout();
-
-                // ignore: use_build_context_synchronously
-                await Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                );
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                  const PopupMenuItem<Menu>(
-                    value: Menu.itemOne,
-                    child: Text('Log Out'),
-                  )
-                ])
-      ],
-    );
+        // title: const Text(
+        //   "Zenesus",
+        //   style: TextStyle(
+        //     fontSize: 25,
+        //     letterSpacing: 2,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
+        );
   }
 }

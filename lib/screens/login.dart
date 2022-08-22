@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
-import 'package:zenesus/screens/studentpage.dart';
+// import 'package:zenesus/screens/studentpage.dart';
+import 'package:zenesus/screens/coursespage.dart';
 //TODO Implement grade check using future builder??
 
 class Highschool {
@@ -189,7 +190,7 @@ class _Login extends State<MyLoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StudentPage(
+                                builder: (context) => GradesPage(
                                       email: usernameController.text,
                                       password: passwordController.text,
                                       school: finalSchool,
