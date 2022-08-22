@@ -1,7 +1,7 @@
 import 'package:zenesus/serializers/courses.dart';
 import 'package:zenesus/serializers/mps.dart';
 import 'package:flutter/material.dart';
-import 'package:zenesus/widgets/appbar.dart';
+import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
 import 'dart:math';
 import 'package:zenesus/screens/coursedatapage.dart';
@@ -119,13 +119,7 @@ class GradePageState extends State<GradesPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
-          const double size = 200;
-          const double twoPi = pi * 2;
           List<dynamic> data = snapshot.data!.courseGrades;
-          List<double> averages =
-              calculateGradeAverage(snapshot.data!.courseGrades);
-          var brightness = MediaQuery.of(context).platformBrightness;
-          bool isDarkMode = brightness == Brightness.dark;
           child = Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -133,118 +127,8 @@ class GradePageState extends State<GradesPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: size,
-                        height: size,
-                        child: Stack(children: [
-                          ShaderMask(
-                            shaderCallback: (rect) {
-                              return SweepGradient(
-                                  startAngle: 0,
-                                  endAngle: twoPi,
-                                  stops: [averages[1] / 100, averages[1] / 100],
-                                  // 0.0, 0.5, 0.5, 1.0
-                                  center: Alignment.center,
-                                  colors: [
-                                    getColorFromGrade(averages[1]),
-                                    Colors.grey.withAlpha(55)
-                                  ]).createShader(rect);
-                            },
-                            child: Container(
-                              width: size,
-                              height: size,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.white),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              height: size - 40,
-                              width: size - 40,
-                              decoration: BoxDecoration(
-                                  color: isDarkMode
-                                      ? const Color.fromARGB(255, 48, 48, 48)
-                                      : Colors.white,
-                                  shape: BoxShape.circle),
-                              child: Center(
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                    const Text("Weighted Average",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
-                                    Text("${roundDouble(averages[1], 2)}%",
-                                        style: const TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold))
-                                  ])),
-                            ),
-                          )
-                        ])),
-                    const SizedBox(width: 20),
-                    SizedBox(
-                        width: size,
-                        height: size,
-                        child: Stack(children: [
-                          ShaderMask(
-                            shaderCallback: (rect) {
-                              return SweepGradient(
-                                  startAngle: 0,
-                                  endAngle: twoPi,
-                                  stops: [averages[0] / 100, averages[0] / 100],
-                                  // 0.0, 0.5, 0.5, 1.0
-                                  center: Alignment.center,
-                                  colors: [
-                                    getColorFromGrade(averages[0]),
-                                    Colors.grey.withAlpha(55)
-                                  ]).createShader(rect);
-                            },
-                            child: Container(
-                              width: size,
-                              height: size,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.white),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              height: size - 40,
-                              width: size - 40,
-                              decoration: BoxDecoration(
-                                  color: isDarkMode
-                                      ? const Color.fromARGB(255, 48, 48, 48)
-                                      : Colors.white,
-                                  shape: BoxShape.circle),
-                              child: Center(
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                    const Text("Unweighted Average",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
-                                    Text("${roundDouble(averages[0], 2)}%",
-                                        style: const TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold))
-                                  ])),
-                            ),
-                          )
-                        ])),
-                  ],
-                ),
+                unweightedCircle(context, snapshot),
+                //GestureDetector(onTap: () {}, child: gpaCircle),
                 const SizedBox(
                   height: 20,
                 ),
@@ -272,14 +156,27 @@ class GradePageState extends State<GradesPage> {
                         ),
                         subtitle: Text("${data[index][1]}\n${data[index][2]}"),
                         trailing: "${data[index][3]}" == "N/A"
-                            ? Text(
-                                "${data[index][3]}\n${data[index][4]}",
-                                textAlign: TextAlign.right,
-                                style: const TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.blue),
-                              )
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                    Text(
+                                      "${data[index][3]}",
+                                      textAlign: TextAlign.right,
+                                      style: const TextStyle(
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.blue),
+                                    ),
+                                    Text(
+                                      "${data[index][4]}",
+                                      textAlign: TextAlign.right,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.blue),
+                                    )
+                                  ])
                             : Text(
                                 "${data[index][3]}",
                                 style: TextStyle(

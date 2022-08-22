@@ -10,8 +10,10 @@ class CoursesDatas {
 
   factory CoursesDatas.fromJson(Map<String, dynamic> json) {
     List<CoursesData> items = [];
-    for (dynamic data in json.values) {
-      items.add(CoursesData.fromJson(data));
+    for (dynamic datas in json.values) {
+      for (dynamic data in datas) {
+        items.add(CoursesData.fromJson(data));
+      }
     }
     return CoursesDatas(datas: items);
   }
@@ -92,7 +94,7 @@ Future<CoursesDatas> createCoursesDatas(
 }
 
 Future<CoursesDatas> modelCourseDatas() async {
-  await Future.delayed(const Duration(seconds: 5));
+  await Future.delayed(const Duration(seconds: 2));
   return CoursesDatas.fromJson({
     '1': [
       {
