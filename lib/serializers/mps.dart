@@ -21,7 +21,7 @@ class MPs {
   }
 }
 
-Future<MPs> createCourses(String email, String password, String school) async {
+Future<MPs> createMPs(String email, String password, String school) async {
   final response = await http.post(
     Uri.parse('${Constants.url}/api/availableMPs'),
     body: json.encode({

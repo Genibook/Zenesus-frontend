@@ -43,19 +43,14 @@ Future<Courses> modelCourse() async {
   return const Courses(courseGrades: [
     ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["US 123123 12301203123", "Ms.AppleGate", "appgate@mtsd.com", "27", "N/A"],
+    ["AP Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["CP US History", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     [
-      "Photography",
+      "Photography 3",
       "Ms.AppleGate",
       "appgate@mtsd.com",
       "N/A",
       "Not Graded MP2"
     ],
-    ["AP nuts", "Ms.AppleGate", "appgate@mtsd.com", "81", "N/A"],
-    ["Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "99", "N/A"],
-    ["IDK", "Ms.AppleGate", "appgate@mtsd.com", "71", "N/A"],
-    ["o", "Ms.AppleGate", "appgate@mtsd.com", "61", "N/A"],
-    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "98", "N/A"],
   ]);
 }
