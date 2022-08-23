@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
+import 'package:zenesus/serializers/connections.dart';
 // import 'package:zenesus/screens/studentpage.dart';
 import 'package:zenesus/screens/coursespage.dart';
+import 'package:zenesus/utils/cookies.dart';
+
 //TODO Implement grade check using future builder??
 
 class Highschool {
@@ -19,8 +22,7 @@ class Highschool {
 }
 
 class MyLoginPage extends StatefulWidget {
-  const MyLoginPage({Key? key, required this.incorrect}) : super(key: key);
-  final bool incorrect;
+  const MyLoginPage({Key? key}) : super(key: key);
 
   @override
   State<MyLoginPage> createState() => _Login();
@@ -92,9 +94,6 @@ class _Login extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.incorrect) {
-      Future.delayed(Duration.zero, () => showAlert(context));
-    }
     const double padding = 16;
     return Scaffold(
       body: Center(
@@ -186,16 +185,31 @@ class _Login extends State<MyLoginPage> {
                           if (_selectedHighschool.id == 1) {
                             finalSchool = "Montgomery Highschool";
                           }
+                          LoginConnection connection =
+                              await checkLoginConnection(
+                                  usernameController.text,
+                                  passwordController.text,
+                                  finalSchool);
+                          if (connection.code == 200) {
+                            writeEmailPassSchoolintoCookies(
+                                usernameController.text,
+                                passwordController.text,
+                                finalSchool);
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GradesPage(
-                                      email: usernameController.text,
-                                      password: passwordController.text,
-                                      school: finalSchool,
-                                    )),
-                          );
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GradesPage(
+                                        email: usernameController.text,
+                                        password: passwordController.text,
+                                        school: finalSchool,
+                                      )),
+                            );
+                          } else if (connection.code == 401) {
+                            // ignore: use_build_context_synchronously
+                            showAlert(context);
+                          }
                         } else {
                           showDialog(
                             context: context,

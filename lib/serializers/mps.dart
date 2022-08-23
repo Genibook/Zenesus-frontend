@@ -4,7 +4,7 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 
 class MPs {
-  final List<String> mps;
+  final List<dynamic> mps;
   final String mp;
 
   const MPs({

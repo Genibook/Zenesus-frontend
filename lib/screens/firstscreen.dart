@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zenesus/screens/login.dart';
-import 'package:zenesus/screens/studentpage.dart';
+import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/screens/coursespage.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -23,24 +22,21 @@ class Screen extends State<FirstScreen> {
   }
 
   void _getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    email = prefs.getString('email') ?? "";
-    password = prefs.getString('password') ?? "";
-    school = prefs.getString('school') ?? "";
+    List<String> things = await readEmailPassSchoolintoCookies();
+    email = things[0];
+    password = things[1];
+    school = things[2];
 
     // remove data
     // final prefs = await SharedPreferences.getInstance();
     //
     // await prefs.remove('counter');
 
-    if (email == "" && password == "" && school == "") {
+    if (email == "" || password == "" || school == "") {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => const MyLoginPage(
-                  incorrect: false,
-                )),
+        MaterialPageRoute(builder: (context) => const MyLoginPage()),
       );
     } else {
       // ignore: use_build_context_synchronously
@@ -48,7 +44,7 @@ class Screen extends State<FirstScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                StudentPage(email: email, password: password, school: school)),
+                GradesPage(email: email, password: password, school: school)),
       );
     }
   }

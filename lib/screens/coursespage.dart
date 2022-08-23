@@ -54,7 +54,7 @@ class GradePageState extends State<GradesPage> {
         widget.email, widget.password, widget.school);
   }
 
-  List<DropdownMenuItem<String>> buildDropdownMenuMPS(List<String> mps) {
+  List<DropdownMenuItem<String>> buildDropdownMenuMPS(List<dynamic> mps) {
     List<DropdownMenuItem<String>> items = [];
     for (String mp in mps) {
       items.add(
@@ -237,6 +237,11 @@ class GradePageState extends State<GradesPage> {
                       );
                     }),
               ]);
+          if (snapshot.data!.courseGrades[0][0] == "N/A") {
+            child = Column(
+              children: [],
+            );
+          }
           child = SingleChildScrollView(
               physics: const ScrollPhysics(),
               child: Padding(padding: const EdgeInsets.all(10), child: child));
