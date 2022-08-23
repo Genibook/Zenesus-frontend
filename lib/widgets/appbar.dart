@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-Future<void> logout() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.remove('email');
-  await prefs.remove('password');
-  await prefs.remove('school');
-}
+import 'package:zenesus/utils/cookies.dart';
 
 enum Menu { itemOne, itemTwo, itemThree, itemFour }
 

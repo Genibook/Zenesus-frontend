@@ -11,7 +11,6 @@ List<double> calculateGradeAverage(List<dynamic> courseGrades) {
   double totalWeightedGrade = 0;
   int lenCourses = courseGrades.length;
   for (int i = 0; i < courseGrades.length; i++) {
-    print(courseGrades[i]);
     String grade = courseGrades[i][3];
     if (grade != "N/A") {
       double doubleGrade = double.parse(grade);

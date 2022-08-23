@@ -34,3 +34,11 @@ Future<List<String>> readEmailPassSchoolintoCookies() async {
   final school = prefs.getString('school') ?? "";
   return [email, password, school];
 }
+
+Future<void> logout() async {
+  final prefs = await SharedPreferences.getInstance();
+  const storage = FlutterSecureStorage();
+  await storage.delete(key: dotenv.env['EMAILKEY'] ?? "");
+  await storage.delete(key: dotenv.env['EMAILKEY'] ?? "");
+  await prefs.remove('school');
+}

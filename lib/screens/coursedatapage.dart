@@ -91,13 +91,17 @@ class CourseDatasState extends State<CourseDatasPage> {
                                           courseAssignments[index]
                                               .grade_percent)))),
                             ]),
-                        onTap: () {},
+                        //TODO
+                        onTap: () {
+                          throw UnimplementedError();
+                        },
                       );
                     })
               ],
             );
           } catch (e) {
-            child = child = Center(
+            print(e);
+            child = Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
