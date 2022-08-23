@@ -3,6 +3,7 @@ import 'package:zenesus/widgets/appbar.dart';
 import 'package:zenesus/serializers/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/error.dart';
+import 'package:zenesus/widgets/navbar.dart';
 
 class StudentPage extends StatefulWidget {
   const StudentPage(
@@ -25,16 +26,15 @@ class _courses extends State<StudentPage> {
   @override
   void initState() {
     super.initState();
-    final String email = widget.email;
-    final String password = widget.password;
-    final String school = widget.school;
-    setState(() {
-      _futureStudent = createStudent(email, password, school);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _futureStudent =
+          createStudent(widget.email, widget.password, widget.school);
+      _futureStudent = modelStudent();
+    });
     return buildFutureBuilder();
   }
 
@@ -42,9 +42,9 @@ class _courses extends State<StudentPage> {
     return FutureBuilder(
       future: _futureStudent,
       builder: (context, snapshot) {
-        List<Widget> children;
+        Widget child;
         if (snapshot.hasData) {
-          children = <Widget>[
+          child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             const StudentAppBar(),
             Expanded(
               flex: 4,
@@ -259,44 +259,47 @@ class _courses extends State<StudentPage> {
                               ],
                             ),
                           )))),
-            ),
-          ];
+            )
+          ]);
           if (snapshot.data!.name == "N/A" &&
               snapshot.data!.counselor_name == "N/A") {
-            children = [createErrorPage(context)];
+            child = Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Center(child: createErrorPage(context))]);
           }
         } else if (snapshot.hasError) {
-          children = <Widget>[
-            const StudentAppBar(),
-            const Icon(
-              Icons.error_outline,
-              color: Colors.red,
-              size: 60,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text('Error: ${snapshot.error}'),
-            )
-          ];
+          child = Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text('Error: ${snapshot.error}'),
+                )
+              ]));
         } else {
-          children = const <Widget>[
-            StudentAppBar(),
-            SizedBox(
-              width: 60,
-              height: 60,
-              child: CircularProgressIndicator(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Fetching your information...'),
-            )
-          ];
+          child = Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircularProgressIndicator(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text('Fetching your information...'),
+                )
+              ]));
         }
         return Scaffold(
-            body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: children,
-        ));
+            bottomNavigationBar: const Navbar(selectedIndex: 1), body: child);
       },
     );
   }

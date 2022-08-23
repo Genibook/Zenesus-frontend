@@ -46,6 +46,6 @@ Future<MPs> createMPs(String email, String password, String school) async {
 }
 
 Future<MPs> modelMPs() async {
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 1));
   return const MPs(mps: ['MP1', "MP2"], mp: "MP2");
 }

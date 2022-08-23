@@ -79,31 +79,56 @@ class CoursesData {
 
 Future<CoursesDatas> createCoursesDatas(
     String email, String password, String school, String mp) async {
-  final response = await http.post(
-    Uri.parse('${Constants.url}/api/courseinfos'),
-    body: json.encode({
-      'email': email,
-      "password": password,
-      'highschool': school,
-      'mp': mp,
-    }),
-  );
+  try {
+    final response = await http.post(
+      Uri.parse('${Constants.url}/api/courseinfos'),
+      body: json.encode({
+        'email': email,
+        "password": password,
+        'highschool': school,
+        'mp': mp,
+      }),
+    );
 
-  if (response.statusCode == 200) {
-    return CoursesDatas.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Error');
+    if (response.statusCode == 200) {
+      return CoursesDatas.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error');
+    }
+  } catch (e) {
+    print(e);
+    return CoursesDatas.fromJson({
+      '1': [
+        {
+          "course_name": "N/A",
+          "mp": "N/A",
+          "dayname": "N/A",
+          "full_dayname": "N/A",
+          "date": "N/A",
+          "full_date": "N/A",
+          "teacher": "N/A",
+          "category": "N/A",
+          "assignment": "N/A",
+          "description": "N/A",
+          "grade_percent": "N/A",
+          "grade_num": "N/A",
+          "comment": "N/A",
+          "prev": "N/A",
+          "docs": "N/A"
+        }
+      ]
+    });
   }
 }
 
 Future<CoursesDatas> modelCourseDatas() async {
   await Future.delayed(const Duration(seconds: 1));
   return CoursesDatas.fromJson({
-    '1': [
+    '0': [
       {
         "course_name": "English 10 honors",
         "mp": "MP2",
-        "dayname": "Mon",
+        "dayname": "Wed",
         "full_dayname": "Monday",
         "date": "6/7",
         "full_date": "6/7/2022",

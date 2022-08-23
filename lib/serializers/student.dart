@@ -62,20 +62,20 @@ Future<Student> createStudent(
     print(e);
     return const Student(
         age: 15,
-        img_url: "https://example.com",
+        img_url: "N/A",
         state_id: 12312312,
         birthday: "N/A",
-        schedule_link: "https://example.com",
+        schedule_link: "N/A",
         name: "N/A",
         grade: 10,
         locker: "123 123-123-123",
         counselor_name: "N/A",
-        id: 107604);
+        id: 107600);
   }
 }
 
 Future<Student> modelStudent() async {
-  await Future.delayed(const Duration(seconds: 5));
+  await Future.delayed(const Duration(seconds: 1));
   return const Student(
       age: 15,
       img_url: "https://example.com",
@@ -86,5 +86,5 @@ Future<Student> modelStudent() async {
       grade: 10,
       locker: "123 123-123-123",
       counselor_name: "Mathew Pogue",
-      id: 107604);
+      id: 107600);
 }

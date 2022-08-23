@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
 import 'package:zenesus/utils/courses_utils.dart';
-import 'package:zenesus/widgets/appbar.dart';
+import 'package:zenesus/screens/error.dart';
 
 class CourseDatasPage extends StatefulWidget {
   const CourseDatasPage(
@@ -34,8 +34,10 @@ class CourseDatasState extends State<CourseDatasPage> {
 
   @override
   Widget build(BuildContext context) {
+    _futureCoursesData = createCoursesDatas(
+        widget.email, widget.password, widget.school, widget.mp);
     _futureCoursesData = modelCourseDatas();
-    // _futureCoursesData = createCoursesDatas(widget.email, widget.password, widget.school, widget.mp);
+
     return buildFutureCoursesDataPage();
   }
 
@@ -53,7 +55,6 @@ class CourseDatasState extends State<CourseDatasPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const CourseDataPageAppbar(),
                 ListView.separated(
                     separatorBuilder: (_, __) => const Divider(),
                     physics: const NeverScrollableScrollPhysics(),
@@ -99,6 +100,12 @@ class CourseDatasState extends State<CourseDatasPage> {
                     })
               ],
             );
+            if (snapshot.data!.datas[0][0].course_name == "N/A" &&
+                snapshot.data!.datas[0][0].mp == "N/A") {
+              child = Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Center(child: createErrorPage(context))]);
+            }
           } catch (e) {
             print(e);
             child = Center(
@@ -151,7 +158,7 @@ class CourseDatasState extends State<CourseDatasPage> {
               ]));
         }
 
-        return Scaffold(body: child);
+        return Scaffold(appBar: AppBar(), body: child);
       },
     );
   }

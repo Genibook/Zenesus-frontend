@@ -4,14 +4,15 @@ import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/screens/studentpage.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar();
-
+  // ignore: use_key_in_widget_constructors
+  const Navbar({Key? key, required this.selectedIndex});
+  final int selectedIndex;
   @override
   State<StatefulWidget> createState() => NavBarState();
 }
 
 class NavBarState extends State<Navbar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
   late String email;
   late String password;
   late String school;
@@ -19,6 +20,9 @@ class NavBarState extends State<Navbar> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _selectedIndex = widget.selectedIndex;
+    });
   }
 
   void _onItemTapped(int index) async {
@@ -60,12 +64,12 @@ class NavBarState extends State<Navbar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: Icon(Icons.text_increase),
+          label: 'Grades',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
       ],
       currentIndex: _selectedIndex,

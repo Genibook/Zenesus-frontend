@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
 
-enum Menu { itemOne, itemTwo, itemThree, itemFour }
-
 class StudentAppBar extends StatelessWidget {
   const StudentAppBar({Key? key}) : super(key: key);
 
@@ -37,23 +35,5 @@ class StudentAppBar extends StatelessWidget {
             )),
       ],
     );
-  }
-}
-
-class CourseDataPageAppbar extends StatelessWidget {
-  const CourseDataPageAppbar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-        // title: const Text(
-        //   "Zenesus",
-        //   style: TextStyle(
-        //     fontSize: 25,
-        //     letterSpacing: 2,
-        //     fontWeight: FontWeight.bold,
-        //   ),
-        // ),
-        );
   }
 }

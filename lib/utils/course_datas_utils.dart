@@ -21,21 +21,21 @@ List<CoursesData> getCourse(
   return [
     CoursesData.fromJson(
       {
-        "course_name": "Error",
-        "mp": "Error",
-        "dayname": "Error",
-        "full_dayname": "Error",
-        "date": "Error",
-        "full_date": "Error",
-        "teacher": "Error",
-        "category": "Error",
-        "assignment": "Error",
-        "description": "Error",
-        "grade_percent": "Error",
-        "grade_num": "Error",
-        "comment": "Error",
-        "prev": "Error",
-        "docs": "Error"
+        "course_name": "N/A",
+        "mp": "N/A",
+        "dayname": "N/A",
+        "full_dayname": "N/A",
+        "date": "N/A",
+        "full_date": "N/A",
+        "teacher": "N/A",
+        "category": "N/A",
+        "assignment": "N/A",
+        "description": "N/A",
+        "grade_percent": "N/A",
+        "grade_num": "N/A",
+        "comment": "N/A",
+        "prev": "N/A",
+        "docs": "N/A"
       },
     )
   ];

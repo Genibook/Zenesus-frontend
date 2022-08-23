@@ -44,12 +44,12 @@ class GradePageState extends State<GradesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      //_futureCourses = modelCourse();
-      //_futureMPs = modelMPs();
-
       _futureCourses =
           createCourses(widget.email, widget.password, widget.school);
       _futureMPs = createMPs(widget.email, widget.password, widget.school);
+
+      _futureCourses = modelCourse();
+      _futureMPs = modelMPs();
     });
 
     return buildFutureCourseBuilder(
@@ -274,7 +274,9 @@ class GradePageState extends State<GradesPage> {
         }
         return Scaffold(
           body: child,
-          bottomNavigationBar: const Navbar(),
+          bottomNavigationBar: const Navbar(
+            selectedIndex: 0,
+          ),
         );
       },
     );

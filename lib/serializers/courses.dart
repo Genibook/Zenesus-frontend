@@ -47,7 +47,7 @@ Future<Courses> createCourses(
 }
 
 Future<Courses> modelCourse() async {
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 1));
   return const Courses(courseGrades: [
     ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
