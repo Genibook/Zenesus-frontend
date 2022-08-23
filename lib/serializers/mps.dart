@@ -22,19 +22,26 @@ class MPs {
 }
 
 Future<MPs> createMPs(String email, String password, String school) async {
-  final response = await http.post(
-    Uri.parse('${Constants.url}/api/availableMPs'),
-    body: json.encode({
-      'email': email,
-      "password": password,
-      'highschool': school,
-    }),
-  );
+  try {
+    final response = await http.post(
+      Uri.parse('${Constants.url}/api/availableMPs'),
+      body: json.encode({
+        'email': email,
+        "password": password,
+        'highschool': school,
+      }),
+    );
 
-  if (response.statusCode == 200) {
-    return MPs.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Error');
+    if (response.statusCode == 200) {
+      return MPs.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error');
+    }
+  } catch (e) {
+    return MPs.fromJson({
+      'mps': ["MP1", "MP2"],
+      'curr_mp': 'MP1'
+    });
   }
 }
 

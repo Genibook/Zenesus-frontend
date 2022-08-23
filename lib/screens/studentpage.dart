@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/appbar.dart';
 import 'package:zenesus/serializers/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
+import 'package:zenesus/screens/error.dart';
 
 class StudentPage extends StatefulWidget {
   const StudentPage(
@@ -260,6 +261,10 @@ class _courses extends State<StudentPage> {
                           )))),
             ),
           ];
+          if (snapshot.data!.name == "N/A" &&
+              snapshot.data!.counselor_name == "N/A") {
+            children = [createErrorPage(context)];
+          }
         } else if (snapshot.hasError) {
           children = <Widget>[
             const StudentAppBar(),

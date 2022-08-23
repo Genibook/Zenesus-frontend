@@ -44,18 +44,33 @@ class Student {
 
 Future<Student> createStudent(
     String email, String password, String school) async {
-  final response = await http.post(
-    Uri.parse('${Constants.url}/api/login'),
-    body: json.encode({
-      'email': email,
-      "password": password,
-      'highschool': school,
-    }),
-  );
-  if (response.statusCode == 200) {
-    return Student.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Error');
+  try {
+    final response = await http.post(
+      Uri.parse('${Constants.url}/api/login'),
+      body: json.encode({
+        'email': email,
+        "password": password,
+        'highschool': school,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return Student.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error');
+    }
+  } catch (e) {
+    print(e);
+    return const Student(
+        age: 15,
+        img_url: "https://example.com",
+        state_id: 12312312,
+        birthday: "N/A",
+        schedule_link: "https://example.com",
+        name: "N/A",
+        grade: 10,
+        locker: "123 123-123-123",
+        counselor_name: "N/A",
+        id: 107604);
   }
 }
 

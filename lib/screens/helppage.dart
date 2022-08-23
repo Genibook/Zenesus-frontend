@@ -44,10 +44,11 @@ class HelpPageState extends State<HelpPage> {
         ),
         body: Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
                   QAItem(
                       title: Text(
                         "Why is it saying that Genesis is not returning any data?",
@@ -55,13 +56,14 @@ class HelpPageState extends State<HelpPage> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       children: [
+                        ListTile(title: Text("Solutions")),
                         ListTile(
                             title: Text(
-                                "1. Try to login to Genesis, if you can't see your picture in the first screen it shows you on the website, then that means that there would be no information in the other pages.")),
+                                "1. Try to login to Genesis, if you don't see your grades, it would mean that you won't see your grades on the Zenesus app!")),
                         ListTile(
                             title: Text(
-                                "2. There is something wrong with the server, contact me at eddietang2314@gmail.com"))
+                                "2. It may be a server error, please contact me at eddietang2314@gmail.com!"))
                       ]),
-                ])));
+                ]))));
   }
 }

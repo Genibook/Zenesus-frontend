@@ -1,15 +1,13 @@
-import 'package:zenesus/screens/firstscreen.dart';
-import 'package:zenesus/screens/helppage.dart';
 import 'package:zenesus/serializers/courses.dart';
 import 'package:zenesus/serializers/mps.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
 import 'package:zenesus/screens/coursedatapage.dart';
+import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/courses_utils.dart';
-import 'package:zenesus/icons/custom_icons_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:zenesus/widgets/navbar.dart';
 
 class GradesPage extends StatefulWidget {
   const GradesPage(
@@ -239,79 +237,7 @@ class GradePageState extends State<GradesPage> {
               physics: const ScrollPhysics(),
               child: Padding(padding: const EdgeInsets.all(10), child: child));
           if (snapshot.data!.courseGrades[0][0] == "N/A") {
-            child = Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("503",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 33, 168, 245),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold)),
-                    Image.asset("assets/404.png"),
-                    const Text("Sorry, Genesis is not giving us data ☹...",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text("Maybe one of these will help?"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Tooltip(
-                          message: "Sign into Genesis",
-                          child: IconButton(
-                            icon: const Icon(CustomIcons.id_badge),
-                            onPressed: () => _launchUrl(
-                                "https://parents.mtsd.k12.nj.us/genesis/parents"),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Tooltip(
-                          message: "View our help page",
-                          child: IconButton(
-                            iconSize: 30,
-                            icon: const Icon(Icons.question_mark),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpPage()),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Tooltip(
-                          message: "Logout",
-                          child: IconButton(
-                            icon: const Icon(Icons.logout),
-                            onPressed: () {
-                              logout();
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FirstScreen()),
-                              );
-                            },
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ));
+            child = createErrorPage(context);
           }
         } else if (snapshot.hasError) {
           child = Center(
@@ -346,14 +272,11 @@ class GradePageState extends State<GradesPage> {
                 )
               ]));
         }
-        return Scaffold(body: child);
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: const Navbar(),
+        );
       },
     );
-  }
-
-  Future<void> _launchUrl(String _url) async {
-    if (!await launchUrl(Uri.parse(_url))) {
-      throw 'Could not launch $_url';
-    }
   }
 }

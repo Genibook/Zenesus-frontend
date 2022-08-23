@@ -22,19 +22,27 @@ class Courses {
 
 Future<Courses> createCourses(
     String email, String password, String school) async {
-  final response = await http.post(
-    Uri.parse('${Constants.url}/api/currentgrades'),
-    body: json.encode({
-      'email': email,
-      "password": password,
-      'highschool': school,
-    }),
-  );
+  try {
+    final response = await http.post(
+      Uri.parse('${Constants.url}/api/currentgrades'),
+      body: json.encode({
+        'email': email,
+        "password": password,
+        'highschool': school,
+      }),
+    );
 
-  if (response.statusCode == 200) {
-    return Courses.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Error');
+    if (response.statusCode == 200) {
+      return Courses.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error');
+    }
+  } catch (e) {
+    return Courses.fromJson({
+      'grades': [
+        ["N/A", "N/A", "N/A", "100", "N/A"]
+      ]
+    });
   }
 }
 
