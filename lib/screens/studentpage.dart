@@ -85,7 +85,7 @@ class _courses extends State<StudentPage> {
                   child: Card(
                       child: SizedBox(
                           width: 310.0,
-                          height: 340.0,
+                          height: 280.0, //340 with bday
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
@@ -228,41 +228,41 @@ class _courses extends State<StudentPage> {
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Icon(
-                                      Icons.cake,
-                                      color: Colors.orangeAccent,
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Birthday",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          snapshot.data!.birthday,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                // const SizedBox(
+                                //   height: 20.0,
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.start,
+                                //   children: [
+                                //     const Icon(
+                                //       Icons.cake,
+                                //       color: Colors.orangeAccent,
+                                //       size: 35,
+                                //     ),
+                                //     const SizedBox(
+                                //       width: 20.0,
+                                //     ),
+                                //     Column(
+                                //       crossAxisAlignment:
+                                //           CrossAxisAlignment.start,
+                                //       children: [
+                                //         const Text(
+                                //           "Birthday",
+                                //           style: TextStyle(
+                                //             fontSize: 15.0,
+                                //           ),
+                                //         ),
+                                //         Text(
+                                //           snapshot.data!.birthday,
+                                //           style: TextStyle(
+                                //             fontSize: 12.0,
+                                //             color: Colors.grey[400],
+                                //           ),
+                                //         )
+                                //       ],
+                                //     )
+                                //   ],
+                                // ),
                                 const SizedBox(
                                   height: 20.0,
                                 ),

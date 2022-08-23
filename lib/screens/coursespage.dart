@@ -130,7 +130,7 @@ class GradePageState extends State<GradesPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Tooltip(
                     message: "Tap me to change modes",

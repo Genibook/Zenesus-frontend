@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zenesus/screens/coursespage.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
