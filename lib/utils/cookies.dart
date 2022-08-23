@@ -41,4 +41,5 @@ Future<void> logout() async {
   await storage.delete(key: dotenv.env['EMAILKEY'] ?? "");
   await storage.delete(key: dotenv.env['EMAILKEY'] ?? "");
   await prefs.remove('school');
+  await prefs.remove('mp');
 }

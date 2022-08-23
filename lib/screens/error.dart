@@ -3,8 +3,8 @@ import 'package:zenesus/screens/helppage.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:zenesus/utils/cookies.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> _launchUrl(String _url) async {
   if (!await launchUrl(Uri.parse(_url))) {

@@ -4,6 +4,13 @@ import 'package:zenesus/serializers/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _launchUrl(String _url) async {
+  if (!await launchUrl(Uri.parse(_url))) {
+    throw 'Could not launch $_url';
+  }
+}
 
 class StudentPage extends StatefulWidget {
   const StudentPage(
@@ -33,7 +40,7 @@ class _courses extends State<StudentPage> {
     setState(() {
       _futureStudent =
           createStudent(widget.email, widget.password, widget.school);
-      _futureStudent = modelStudent();
+      //_futureStudent = modelStudent();
     });
     return buildFutureBuilder();
   }
@@ -47,7 +54,7 @@ class _courses extends State<StudentPage> {
           child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             const StudentAppBar(),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -57,10 +64,10 @@ class _courses extends State<StudentPage> {
                   ),
                   child: Column(children: [
                     const Spacer(),
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 65.0,
-                      backgroundImage: AssetImage(
-                          'assets/user.png'), //snapshot.data!.image_url
+                      backgroundImage: NetworkImage(
+                          snapshot.data!.img_url), //snapshot.data!.image_url
                       backgroundColor: Colors.white,
                     ),
                     const Spacer(),
@@ -78,7 +85,7 @@ class _courses extends State<StudentPage> {
                   child: Card(
                       child: SizedBox(
                           width: 310.0,
-                          height: 280.0,
+                          height: 340.0,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
@@ -252,6 +259,47 @@ class _courses extends State<StudentPage> {
                                             color: Colors.grey[400],
                                           ),
                                         )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.calendar_month,
+                                      color: Colors.purple,
+                                      size: 35,
+                                    ),
+                                    const SizedBox(
+                                      width: 20.0,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Schedule Link",
+                                          style: TextStyle(
+                                            fontSize: 15.0,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          child: Text(
+                                            "click me",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.grey[400],
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            launchUrl(Uri.parse(
+                                                snapshot.data!.schedule_link));
+                                          },
+                                        ),
                                       ],
                                     )
                                   ],

@@ -48,8 +48,8 @@ class GradePageState extends State<GradesPage> {
           createCourses(widget.email, widget.password, widget.school);
       _futureMPs = createMPs(widget.email, widget.password, widget.school);
 
-      _futureCourses = modelCourse();
-      _futureMPs = modelMPs();
+      //_futureCourses = modelCourse();
+      //_futureMPs = modelMPs();
     });
 
     return buildFutureCourseBuilder(

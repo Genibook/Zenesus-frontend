@@ -36,7 +36,7 @@ class CourseDatasState extends State<CourseDatasPage> {
   Widget build(BuildContext context) {
     _futureCoursesData = createCoursesDatas(
         widget.email, widget.password, widget.school, widget.mp);
-    _futureCoursesData = modelCourseDatas();
+    //_futureCoursesData = modelCourseDatas();
 
     return buildFutureCoursesDataPage();
   }
