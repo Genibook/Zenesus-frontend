@@ -28,6 +28,7 @@ class MyLoginPage extends StatefulWidget {
 
 class _Login extends State<MyLoginPage> {
   late bool _passwordVisible = false;
+  bool _isLoading = false;
 
   final List<Highschool> _highschools = Highschool.getHighschools();
   late List<DropdownMenuItem<Highschool>> _dropdownMenuItems;
@@ -88,6 +89,12 @@ class _Login extends State<MyLoginPage> {
                 textAlign: TextAlign.center,
               ),
             ));
+  }
+
+  void _startLoading() async {
+    setState(() {
+      _isLoading = true;
+    });
   }
 
   @override
@@ -176,6 +183,9 @@ class _Login extends State<MyLoginPage> {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () async {
+                        if (!_isLoading) {
+                          _startLoading();
+                        }
                         if (_selectedHighschool.id != 0 &&
                             passwordController.text != "" &&
                             usernameController.text != "") {
@@ -193,7 +203,9 @@ class _Login extends State<MyLoginPage> {
                                 usernameController.text,
                                 passwordController.text,
                                 finalSchool);
-
+                            setState(() {
+                              _isLoading = false;
+                            });
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
@@ -206,9 +218,16 @@ class _Login extends State<MyLoginPage> {
                             );
                           } else if (connection.code == 401) {
                             // ignore: use_build_context_synchronously
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            // ignore: use_build_context_synchronously
                             showAlert(context);
                           }
                         } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -224,16 +243,20 @@ class _Login extends State<MyLoginPage> {
                       },
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
-                              'View Grades ',
+                              _isLoading ? 'Loading... ' : 'View Grades ',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            Icon(CustomIcons.binoculars, size: 22)
+                            _isLoading
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Icon(CustomIcons.binoculars, size: 22)
                           ]),
                     )),
                   ],

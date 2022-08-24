@@ -34,7 +34,6 @@ dependencies:
   universal_platform: ^1.0.0-nullsafety
   flutter_secure_storage: ^6.0.0
   url_launcher: ^6.1.5
-  flutter_dotenv: ^5.0.2
   window_size:
       git:
         url: https://github.com/google/flutter-desktop-embedding.git

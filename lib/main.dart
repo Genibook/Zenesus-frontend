@@ -4,7 +4,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:zenesus/screens/firstscreen.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +13,6 @@ Future<void> main() async {
     setWindowMinSize(const Size(400, 800));
     setWindowMaxSize(Size.infinite);
   }
-  await dotenv.load(fileName: ".env");
   runApp(
     //MyApp()
     DevicePreview(
