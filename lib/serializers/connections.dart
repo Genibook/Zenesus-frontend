@@ -25,6 +25,9 @@ Future<LoginConnection> checkLoginConnection(
   );
 
   if (response.statusCode == 200) {
+    if (jsonDecode(response.body)['code'] == 401) {
+      return const LoginConnection(code: 401, message: "error");
+    }
     return LoginConnection.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Error');
