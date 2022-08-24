@@ -52,9 +52,6 @@ dev_dependencies:
   shared_preferences: ^2.0.15
   syncfusion_flutter_gauges: ^20.2.39
   device_preview: ^1.1.0
-  build_runner: ^2.1.0
-  build_test: ^2.1.0
-  build_web_compilers: ^3.0.0
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
