@@ -5,8 +5,6 @@ import 'package:zenesus/serializers/connections.dart';
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/utils/cookies.dart';
 
-//TODO Implement grade check using future builder??
-
 class Highschool {
   late int id;
   late String name;

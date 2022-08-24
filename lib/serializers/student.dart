@@ -4,27 +4,35 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 
 class Student {
+  // ignore: non_constant_identifier_names
   final String img_url;
   final int id;
+  // ignore: non_constant_identifier_names
   final int state_id;
   final String birthday;
+  // ignore: non_constant_identifier_names
   final String schedule_link;
   final String name;
   final int grade;
   final String locker;
   final int age;
+  // ignore: non_constant_identifier_names
   final String counselor_name;
 
   const Student(
+      // ignore: non_constant_identifier_names
       {required this.img_url,
       required this.id,
+      // ignore: non_constant_identifier_names
       required this.state_id,
       required this.age,
       required this.birthday,
+      // ignore: non_constant_identifier_names
       required this.counselor_name,
       required this.grade,
       required this.locker,
       required this.name,
+      // ignore: non_constant_identifier_names
       required this.schedule_link});
 
   factory Student.fromJson(Map<String, dynamic> json) {
@@ -59,7 +67,7 @@ Future<Student> createStudent(
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return const Student(
         age: 15,
         img_url: "N/A",

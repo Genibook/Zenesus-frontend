@@ -31,6 +31,7 @@ class CustomIcons {
 
   static const IconData binoculars =
       IconData(0xf1e5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
   static const IconData id_badge =
       IconData(0xf2c1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

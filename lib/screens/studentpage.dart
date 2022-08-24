@@ -6,9 +6,9 @@ import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> _launchUrl(String _url) async {
-  if (!await launchUrl(Uri.parse(_url))) {
-    throw 'Could not launch $_url';
+Future<void> _launchUrl(String url) async {
+  if (!await launchUrl(Uri.parse(url))) {
+    throw 'Could not launch $url';
   }
 }
 
@@ -24,10 +24,10 @@ class StudentPage extends StatefulWidget {
   final String school;
 
   @override
-  State<StatefulWidget> createState() => _courses();
+  State<StatefulWidget> createState() => Courses();
 }
 
-class _courses extends State<StudentPage> {
+class Courses extends State<StudentPage> {
   Future<Student>? _futureStudent;
 
   @override
@@ -296,8 +296,8 @@ class _courses extends State<StudentPage> {
                                             ),
                                           ),
                                           onTap: () {
-                                            launchUrl(Uri.parse(
-                                                snapshot.data!.schedule_link));
+                                            _launchUrl(
+                                                snapshot.data!.schedule_link);
                                           },
                                         ),
                                       ],

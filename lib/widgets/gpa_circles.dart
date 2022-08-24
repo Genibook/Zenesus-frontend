@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zenesus/serializers/courses.dart';
 import 'package:zenesus/utils/courses_utils.dart';
 import 'dart:math';
 

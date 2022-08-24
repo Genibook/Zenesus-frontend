@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zenesus/screens/login.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/coursespage.dart';

@@ -107,7 +107,7 @@ class CourseDatasState extends State<CourseDatasPage> {
                   children: [Center(child: createErrorPage(context))]);
             }
           } catch (e) {
-            print(e);
+            //print(e);
             child = Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

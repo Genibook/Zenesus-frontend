@@ -25,32 +25,42 @@ class CoursesDatas {
 class CoursesData {
   final String mp;
   final String dayname;
+  // ignore: non_constant_identifier_names
   final String full_dayname;
   final String date;
+  // ignore: non_constant_identifier_names
   final String full_date;
   final dynamic teacher;
   final dynamic category;
   final dynamic assignment;
   final dynamic description;
+  // ignore: non_constant_identifier_names
   final dynamic grade_percent;
+  // ignore: non_constant_identifier_names
   final dynamic grade_num;
   final dynamic comment;
   final dynamic prev;
   final dynamic docs;
+  // ignore: non_constant_identifier_names
   final String course_name;
 
   const CoursesData({
+    // ignore: non_constant_identifier_names
     required this.course_name,
     required this.mp,
     required this.dayname,
+    // ignore: non_constant_identifier_names
     required this.full_dayname,
     required this.date,
+    // ignore: non_constant_identifier_names
     required this.full_date,
     required this.teacher,
     required this.category,
     required this.assignment,
     required this.description,
+    // ignore: non_constant_identifier_names
     required this.grade_percent,
+    // ignore: non_constant_identifier_names
     required this.grade_num,
     required this.comment,
     required this.prev,
@@ -96,7 +106,7 @@ Future<CoursesDatas> createCoursesDatas(
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return CoursesDatas.fromJson({
       '1': [
         {
