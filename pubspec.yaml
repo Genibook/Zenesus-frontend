@@ -28,7 +28,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   http: ^0.13.4
-  flutter_native_splash: ^2.2.8
   convert: 3.0.2
   flutter:
     sdk: flutter
