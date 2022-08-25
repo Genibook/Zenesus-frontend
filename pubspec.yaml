@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   http: ^0.13.4
+  flutter_native_splash: ^2.2.8
   convert: 3.0.2
   flutter:
     sdk: flutter
@@ -74,7 +75,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - .env
     - assets/open-book.png
     - assets/Zenesus.png
     - assets/Zenesus-logos_black.png
