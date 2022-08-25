@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
-
-class QAItem extends StatelessWidget {
-  const QAItem({
-    Key? key,
-    required this.title,
-    required this.children,
-  }) : super(key: key);
-
-  final Widget title;
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: title,
-      children: children,
-    );
-  }
-}
+import 'package:zenesus/widgets/qaitem.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -62,7 +43,7 @@ class HelpPageState extends State<HelpPage> {
                                 "1. Try to login to Genesis, if you don't see your grades, it would mean that you won't see your grades on the Zenesus app!")),
                         ListTile(
                             title: Text(
-                                "2. It may be a server error, please contact me at eddietang2314@gmail.com!"))
+                                "2. It may be a server error, please contact me at zenesus.gradebook@gmail.com!"))
                       ]),
                 ]))));
   }
