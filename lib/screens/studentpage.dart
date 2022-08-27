@@ -113,7 +113,7 @@ class Courses extends State<StudentPage> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data!.grade.toString(),
+                                          snapshot.data!.grade,
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -183,7 +183,7 @@ class Courses extends State<StudentPage> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data!.id.toString(),
+                                          snapshot.data!.id,
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -218,7 +218,7 @@ class Courses extends State<StudentPage> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data!.state_id.toString(),
+                                          snapshot.data!.state_id,
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],

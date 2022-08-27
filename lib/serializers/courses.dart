@@ -33,11 +33,13 @@ Future<Courses> createCourses(
     );
 
     if (response.statusCode == 200) {
+      //print(response.body);
       return Courses.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Error');
     }
   } catch (e) {
+    print(e);
     return Courses.fromJson({
       'grades': [
         ["N/A", "N/A", "N/A", "100", "N/A"]

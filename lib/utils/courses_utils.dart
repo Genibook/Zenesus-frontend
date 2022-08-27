@@ -11,13 +11,14 @@ List<double> calculateGradeAverage(List<dynamic> courseGrades) {
   double totalWeightedGrade = 0;
   int lenCourses = courseGrades.length;
   for (int i = 0; i < courseGrades.length; i++) {
-    String grade = courseGrades[i][3];
-    if (grade != "N/A") {
+    String grade = courseGrades[i][3].replaceAll("%", "");
+    if (grade != "N/A" && grade != "0.0") {
       double doubleGrade = double.parse(grade);
       totalGrade += doubleGrade;
       String courseName = courseGrades[i][0];
       if (courseName.contains("AP") ||
-          courseName.toLowerCase().contains("honors")) {
+          courseName.toLowerCase().contains("honors") ||
+          courseName.startsWith("H-")) {
         totalWeightedGrade += doubleGrade + 5;
       } else {
         totalWeightedGrade += doubleGrade;
@@ -42,7 +43,7 @@ MaterialColor getColorFromGrade(double grade) {
     return Colors.orange;
   } else if ((60 > grade) && (grade >= 50)) {
     return Colors.deepOrange;
-  } else if (50 > grade) {
+  } else if (50 > grade && grade != 0.0) {
     return Colors.red;
   } else {
     return Colors.blue;

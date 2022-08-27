@@ -6,16 +6,16 @@ import "package:zenesus/constants.dart";
 class Student {
   // ignore: non_constant_identifier_names
   final String img_url;
-  final int id;
+  final String id;
   // ignore: non_constant_identifier_names
-  final int state_id;
+  final String state_id;
   final String birthday;
   // ignore: non_constant_identifier_names
   final String schedule_link;
   final String name;
-  final int grade;
+  final String grade;
   final String locker;
-  final int age;
+  final String age;
   // ignore: non_constant_identifier_names
   final String counselor_name;
 
@@ -67,32 +67,32 @@ Future<Student> createStudent(
       throw Exception('Error');
     }
   } catch (e) {
-    //print(e);
+    print(e);
     return const Student(
-        age: 15,
+        age: "15",
         img_url: "N/A",
-        state_id: 12312312,
+        state_id: "12312312",
         birthday: "N/A",
         schedule_link: "N/A",
         name: "N/A",
-        grade: 10,
+        grade: "10",
         locker: "123 123-123-123",
         counselor_name: "N/A",
-        id: 107600);
+        id: "107600");
   }
 }
 
 Future<Student> modelStudent() async {
   await Future.delayed(const Duration(seconds: 1));
   return const Student(
-      age: 15,
+      age: "15",
       img_url: "https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif",
-      state_id: 12312312,
+      state_id: "12312312",
       birthday: "06-07-2007",
       schedule_link: "https://example.com",
       name: "Eddie Tang",
-      grade: 10,
+      grade: "10",
       locker: "123 123-123-123",
       counselor_name: "Mathew Pogue",
-      id: 107600);
+      id: "107600");
 }
