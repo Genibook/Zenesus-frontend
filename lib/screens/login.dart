@@ -5,6 +5,7 @@ import 'package:zenesus/serializers/connections.dart';
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/screens/tos.dart';
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/serializers/mps.dart';
 
 class Highschool {
   late int id;
@@ -39,7 +40,6 @@ class _Login extends State<MyLoginPage> {
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_highschools);
     _selectedHighschool = _dropdownMenuItems[0].value!;
-    super.initState();
   }
 
   List<DropdownMenuItem<Highschool>> buildDropdownMenuItems(
@@ -207,11 +207,12 @@ class _Login extends State<MyLoginPage> {
                             setState(() {
                               _isLoading = false;
                             });
+
                             // ignore: use_build_context_synchronously
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GradesPage(
+                                  builder: (context) => CoursesPage(
                                         email: usernameController.text,
                                         password: passwordController.text,
                                         school: finalSchool,

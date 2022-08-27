@@ -46,7 +46,19 @@ class HelpPageState extends State<HelpPage> {
                                 "2. This may be because there is indeed no data for that specific part in Genesis")),
                         ListTile(
                             title: Text(
-                                "3. It may be a server error, please contact me at zenesus.gradebook@gmail.com!")),
+                                "3. Make sure you are not in airplane mode!/You have wifi!")),
+                        ListTile(
+                            title: Text(
+                                "4. It may be a server error, please contact me at zenesus.gradebook@gmail.com!")),
+                      ]),
+                  QAItem(
+                      title: Text(
+                        "Where is the github repo/source code?",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      children: [
+                        ListTile(title: Text("https://github.com/Zenesus")),
                       ]),
                 ]))));
   }

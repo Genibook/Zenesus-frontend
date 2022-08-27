@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
+import 'package:zenesus/utils/cookies.dart';
 
 class MPs {
   final List<dynamic> mps;
@@ -33,7 +34,13 @@ Future<MPs> createMPs(String email, String password, String school) async {
     );
 
     if (response.statusCode == 200) {
-      return MPs.fromJson(jsonDecode(response.body));
+      MPs mps = MPs.fromJson(jsonDecode(response.body));
+      String mp = await mpInCookies();
+      if (mp == "") {
+        writeMPintoCookies(mps.mp);
+      }
+
+      return mps;
     } else {
       throw Exception('Error');
     }

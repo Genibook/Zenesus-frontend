@@ -62,6 +62,7 @@ Widget unweightedCircle(BuildContext context, dynamic snapshot) {
 Widget weightedCircle(BuildContext context, dynamic snapshot) {
   const double size = 200;
   const double twoPi = pi * 2;
+
   List<double> averages = calculateGradeAverage(snapshot.data!.courseGrades);
   var brightness = MediaQuery.of(context).platformBrightness;
   bool isDarkMode = brightness == Brightness.dark;

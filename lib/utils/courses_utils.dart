@@ -12,7 +12,9 @@ List<double> calculateGradeAverage(List<dynamic> courseGrades) {
   int lenCourses = courseGrades.length;
   for (int i = 0; i < courseGrades.length; i++) {
     String grade = courseGrades[i][3].replaceAll("%", "");
-    if (grade != "N/A" && grade != "0.0") {
+    if (grade != "N/A" &&
+        grade != "0.0" &&
+        grade.toLowerCase() != "no grades") {
       double doubleGrade = double.parse(grade);
       totalGrade += doubleGrade;
       String courseName = courseGrades[i][0];
@@ -32,20 +34,47 @@ List<double> calculateGradeAverage(List<dynamic> courseGrades) {
   return [average, weightedAverage];
 }
 
-MaterialColor getColorFromGrade(double grade) {
-  if (grade >= 90) {
-    return Colors.green;
-  } else if ((90 > grade) && (grade >= 80)) {
-    return Colors.yellow;
-  } else if ((80 > grade) && (grade >= 70)) {
-    return Colors.amber;
-  } else if ((70 > grade) && (grade >= 60)) {
-    return Colors.orange;
-  } else if ((60 > grade) && (grade >= 50)) {
-    return Colors.deepOrange;
-  } else if (50 > grade && grade != 0.0) {
-    return Colors.red;
-  } else {
-    return Colors.blue;
+MaterialColor getColorFromGrade(dynamic grade) {
+  try {
+    if (grade != "No Grades" && grade != "No Grades") {
+      grade = double.parse(grade);
+      if (grade >= 90) {
+        return Colors.green;
+      } else if ((90 > grade) && (grade >= 80)) {
+        return Colors.yellow;
+      } else if ((80 > grade) && (grade >= 70)) {
+        return Colors.amber;
+      } else if ((70 > grade) && (grade >= 60)) {
+        return Colors.orange;
+      } else if ((60 > grade) && (grade >= 50)) {
+        return Colors.deepOrange;
+      } else if (50 > grade && grade != 0.0) {
+        return Colors.red;
+      } else {
+        return Colors.blue;
+      }
+    } else {
+      return Colors.blue;
+    }
+  } catch (e) {
+    if (e == TypeError) {
+      if (grade >= 90) {
+        return Colors.green;
+      } else if ((90 > grade) && (grade >= 80)) {
+        return Colors.yellow;
+      } else if ((80 > grade) && (grade >= 70)) {
+        return Colors.amber;
+      } else if ((70 > grade) && (grade >= 60)) {
+        return Colors.orange;
+      } else if ((60 > grade) && (grade >= 50)) {
+        return Colors.deepOrange;
+      } else if (50 > grade && grade != 0.0) {
+        return Colors.red;
+      } else {
+        return Colors.blue;
+      }
+    } else {
+      return Colors.blue;
+    }
   }
 }

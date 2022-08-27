@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
+import 'package:zenesus/utils/cookies.dart';
 
 // the current grades/courses.
 class Courses {
@@ -22,6 +23,7 @@ class Courses {
 
 Future<Courses> createCourses(
     String email, String password, String school) async {
+  String mp = await mpInCookies();
   try {
     final response = await http.post(
       Uri.parse('${Constants.url}/api/currentgrades'),
@@ -29,6 +31,7 @@ Future<Courses> createCourses(
         'email': email,
         "password": password,
         'highschool': school,
+        'mp': mp
       }),
     );
 

@@ -39,7 +39,7 @@ class NavBarState extends State<Navbar> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => GradesPage(
+            builder: (context) => CoursesPage(
                   email: email,
                   password: password,
                   school: school,

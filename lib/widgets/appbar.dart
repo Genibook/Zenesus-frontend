@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/screens/faq.dart';
 
 class StudentAppBar extends StatelessWidget {
   const StudentAppBar({Key? key}) : super(key: key);
@@ -18,6 +19,27 @@ class StudentAppBar extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
+        Tooltip(
+          message: "Change User",
+          child: IconButton(
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {
+              throw UnimplementedError();
+            },
+          ),
+        ),
+        Tooltip(
+          message: "FAQ page",
+          child: IconButton(
+            icon: const Icon(Icons.question_mark, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HelpPage()),
+              );
+            },
+          ),
+        ),
         Tooltip(
             message: 'Log out',
             child: IconButton(

@@ -9,13 +9,13 @@ import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/courses_utils.dart';
 import 'package:zenesus/widgets/navbar.dart';
 
-class GradesPage extends StatefulWidget {
-  const GradesPage(
-      {Key? key,
-      required this.email,
-      required this.password,
-      required this.school})
-      : super(key: key);
+class CoursesPage extends StatefulWidget {
+  const CoursesPage({
+    Key? key,
+    required this.email,
+    required this.password,
+    required this.school,
+  }) : super(key: key);
   final String email;
   final String password;
   final String school;
@@ -24,7 +24,7 @@ class GradesPage extends StatefulWidget {
   State<StatefulWidget> createState() => GradePageState();
 }
 
-class GradePageState extends State<GradesPage> {
+class GradePageState extends State<CoursesPage> {
   Future<Courses>? _futureCourses;
   Future<MPs>? _futureMPs;
   late List<DropdownMenuItem<String>> _dropdownMenuMPS;
@@ -44,9 +44,9 @@ class GradePageState extends State<GradesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
+      _futureMPs = createMPs(widget.email, widget.password, widget.school);
       _futureCourses =
           createCourses(widget.email, widget.password, widget.school);
-      _futureMPs = createMPs(widget.email, widget.password, widget.school);
 
       //_futureCourses = modelCourse();
       //_futureMPs = modelMPs();
@@ -74,15 +74,6 @@ class GradePageState extends State<GradesPage> {
       _selectedMP = selectedMP!;
       writeMPintoCookies(selectedMP);
     });
-  }
-
-  String getMP(dynamic mp, dynamic snapshot) {
-    if (mp == "") {
-      writeMPintoCookies(snapshot.data!.mp);
-      return snapshot.data!.mp;
-    } else {
-      return mp;
-    }
   }
 
   FutureBuilder<MPs> buildFutureMPsBuilder() {
@@ -204,8 +195,7 @@ class GradePageState extends State<GradesPage> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
-                                    color: getColorFromGrade(
-                                        double.parse(data[index][3]))),
+                                    color: getColorFromGrade(data[index][3])),
                               ),
                         enabled: true,
                         selected: false,

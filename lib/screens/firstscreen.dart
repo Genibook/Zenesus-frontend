@@ -43,7 +43,7 @@ class Screen extends State<FirstScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                GradesPage(email: email, password: password, school: school)),
+                CoursesPage(email: email, password: password, school: school)),
       );
     }
   }

@@ -9,6 +9,15 @@ Future<String> mpInCookies() async {
   return mp;
 }
 
+String getMP(dynamic mp, dynamic snapshot) {
+  if (mp == "") {
+    writeMPintoCookies(snapshot.data!.mp);
+    return snapshot.data!.mp;
+  } else {
+    return mp;
+  }
+}
+
 Future<void> writeMPintoCookies(String mp) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('mp', mp);
