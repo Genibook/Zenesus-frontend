@@ -100,11 +100,20 @@ class CourseDatasState extends State<CourseDatasPage> {
                     })
               ],
             );
-            if (snapshot.data!.datas[0][0].course_name == "N/A" &&
-                snapshot.data!.datas[0][0].mp == "N/A") {
-              child = Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Center(child: createErrorPage(context))]);
+            try {
+              if (snapshot.data!.datas[0][0].course_name == "N/A" &&
+                  snapshot.data!.datas[0][0].mp == "N/A") {
+                child = Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Center(child: createErrorPage(context))]);
+              }
+            } catch (e) {
+              //print(e);
+              if (snapshot.data!.datas[0].isEmpty) {
+                child = Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Center(child: createErrorPage(context))]);
+              }
             }
           } catch (e) {
             //print(e);

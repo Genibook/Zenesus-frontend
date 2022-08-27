@@ -43,7 +43,10 @@ class HelpPageState extends State<HelpPage> {
                                 "1. Try to login to Genesis, if you don't see your grades, it would mean that you won't see your grades on the Zenesus app!")),
                         ListTile(
                             title: Text(
-                                "2. It may be a server error, please contact me at zenesus.gradebook@gmail.com!"))
+                                "2. This may be because there is indeed no data for that specific part in Genesis")),
+                        ListTile(
+                            title: Text(
+                                "3. It may be a server error, please contact me at zenesus.gradebook@gmail.com!")),
                       ]),
                 ]))));
   }
