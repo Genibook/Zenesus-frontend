@@ -1,5 +1,6 @@
 import 'package:zenesus/serializers/courses.dart';
 import 'package:zenesus/serializers/mps.dart';
+import 'package:zenesus/serializers/gpas.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
@@ -27,6 +28,7 @@ class CoursesPage extends StatefulWidget {
 class GradePageState extends State<CoursesPage> {
   Future<Courses>? _futureCourses;
   Future<MPs>? _futureMPs;
+  Future<Gpas>? _futureGpas;
   late List<DropdownMenuItem<String>> _dropdownMenuMPS;
   late String _selectedMP;
   String? _mp;
@@ -45,6 +47,7 @@ class GradePageState extends State<CoursesPage> {
   Widget build(BuildContext context) {
     setState(() {
       _futureMPs = createMPs(widget.email, widget.password, widget.school);
+      _futureGpas = createGpas(widget.email, widget.password, widget.school);
       _futureCourses =
           createCourses(widget.email, widget.password, widget.school);
 
@@ -105,6 +108,58 @@ class GradePageState extends State<CoursesPage> {
     );
   }
 
+  FutureBuilder<Gpas> buildFutureGpaBuilder() {
+    return FutureBuilder(
+      future: _futureGpas,
+      builder: (context, snapshot) {
+        Widget child;
+        if (snapshot.hasData) {
+          final ValueNotifier<Widget> gpaCircle =
+              ValueNotifier<Widget>(weightedCircle(context, snapshot));
+          int gpaCircleNum = 0;
+          child = Tooltip(
+              message: "Tap me to change modes",
+              child: InkWell(
+                onTap: () {
+                  if (gpaCircleNum == 0) {
+                    gpaCircle.value = unweightedCircle(context, snapshot);
+                    gpaCircleNum = 1;
+                  } else {
+                    gpaCircle.value = weightedCircle(context, snapshot);
+                    gpaCircleNum = 0;
+                  }
+                },
+                child: ValueListenableBuilder<Widget>(
+                    valueListenable: gpaCircle,
+                    builder:
+                        (BuildContext context, Widget value, Widget? child) {
+                      return value;
+                    }),
+              ));
+        } else if (snapshot.hasError) {
+          child = Center(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text('Error: ${snapshot.error}'),
+                )
+              ]));
+        } else {
+          return const SizedBox.shrink();
+        }
+        return child;
+      },
+    );
+  }
+
   FutureBuilder<Courses> buildFutureCourseBuilder(
       String email, String password, String highschool) {
     return FutureBuilder(
@@ -112,10 +167,8 @@ class GradePageState extends State<CoursesPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
-          final ValueNotifier<Widget> gpaCircle =
-              ValueNotifier<Widget>(weightedCircle(context, snapshot));
           List<dynamic> data = snapshot.data!.courseGrades;
-          int gpaCircleNum = 0;
+
           child = Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -123,25 +176,7 @@ class GradePageState extends State<CoursesPage> {
                 const SizedBox(
                   height: 25,
                 ),
-                Tooltip(
-                    message: "Tap me to change modes",
-                    child: InkWell(
-                      onTap: () {
-                        if (gpaCircleNum == 0) {
-                          gpaCircle.value = unweightedCircle(context, snapshot);
-                          gpaCircleNum = 1;
-                        } else {
-                          gpaCircle.value = weightedCircle(context, snapshot);
-                          gpaCircleNum = 0;
-                        }
-                      },
-                      child: ValueListenableBuilder<Widget>(
-                          valueListenable: gpaCircle,
-                          builder: (BuildContext context, Widget value,
-                              Widget? child) {
-                            return value;
-                          }),
-                    )),
+                buildFutureGpaBuilder(),
                 const SizedBox(
                   height: 20,
                 ),
