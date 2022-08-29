@@ -26,7 +26,7 @@ Future<void> chooseUser(BuildContext context, Student_Name_and_ID data) async {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-            title: const Text('Select assignment'),
+            title: const Text('Select Student'),
             children: createChildren(context, data));
       });
 }
