@@ -10,7 +10,7 @@ Future<void> writeUserNumintoCookies(int numm) async {
 Future<int> numInCookies() async {
   late int numm;
   final prefs = await SharedPreferences.getInstance();
-  numm = prefs.getInt('num') ?? 0;
+  numm = prefs.getInt('user') ?? 0;
   return numm;
 }
 
@@ -70,5 +70,5 @@ Future<void> logout() async {
       key: const String.fromEnvironment('PASSKEY', defaultValue: ''));
   await prefs.remove('school');
   await prefs.remove('mp');
-  await prefs.remove("num");
+  await prefs.remove("user");
 }

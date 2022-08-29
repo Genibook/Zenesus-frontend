@@ -2,11 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/faq.dart';
-import 'package:zenesus/widgets/simpledialogoption.dart';
 import 'package:zenesus/serializers/students_name_and_id.dart';
+import 'package:vibration/vibration.dart';
 
-class StudentAppBar extends StatelessWidget {
-  const StudentAppBar({Key? key}) : super(key: key);
+class StudentAppBar extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => StudentAppBarState();
+}
+
+class StudentAppBarState extends State<StudentAppBar> {
+  int randomNum = 0;
+  List<Widget> createChildren(BuildContext context, Student_Name_and_ID data) {
+    List<Widget> myList = [];
+    for (int i = 0; i < data.ids.length; i++) {
+      myList.add(
+        SimpleDialogOption(
+          onPressed: () async {
+            setState(() {
+              randomNum = i;
+            });
+            await writeUserNumintoCookies(i);
+            if (await Vibration.hasVibrator() ?? false) {
+              Vibration.vibrate();
+            }
+            return;
+          },
+          child: Text('${data.names[i]} - ${data.ids[i]}'),
+        ),
+      );
+    }
+    return myList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +58,14 @@ class StudentAppBar extends StatelessWidget {
               String school = things[2];
               Student_Name_and_ID futureNameandID =
                   await createStudent_name_and_ID(email, password, school);
-              await chooseUser(context, futureNameandID);
+
+              await showDialog<Student_Name_and_ID>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SimpleDialog(
+                        title: const Text('Select Student'),
+                        children: createChildren(context, futureNameandID));
+                  });
             },
           ),
         ),

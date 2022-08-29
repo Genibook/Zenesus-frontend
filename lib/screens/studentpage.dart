@@ -54,7 +54,7 @@ class Courses extends State<StudentPage> {
           bool showImage = true;
 
           child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            const StudentAppBar(),
+            StudentAppBar(),
             Expanded(
               flex: 3,
               child: Container(
