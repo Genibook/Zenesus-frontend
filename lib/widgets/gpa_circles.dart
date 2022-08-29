@@ -46,7 +46,7 @@ Widget unweightedCircle(BuildContext context, dynamic snapshot) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  const Text("Unweighted Average",
+                  const Text("Unweighted GPA",
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -104,7 +104,7 @@ Widget weightedCircle(BuildContext context, dynamic snapshot) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  const Text("Weighted Average",
+                  const Text("Weighted GPA",
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),

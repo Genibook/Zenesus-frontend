@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/faq.dart';
+import 'package:zenesus/widgets/simpledialogoption.dart';
+import 'package:zenesus/serializers/students_name_and_id.dart';
 
 class StudentAppBar extends StatelessWidget {
   const StudentAppBar({Key? key}) : super(key: key);
@@ -23,8 +25,14 @@ class StudentAppBar extends StatelessWidget {
           message: "Change User",
           child: IconButton(
             icon: const Icon(Icons.person, color: Colors.white),
-            onPressed: () {
-              throw UnimplementedError();
+            onPressed: () async {
+              List<String> things = await readEmailPassSchoolintoCookies();
+              String email = things[0];
+              String password = things[1];
+              String school = things[2];
+              Student_Name_and_ID futureNameandID =
+                  await createStudent_name_and_ID(email, password, school);
+              await chooseUser(context, futureNameandID);
             },
           ),
         ),

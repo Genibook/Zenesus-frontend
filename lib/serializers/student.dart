@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
+import 'package:zenesus/utils/cookies.dart';
 
 class Student {
   // ignore: non_constant_identifier_names
@@ -52,6 +53,7 @@ class Student {
 
 Future<Student> createStudent(
     String email, String password, String school) async {
+  int numm = await numInCookies();
   try {
     final response = await http.post(
       Uri.parse('${Constants.url}/api/login'),
@@ -59,6 +61,7 @@ Future<Student> createStudent(
         'email': email,
         "password": password,
         'highschool': school,
+        'user': numm
       }),
     );
     if (response.statusCode == 200) {

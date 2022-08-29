@@ -51,6 +51,8 @@ class Courses extends State<StudentPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
+          bool showImage = true;
+
           child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             const StudentAppBar(),
             Expanded(
@@ -64,10 +66,10 @@ class Courses extends State<StudentPage> {
                   ),
                   child: Column(children: [
                     const Spacer(),
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 65.0,
-                      backgroundImage: NetworkImage(
-                          snapshot.data!.img_url), //snapshot.data!.image_url
+                      backgroundImage: AssetImage("assets/user.png"),
+                      // NetworkImage()//snapshot.data!.image_url
                       backgroundColor: Colors.white,
                     ),
                     const Spacer(),

@@ -23,6 +23,7 @@ class Gpas {
 
 Future<Gpas> createGpas(String email, String password, String school) async {
   String mp = await mpInCookies();
+  int numm = await numInCookies();
   try {
     final response = await http.post(
       Uri.parse('${Constants.url}/api/gpas'),
@@ -30,7 +31,8 @@ Future<Gpas> createGpas(String email, String password, String school) async {
         'email': email,
         "password": password,
         'highschool': school,
-        'mp': mp
+        'mp': mp,
+        'user': numm
       }),
     );
 

@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
+import 'package:zenesus/utils/cookies.dart';
 
 class CoursesDatas {
   final List<List<CoursesData>> datas;
@@ -89,6 +90,7 @@ class CoursesData {
 
 Future<CoursesDatas> createCoursesDatas(
     String email, String password, String school, String mp) async {
+  int numm = await numInCookies();
   try {
     final response = await http.post(
       Uri.parse('${Constants.url}/api/courseinfos'),
@@ -97,6 +99,7 @@ Future<CoursesDatas> createCoursesDatas(
         "password": password,
         'highschool': school,
         'mp': mp,
+        'user': numm
       }),
     );
 

@@ -2,6 +2,18 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+Future<void> writeUserNumintoCookies(int numm) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('user', numm);
+}
+
+Future<int> numInCookies() async {
+  late int numm;
+  final prefs = await SharedPreferences.getInstance();
+  numm = prefs.getInt('num') ?? 0;
+  return numm;
+}
+
 Future<String> mpInCookies() async {
   late String mp;
   final prefs = await SharedPreferences.getInstance();
@@ -58,4 +70,5 @@ Future<void> logout() async {
       key: const String.fromEnvironment('PASSKEY', defaultValue: ''));
   await prefs.remove('school');
   await prefs.remove('mp');
+  await prefs.remove("num");
 }

@@ -23,6 +23,7 @@ class MPs {
 }
 
 Future<MPs> createMPs(String email, String password, String school) async {
+  int numm = await numInCookies();
   try {
     final response = await http.post(
       Uri.parse('${Constants.url}/api/availableMPs'),
@@ -30,6 +31,7 @@ Future<MPs> createMPs(String email, String password, String school) async {
         'email': email,
         "password": password,
         'highschool': school,
+        'user': numm
       }),
     );
 
