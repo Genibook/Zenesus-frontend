@@ -1,4 +1,51 @@
 import 'package:zenesus/serializers/coursedata.dart';
+import 'package:zenesus/utils/courses_utils.dart';
+
+double getAvgofList(List<double> list) {
+  // if change is 0, grey, if change is +, green, if change is -, red
+  int length = list.length;
+  double gradeadded = 0;
+  for (double grade in list) {
+    gradeadded += grade;
+  }
+  if (list.isNotEmpty) {
+    return roundDouble(gradeadded / length, 2);
+  } else {
+    return 0.0;
+  }
+}
+
+List<double> getChangeBecauseOfGradePercent(
+    List<List<CoursesData>> allData, String courseName, int index) {
+  List<double> allcoursegrades = [];
+  if (allData[0].isEmpty) {
+    // print("returned 0");
+    return [0.0, 0.0, 0.0];
+  }
+  for (int i = 0; i < allData.length; i++) {
+    if (allData[i][0].course_name == courseName) {
+      //first index (0) is always the most recent grade/assignment graded
+      for (CoursesData courseData in allData[i]) {
+        double doubleGrade = double.parse(courseData.grade_percent);
+        allcoursegrades.add(doubleGrade);
+      }
+    }
+  }
+
+  List<double> sublist1 = allcoursegrades.sublist(index);
+  List<double> sublist2 = allcoursegrades.sublist(index + 1);
+  double avgSublist2 = getAvgofList(sublist2);
+  double avgSublist1 = getAvgofList(sublist1);
+  if (avgSublist2 != 0) {
+    double percentChange =
+        roundDouble(((avgSublist1 - avgSublist2) / avgSublist2) * 100, 2);
+    return [percentChange, avgSublist1, avgSublist2];
+  } else {
+    return [0.0, avgSublist1, avgSublist2];
+  }
+
+  // print("weird...");
+}
 
 // first index is the coursework
 // second index is the length of the coursework
