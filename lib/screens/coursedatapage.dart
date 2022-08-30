@@ -6,121 +6,6 @@ import 'package:zenesus/utils/courses_utils.dart';
 import 'package:zenesus/screens/error.dart';
 import "package:zenesus/routes/hero_dialog_route.dart";
 
-const String _heroAddTodo = 'add-todo-hero';
-
-Widget getFromPercent(double percentChange, String mode) {
-  if (mode == "image") {
-    if (percentChange > 0) {
-      return Image.asset("assets/increase.png");
-    } else if (percentChange < 0) {
-      return Image.asset("assets/decrease.png");
-    } else {
-      return Image.asset("assets/noChange.png");
-    }
-  } else if (mode == "text") {
-    if (percentChange > 0) {
-      return Text(
-        "Your average grade had a $percentChange% increase because of this assignment.",
-        textAlign: TextAlign.center,
-      );
-    } else if (percentChange < 0) {
-      return Text(
-          "Your average grade had a $percentChange% decrease because of this assignment.",
-          textAlign: TextAlign.center);
-    } else {
-      return const Text(
-          "Your average grade stayed the same after this assignment was graded.",
-          textAlign: TextAlign.center);
-    }
-  } else {
-    return const SizedBox.shrink();
-  }
-}
-
-class _GradePopupCard extends StatelessWidget {
-  const _GradePopupCard(
-      {Key? key,
-      required this.course,
-      required this.percentChange,
-      required this.currentAvg,
-      required this.oldAvg})
-      : super(key: key);
-
-  final CoursesData course;
-  final double percentChange;
-  final double currentAvg;
-  final double oldAvg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Hero(
-          tag: _heroAddTodo,
-          child: Material(
-            elevation: 2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-            child: SingleChildScrollView(
-              physics: const ScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getFromPercent(percentChange, "image"),
-                    getFromPercent(percentChange, "text"),
-                    const Divider(
-                      thickness: 3,
-                    ),
-                    Text(
-                      "${course.category}",
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "${course.assignment}",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "${course.teacher}",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w400),
-                    ),
-                    Text("${course.full_dayname} ${course.full_date}"),
-                    const Divider(
-                      thickness: 3,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "Comment: ${course.comment}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          "Description: ${course.description}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class CourseDatasPage extends StatefulWidget {
   const CourseDatasPage(
       {Key? key,
@@ -214,7 +99,7 @@ class CourseDatasState extends State<CourseDatasPage> {
                                   courseAssignments[index].course_name, index);
                           Navigator.of(context)
                               .push(HeroDialogRoute(builder: (context) {
-                            return _GradePopupCard(
+                            return GradePopupCard(
                               course: courseAssignments[index],
                               percentChange: percentChange[0],
                               currentAvg: percentChange[1],
