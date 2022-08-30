@@ -4,6 +4,69 @@ import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
 import 'package:zenesus/utils/courses_utils.dart';
 import 'package:zenesus/screens/error.dart';
+import "package:zenesus/routes/hero_dialog_route.dart";
+
+const String _heroAddTodo = 'add-todo-hero';
+
+class _GradePopupCard extends StatelessWidget {
+  const _GradePopupCard({Key? key, required this.course}) : super(key: key);
+
+  final CoursesData course;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Hero(
+          tag: _heroAddTodo,
+          child: Material(
+            elevation: 2,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${course.category}",
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      "${course.assignment}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      "${course.teacher}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                    Text("${course.full_dayname} ${course.full_date}"),
+                    Text(
+                      "Comment: ${course.comment}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      "Description: ${course.description}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class CourseDatasPage extends StatefulWidget {
   const CourseDatasPage(
@@ -70,7 +133,7 @@ class CourseDatasState extends State<CourseDatasPage> {
                               fontSize: 20, fontWeight: FontWeight.w400),
                         ),
                         subtitle: Text(
-                            "${courseAssignments[index].dayname} ${courseAssignments[index].date}"),
+                            "${courseAssignments[index].dayname} ${courseAssignments[index].date} - ${courseAssignments[index].mp}"),
                         trailing: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -94,7 +157,11 @@ class CourseDatasState extends State<CourseDatasPage> {
                             ]),
                         //TODO
                         onTap: () {
-                          throw UnimplementedError();
+                          Navigator.of(context)
+                              .push(HeroDialogRoute(builder: (context) {
+                            return _GradePopupCard(
+                                course: courseAssignments[index]);
+                          }));
                         },
                       );
                     })

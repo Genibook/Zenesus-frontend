@@ -11,16 +11,12 @@ class StudentAppBar extends StatefulWidget {
 }
 
 class StudentAppBarState extends State<StudentAppBar> {
-  int randomNum = 0;
   List<Widget> createChildren(BuildContext context, Student_Name_and_ID data) {
     List<Widget> myList = [];
     for (int i = 0; i < data.ids.length; i++) {
       myList.add(
         SimpleDialogOption(
           onPressed: () async {
-            setState(() {
-              randomNum = i;
-            });
             await writeUserNumintoCookies(i);
             if (await Vibration.hasVibrator() ?? false) {
               Vibration.vibrate();

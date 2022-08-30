@@ -57,22 +57,18 @@ MaterialColor getColorFromGrade(dynamic grade) {
       return Colors.blue;
     }
   } catch (e) {
-    if (e == TypeError) {
-      if (grade >= 90) {
-        return Colors.green;
-      } else if ((90 > grade) && (grade >= 80)) {
-        return Colors.yellow;
-      } else if ((80 > grade) && (grade >= 70)) {
-        return Colors.amber;
-      } else if ((70 > grade) && (grade >= 60)) {
-        return Colors.orange;
-      } else if ((60 > grade) && (grade >= 50)) {
-        return Colors.deepOrange;
-      } else if (50 > grade && grade != 0.0) {
-        return Colors.red;
-      } else {
-        return Colors.blue;
-      }
+    if (grade >= 90) {
+      return Colors.green;
+    } else if ((90 > grade) && (grade >= 80)) {
+      return Colors.yellow;
+    } else if ((80 > grade) && (grade >= 70)) {
+      return Colors.amber;
+    } else if ((70 > grade) && (grade >= 60)) {
+      return Colors.orange;
+    } else if ((60 > grade) && (grade >= 50)) {
+      return Colors.deepOrange;
+    } else if (50 > grade && grade != 0.0) {
+      return Colors.red;
     } else {
       return Colors.blue;
     }

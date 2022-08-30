@@ -75,7 +75,7 @@ class CoursesData {
         dayname: json['dayname'],
         date: json['date'],
         full_date: json['full_date'],
-        full_dayname: json['full_date'],
+        full_dayname: json['full_dayname'],
         teacher: json['teacher'],
         category: json['category'],
         assignment: json['assignment'],
@@ -139,24 +139,24 @@ Future<CoursesDatas> modelCourseDatas() async {
   return CoursesDatas.fromJson({
     '0': [
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
-        "dayname": "Wed",
+        "dayname": "Mon",
         "full_dayname": "Monday",
         "date": "6/7",
         "full_date": "6/7/2022",
         "teacher": "Ms.Applegate",
         "category": "Summative",
         "assignment": "Unit 10 Test",
-        "description": "you did well eddie :D",
+        "description": "daSFASDF",
         "grade_percent": "100",
         "grade_num": "100/100",
-        "comment": "",
-        "prev": "",
-        "docs": ""
+        "comment": "you did well eddie :D",
+        "prev": "asdfdasf",
+        "docs": "asdfasdf"
       },
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
@@ -174,7 +174,7 @@ Future<CoursesDatas> modelCourseDatas() async {
         "docs": ""
       },
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
@@ -191,7 +191,7 @@ Future<CoursesDatas> modelCourseDatas() async {
         "docs": ""
       },
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
@@ -208,7 +208,7 @@ Future<CoursesDatas> modelCourseDatas() async {
         "docs": ""
       },
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
@@ -225,7 +225,7 @@ Future<CoursesDatas> modelCourseDatas() async {
         "docs": ""
       },
       {
-        "course_name": "English 10 honors",
+        "course_name": "AP Chemistry",
         "mp": "MP2",
         "dayname": "Mon",
         "full_dayname": "Monday",
