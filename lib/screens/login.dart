@@ -3,7 +3,7 @@ import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/serializers/connections.dart';
 // import 'package:zenesus/screens/studentpage.dart';
 import 'package:zenesus/screens/coursespage.dart';
-import 'package:zenesus/screens/tos.dart';
+import 'package:zenesus/screens/privacypolicy.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/serializers/mps.dart';
 

@@ -4,7 +4,7 @@ import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/faq.dart';
 import 'package:zenesus/serializers/students_name_and_id.dart';
 import 'package:vibration/vibration.dart';
-import 'package:zenesus/screens/studentpage.dart';
+import 'package:zenesus/screens/credits.dart';
 
 class StudentAppBar extends StatefulWidget {
   @override
@@ -53,12 +53,18 @@ class StudentAppBarState extends State<StudentAppBar> {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: false,
-      title: const Text(
-        "Account",
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
+      title: InkWell(
+        child: const Text(
+          "Account",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CreditsPage()));
+        },
       ),
       actions: <Widget>[
         Tooltip(
