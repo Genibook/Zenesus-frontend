@@ -6,6 +6,9 @@ import 'package:zenesus/screens/faq.dart';
 import 'package:zenesus/serializers/students_name_and_id.dart';
 import 'package:vibration/vibration.dart';
 import 'package:zenesus/screens/credits.dart';
+import 'package:zenesus/utils/confetti.dart';
+
+import 'package:confetti/confetti.dart';
 
 class StudentAppBar extends StatefulWidget {
   const StudentAppBar({
@@ -60,6 +63,19 @@ class StudentAppBarState extends State<StudentAppBar> {
     return myList;
   }
 
+  late ConfettiController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = ConfettiController(duration: const Duration(seconds: 10));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -70,27 +86,52 @@ class StudentAppBarState extends State<StudentAppBar> {
       backgroundColor: _isbday ? Colors.amber[700] : null,
       automaticallyImplyLeading: false,
       centerTitle: false,
-      title: InkWell(
-        child: _isbday
-            ? const Text(
-                "HBday!! 🎉🎉",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+      title: _isbday
+          ? InkWell(
+              child: Stack(children: [
+                const Text(
+                  "HBday!! 🎉🎉",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              )
-            : const Text(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: ConfettiWidget(
+                    confettiController: _controller,
+                    blastDirectionality: BlastDirectionality
+                        .explosive, // don't specify a direction, blast randomly
+                    shouldLoop:
+                        false, // start again as soon as the animation is finished
+                    colors: const [
+                      Colors.green,
+                      Colors.blue,
+                      Colors.pink,
+                      Colors.orange,
+                      Colors.purple
+                    ], // manually specify the colors to be used
+                    createParticlePath: drawStar, // define a custom shape/path.
+                  ),
+                )
+              ]),
+              onTap: () {
+                _controller.play();
+              },
+            )
+          : InkWell(
+              child: const Text(
                 "Account",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CreditsPage()));
-        },
-      ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CreditsPage()));
+              },
+            ),
       actions: <Widget>[
         Tooltip(
           message: "Change User",
@@ -118,6 +159,8 @@ class StudentAppBarState extends State<StudentAppBar> {
                         context: context,
                         builder: (BuildContext context) {
                           return SimpleDialog(
+                              backgroundColor:
+                                  _isbday ? Colors.amberAccent[400] : null,
                               title: const Text('Select Student'),
                               children:
                                   createChildren(context, futureNameandID));

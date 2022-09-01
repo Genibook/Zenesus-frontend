@@ -5,9 +5,8 @@ import 'package:zenesus/screens/studentpage.dart';
 
 class Navbar extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
-  const Navbar({Key? key, required this.selectedIndex, required this.isBday});
+  const Navbar({Key? key, required this.selectedIndex});
   final int selectedIndex;
-  final bool isBday;
   @override
   State<StatefulWidget> createState() => NavBarState();
 }
@@ -17,9 +16,15 @@ class NavBarState extends State<Navbar> {
   late String email;
   late String password;
   late String school;
+  bool _isbday = false;
 
   @override
   void initState() {
+    readBday().then((value) {
+      setState(() {
+        _isbday = value;
+      });
+    });
     super.initState();
     setState(() {
       _selectedIndex = widget.selectedIndex;
@@ -74,10 +79,9 @@ class NavBarState extends State<Navbar> {
         ),
       ],
       currentIndex: _selectedIndex,
-      backgroundColor: widget.isBday ? Colors.amber[700] : null,
-      selectedItemColor: widget.isBday
-          ? Colors.white
-          : const Color.fromARGB(255, 33, 168, 245),
+      backgroundColor: _isbday ? Colors.amber[700] : null,
+      selectedItemColor:
+          _isbday ? Colors.white : const Color.fromARGB(255, 33, 168, 245),
       onTap: _onItemTapped,
     );
   }

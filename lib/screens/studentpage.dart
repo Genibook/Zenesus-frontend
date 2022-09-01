@@ -31,15 +31,9 @@ class StudentPage extends StatefulWidget {
 
 class Courses extends State<StudentPage> {
   Future<Student>? _futureStudent;
-  bool _isbday = false;
 
   @override
   void initState() {
-    readBday().then((value) {
-      setState(() {
-        _isbday = value;
-      });
-    });
     super.initState();
   }
 
@@ -389,9 +383,8 @@ class Courses extends State<StudentPage> {
               ]));
         }
         return Scaffold(
-            bottomNavigationBar: Navbar(
+            bottomNavigationBar: const Navbar(
               selectedIndex: 1,
-              isBday: _isbday,
             ),
             body: child);
       },
