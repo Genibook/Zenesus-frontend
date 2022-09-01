@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/screens/faq.dart';
 import 'package:zenesus/serializers/students_name_and_id.dart';
 import 'package:vibration/vibration.dart';
 import 'package:zenesus/screens/credits.dart';
 
 class StudentAppBar extends StatefulWidget {
+  const StudentAppBar({
+    Key? key,
+    required this.bday,
+    required this.name,
+  }) : super(key: key);
+
+  final String bday;
+  final String name;
+
   @override
   State<StatefulWidget> createState() => StudentAppBarState();
 }
@@ -14,6 +24,8 @@ class StudentAppBar extends StatefulWidget {
 bool _ispressed = false;
 
 class StudentAppBarState extends State<StudentAppBar> {
+  bool _isbday = false;
+
   Future<List<String>> onPressedDoStuff(int i) async {
     await writeUserNumintoCookies(i);
     if (await Vibration.hasVibrator() ?? false) {
@@ -50,17 +62,30 @@ class StudentAppBarState extends State<StudentAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _isbday = isBday(widget.bday);
+    });
+
     return AppBar(
+      backgroundColor: _isbday ? Colors.amber[700] : null,
       automaticallyImplyLeading: false,
       centerTitle: false,
       title: InkWell(
-        child: const Text(
-          "Account",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: _isbday
+            ? const Text(
+                "HBday!! 🎉🎉",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : const Text(
+                "Account",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         onTap: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const CreditsPage()));
@@ -106,7 +131,9 @@ class StudentAppBarState extends State<StudentAppBar> {
         Tooltip(
           message: "FAQ page",
           child: IconButton(
-            icon: const Icon(Icons.question_mark, color: Colors.white),
+            icon: _isbday
+                ? const Icon(Icons.cake, color: Colors.white)
+                : const Icon(Icons.question_mark, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,

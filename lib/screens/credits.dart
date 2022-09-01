@@ -67,7 +67,7 @@ class CreditsPageState extends State<CreditsPage> {
                           children: [
                             ListTile(
                                 title: Text(
-                                    "I give thanks to all the students who participated in beta testing, and all the student/parents who are/used Zenesus.")),
+                                    "I give thanks to all the students who participated in beta testing, and all the student/parents who are using/used Zenesus.")),
                           ]),
                       QAItem(
                           title: Text(

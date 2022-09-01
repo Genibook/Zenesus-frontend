@@ -2,6 +2,18 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+Future<void> writeBday(bool bday) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('bday', bday);
+}
+
+Future<bool> readBday() async {
+  late bool bday;
+  final prefs = await SharedPreferences.getInstance();
+  bday = prefs.getBool('bday') ?? false;
+  return bday;
+}
+
 Future<void> writeUserNumintoCookies(int numm) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('user', numm);
@@ -71,4 +83,5 @@ Future<void> logout() async {
   await prefs.remove('school');
   await prefs.remove('mp');
   await prefs.remove("user");
+  await prefs.remove('bday');
 }

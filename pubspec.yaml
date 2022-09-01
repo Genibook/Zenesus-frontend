@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  confetti: ^0.7.0
   http: ^0.13.4
   vibration: ^1.7.5
   convert: 3.0.2

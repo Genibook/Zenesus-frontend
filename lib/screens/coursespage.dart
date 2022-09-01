@@ -301,6 +301,7 @@ class GradePageState extends State<CoursesPage> {
           body: child,
           bottomNavigationBar: const Navbar(
             selectedIndex: 0,
+            isBday: false,
           ),
         );
       },

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/widgets/appbar.dart';
 import 'package:zenesus/serializers/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zenesus/utils/appbar_utils.dart';
 
 Future<void> _launchUrl(String url) async {
   if (!await launchUrl(Uri.parse(url))) {
@@ -29,9 +31,15 @@ class StudentPage extends StatefulWidget {
 
 class Courses extends State<StudentPage> {
   Future<Student>? _futureStudent;
+  bool _isbday = false;
 
   @override
   void initState() {
+    readBday().then((value) {
+      setState(() {
+        _isbday = value;
+      });
+    });
     super.initState();
   }
 
@@ -42,6 +50,7 @@ class Courses extends State<StudentPage> {
           createStudent(widget.email, widget.password, widget.school);
       //_futureStudent = modelStudent();
     });
+
     return buildFutureBuilder();
   }
 
@@ -51,10 +60,11 @@ class Courses extends State<StudentPage> {
       builder: (context, snapshot) {
         Widget child;
         if (snapshot.hasData) {
-          bool showImage = true;
-
+          bool isbday = isBday(snapshot.data!.birthday);
+          writeBday(isbday);
           child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            StudentAppBar(),
+            StudentAppBar(
+                bday: snapshot.data!.birthday, name: snapshot.data!.name),
             Expanded(
               flex: 3,
               child: Container(
@@ -66,11 +76,13 @@ class Courses extends State<StudentPage> {
                   ),
                   child: Column(children: [
                     const Spacer(),
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 65.0,
-                      backgroundImage: AssetImage("assets/user.png"),
+                      backgroundImage: isbday
+                          ? const AssetImage("assets/user_bday.png")
+                          : const AssetImage("assets/user.png"),
                       // NetworkImage()//snapshot.data!.image_url
-                      backgroundColor: Colors.white,
+                      backgroundColor: isbday ? Colors.grey[200] : Colors.white,
                     ),
                     const Spacer(),
                     Text(snapshot.data!.name,
@@ -82,234 +94,262 @@ class Courses extends State<StudentPage> {
                   ])),
             ),
             Expanded(
-              flex: 5,
-              child: Center(
-                  child: Card(
-                      child: SizedBox(
-                          width: 310.0,
-                          height: 280.0, //340 with bday
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                flex: 5,
+                child: Container(
+                  color: isbday ? Colors.amber[600] : null,
+                  child: Center(
+                      child: Card(
+                          color: isbday ? Colors.amber : null,
+                          child: SizedBox(
+                              width: 310.0,
+                              height: 280.0, //340 with bday
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.school,
-                                      color: Colors.blueAccent[400],
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          "Grade Level",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
+                                        Icon(
+                                          Icons.school,
+                                          color: Colors.blueAccent[400],
+                                          size: 35,
                                         ),
-                                        Text(
-                                          snapshot.data!.grade,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.key,
-                                      color: Colors.yellowAccent[400],
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Locker",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
+                                        const SizedBox(
+                                          width: 20.0,
                                         ),
-                                        Text(
-                                          snapshot.data!.locker,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      CustomIcons.id_badge,
-                                      color: Colors.pinkAccent[400],
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Student ID",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          snapshot.data!.id,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.flag,
-                                      color: Colors.lightGreen[400],
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "State ID",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          snapshot.data!.state_id,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   height: 20.0,
-                                // ),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.start,
-                                //   children: [
-                                //     const Icon(
-                                //       Icons.cake,
-                                //       color: Colors.orangeAccent,
-                                //       size: 35,
-                                //     ),
-                                //     const SizedBox(
-                                //       width: 20.0,
-                                //     ),
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment.start,
-                                //       children: [
-                                //         const Text(
-                                //           "Birthday",
-                                //           style: TextStyle(
-                                //             fontSize: 15.0,
-                                //           ),
-                                //         ),
-                                //         Text(
-                                //           snapshot.data!.birthday,
-                                //           style: TextStyle(
-                                //             fontSize: 12.0,
-                                //             color: Colors.grey[400],
-                                //           ),
-                                //         )
-                                //       ],
-                                //     )
-                                //   ],
-                                // ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Icon(
-                                      Icons.calendar_month,
-                                      color: Colors.purple,
-                                      size: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Schedule Link",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                        InkWell(
-                                          child: Text(
-                                            "click me",
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.grey[400],
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Grade Level",
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: isbday
+                                                      ? Colors.white
+                                                      : null),
                                             ),
-                                          ),
-                                          onTap: () {
-                                            _launchUrl(
-                                                snapshot.data!.schedule_link);
-                                          },
-                                        ),
+                                            Text(
+                                              snapshot.data!.grade,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: isbday
+                                                    ? Colors.grey[100]
+                                                    : Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
                                       ],
-                                    )
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.key,
+                                          color: Colors.yellowAccent[400],
+                                          size: 35,
+                                        ),
+                                        const SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Locker",
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: isbday
+                                                      ? Colors.white
+                                                      : null),
+                                            ),
+                                            Text(
+                                              snapshot.data!.locker,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: isbday
+                                                    ? Colors.grey[100]
+                                                    : Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          CustomIcons.id_badge,
+                                          color: Colors.pinkAccent[400],
+                                          size: 35,
+                                        ),
+                                        const SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Student ID",
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: isbday
+                                                      ? Colors.white
+                                                      : null),
+                                            ),
+                                            Text(
+                                              snapshot.data!.id,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: isbday
+                                                    ? Colors.grey[100]
+                                                    : Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.flag,
+                                          color: Colors.lightGreen[400],
+                                          size: 35,
+                                        ),
+                                        const SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "State ID",
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: isbday
+                                                      ? Colors.white
+                                                      : null),
+                                            ),
+                                            Text(
+                                              snapshot.data!.state_id,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: isbday
+                                                    ? Colors.grey[100]
+                                                    : Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 20.0,
+                                    // ),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.start,
+                                    //   children: [
+                                    //     const Icon(
+                                    //       Icons.cake,
+                                    //       color: Colors.orangeAccent,
+                                    //       size: 35,
+                                    //     ),
+                                    //     const SizedBox(
+                                    //       width: 20.0,
+                                    //     ),
+                                    //     Column(
+                                    //       crossAxisAlignment:
+                                    //           CrossAxisAlignment.start,
+                                    //       children: [
+                                    //         const Text(
+                                    //           "Birthday",
+                                    //           style: TextStyle(
+                                    //             fontSize: 15.0,
+                                    //           ),
+                                    //         ),
+                                    //         Text(
+                                    //           snapshot.data!.birthday,
+                                    //           style: TextStyle(
+                                    //             fontSize: 12.0,
+                                    //             color: Colors.grey[400],
+                                    //           ),
+                                    //         )
+                                    //       ],
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          Icons.calendar_month,
+                                          color: Colors.purple,
+                                          size: 35,
+                                        ),
+                                        const SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Schedule Link",
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: isbday
+                                                      ? Colors.white
+                                                      : null),
+                                            ),
+                                            InkWell(
+                                              child: Text(
+                                                "click me",
+                                                style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: isbday
+                                                      ? Colors.grey[100]
+                                                      : Colors.grey[400],
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                _launchUrl(snapshot
+                                                    .data!.schedule_link);
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          )))),
-            )
+                              )))),
+                ))
           ]);
           if (snapshot.data!.name == "N/A" &&
               snapshot.data!.counselor_name == "N/A") {
@@ -349,7 +389,11 @@ class Courses extends State<StudentPage> {
               ]));
         }
         return Scaffold(
-            bottomNavigationBar: const Navbar(selectedIndex: 1), body: child);
+            bottomNavigationBar: Navbar(
+              selectedIndex: 1,
+              isBday: _isbday,
+            ),
+            body: child);
       },
     );
   }
