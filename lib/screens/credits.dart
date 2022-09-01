@@ -54,6 +54,9 @@ class CreditsPageState extends State<CreditsPage> {
                             ListTile(
                                 title: Text(
                                     "Etassh became my first beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
+                            ListTile(
+                              title: Text("Very cool dude 😎"),
+                            ),
                           ]),
                       QAItem(
                           title: Text(
