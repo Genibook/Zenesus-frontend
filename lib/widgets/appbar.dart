@@ -90,7 +90,7 @@ class StudentAppBarState extends State<StudentAppBar> {
           ? InkWell(
               child: Stack(children: [
                 const Text(
-                  "HBday!! 🎉🎉",
+                  "HBday!! 🎉🥚",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
