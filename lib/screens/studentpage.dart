@@ -55,7 +55,7 @@ class Courses extends State<StudentPage> {
         Widget child;
         if (snapshot.hasData) {
           bool isbday = isBday(snapshot.data!.birthday);
-          writeBday(isbday);
+          writeBday(false);
           child = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             StudentAppBar(
                 bday: snapshot.data!.birthday, name: snapshot.data!.name),

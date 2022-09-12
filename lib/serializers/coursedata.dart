@@ -4,25 +4,6 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 
-class CoursesDatas {
-  final List<List<CoursesData>> datas;
-
-  const CoursesDatas({required this.datas});
-
-  factory CoursesDatas.fromJson(Map<String, dynamic> json) {
-    List<CoursesData> items = [];
-    List<List<CoursesData>> allItems = [];
-    for (dynamic datas in json.values) {
-      for (dynamic data in datas) {
-        items.add(CoursesData.fromJson(data));
-      }
-      allItems.add(items);
-      items = [];
-    }
-    return CoursesDatas(datas: allItems);
-  }
-}
-
 class CoursesData {
   final String mp;
   final String dayname;
@@ -88,6 +69,25 @@ class CoursesData {
   }
 }
 
+class CoursesDatas {
+  final List<List<CoursesData>> datas;
+
+  const CoursesDatas({required this.datas});
+
+  factory CoursesDatas.fromJson(Map<String, dynamic> json) {
+    List<CoursesData> items = [];
+    List<List<CoursesData>> allItems = [];
+    for (dynamic datas in json.values) {
+      for (dynamic data in datas) {
+        items.add(CoursesData.fromJson(data));
+      }
+      allItems.add(items);
+      items = [];
+    }
+    return CoursesDatas(datas: allItems);
+  }
+}
+
 Future<CoursesDatas> createCoursesDatas(
     String email, String password, String school, String mp) async {
   int numm = await numInCookies();
@@ -109,7 +109,7 @@ Future<CoursesDatas> createCoursesDatas(
       throw Exception('Error');
     }
   } catch (e) {
-    //print(e);
+    print(e);
     return CoursesDatas.fromJson({
       '1': [
         {

@@ -97,6 +97,7 @@ class CourseDatasState extends State<CourseDatasPage> {
                           List<double> percentChange =
                               getChangeBecauseOfGradePercent(allData,
                                   courseAssignments[index].course_name, index);
+
                           Navigator.of(context)
                               .push(HeroDialogRoute(builder: (context) {
                             return GradePopupCard(
@@ -131,7 +132,7 @@ class CourseDatasState extends State<CourseDatasPage> {
               }
             }
           } catch (e) {
-            //print(e);
+            print(e);
             child = Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

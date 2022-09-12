@@ -3,6 +3,42 @@ import 'package:zenesus/utils/courses_utils.dart';
 import 'package:flutter/material.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
+void PrintData(List<CoursesData> data) {
+  int idxx = 0;
+
+  for (CoursesData subdata in data) {
+    print("~~~~");
+    print(subdata.course_name);
+    print(subdata.assignment);
+    print("~~~~");
+
+    print(idxx);
+    print("~~~~");
+    idxx++;
+  }
+}
+
+void PrintDatas(List<List<CoursesData>> datas) {
+  int idx = 0;
+  int idxx = 0;
+
+  for (List<CoursesData> data in datas) {
+    print("^^^");
+    print(idx);
+    print("^^^");
+    idx++;
+    for (CoursesData subdata in data) {
+      print("~~~~");
+      print(subdata.course_name);
+      print(subdata.assignment);
+      print("~~~~");
+
+      print(idxx);
+      print("~~~~");
+      idxx++;
+    }
+  }
+}
 
 double getAvgofList(List<double> list) {
   // if change is 0, grey, if change is +, green, if change is -, red
@@ -21,11 +57,21 @@ double getAvgofList(List<double> list) {
 List<double> getChangeBecauseOfGradePercent(
     List<List<CoursesData>> allData, String courseName, int index) {
   List<double> allcoursegrades = [];
+
+  //Print(allData);
   if (allData[0].isEmpty) {
     // print("returned 0");
     return [0.0, 0.0, 0.0];
   }
   for (int i = 0; i < allData.length; i++) {
+    if (allData[i].isEmpty) {
+      continue;
+    }
+
+    // print("----");
+    // print(allData[i][0].course_name);
+    // print("----");
+
     if (allData[i][0].course_name == courseName) {
       //first index (0) is always the most recent grade/assignment graded
       for (CoursesData courseData in allData[i]) {
@@ -59,9 +105,11 @@ int getLength(List<List<CoursesData>> allData, String courseName) {
     return 0;
   }
   for (List<CoursesData> courseWork in allData) {
-    if (courseWork[0].course_name == courseName) {
-      // print("found it!");
-      return courseWork.length;
+    if (courseWork.isNotEmpty) {
+      if (courseWork[0].course_name == courseName) {
+        // print("found it!");
+        return courseWork.length;
+      }
     }
   }
   // print("weird...");
@@ -94,8 +142,10 @@ List<CoursesData> getCourse(
     ];
   }
   for (List<CoursesData> courseWork in allData) {
-    if (courseWork[0].course_name == courseName) {
-      return courseWork;
+    if (courseWork.isNotEmpty) {
+      if (courseWork[0].course_name == courseName) {
+        return courseWork;
+      }
     }
   }
   return [
