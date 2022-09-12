@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import "package:zenesus/utils/base64.dart";
 
 class Student {
   // ignore: non_constant_identifier_names
@@ -19,6 +20,7 @@ class Student {
   final String age;
   // ignore: non_constant_identifier_names
   final String counselor_name;
+  final String image64;
 
   const Student(
       // ignore: non_constant_identifier_names
@@ -34,7 +36,8 @@ class Student {
       required this.locker,
       required this.name,
       // ignore: non_constant_identifier_names
-      required this.schedule_link});
+      required this.schedule_link,
+      required this.image64});
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
@@ -47,7 +50,8 @@ class Student {
         counselor_name: json['counselor_name'],
         locker: json['locker'],
         grade: json["grade"],
-        name: json['name']);
+        name: json['name'],
+        image64: json['image64']);
   }
 }
 
@@ -81,7 +85,8 @@ Future<Student> createStudent(
         grade: "10",
         locker: "123 123-123-123",
         counselor_name: "N/A",
-        id: "107600");
+        id: "107600",
+        image64: "N/A");
   }
 }
 
@@ -97,5 +102,6 @@ Future<Student> modelStudent() async {
       grade: "10",
       locker: "123 123-123-123",
       counselor_name: "Mathew Pogue",
-      id: "107600");
+      id: "107600",
+      image64: "N/A");
 }

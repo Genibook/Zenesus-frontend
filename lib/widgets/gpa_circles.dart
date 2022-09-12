@@ -49,10 +49,12 @@ Widget unweightedCircle(BuildContext context, dynamic snapshot) {
                   const Text("Unweighted GPA",
                       textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                   Text("${roundDouble(averages[0], 2)}%",
                       style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold))
+                          fontSize: 30, fontWeight: FontWeight.bold)),
+                  const Text("tap me to change modes",
+                      style: TextStyle(fontSize: 8))
                 ])),
           ),
         )
@@ -110,7 +112,9 @@ Widget weightedCircle(BuildContext context, dynamic snapshot) {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   Text("${roundDouble(averages[1], 2)}%",
                       style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold))
+                          fontSize: 30, fontWeight: FontWeight.bold)),
+                  const Text("tap me to change modes",
+                      style: TextStyle(fontSize: 8))
                 ])),
           ),
         )

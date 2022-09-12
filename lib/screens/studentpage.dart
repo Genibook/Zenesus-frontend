@@ -70,6 +70,7 @@ class Courses extends State<StudentPage> {
                   ),
                   child: Column(children: [
                     const Spacer(),
+                    //TODO finish this custom circle avatar to show stacks and stf
                     CircleAvatar(
                       radius: 65.0,
                       backgroundImage: isbday

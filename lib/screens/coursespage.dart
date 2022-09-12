@@ -117,25 +117,22 @@ class GradePageState extends State<CoursesPage> {
           final ValueNotifier<Widget> gpaCircle =
               ValueNotifier<Widget>(weightedCircle(context, snapshot));
           int gpaCircleNum = 0;
-          child = Tooltip(
-              message: "Tap me to change modes",
-              child: InkWell(
-                onTap: () {
-                  if (gpaCircleNum == 0) {
-                    gpaCircle.value = unweightedCircle(context, snapshot);
-                    gpaCircleNum = 1;
-                  } else {
-                    gpaCircle.value = weightedCircle(context, snapshot);
-                    gpaCircleNum = 0;
-                  }
-                },
-                child: ValueListenableBuilder<Widget>(
-                    valueListenable: gpaCircle,
-                    builder:
-                        (BuildContext context, Widget value, Widget? child) {
-                      return value;
-                    }),
-              ));
+          child = InkWell(
+            onTap: () {
+              if (gpaCircleNum == 0) {
+                gpaCircle.value = unweightedCircle(context, snapshot);
+                gpaCircleNum = 1;
+              } else {
+                gpaCircle.value = weightedCircle(context, snapshot);
+                gpaCircleNum = 0;
+              }
+            },
+            child: ValueListenableBuilder<Widget>(
+                valueListenable: gpaCircle,
+                builder: (BuildContext context, Widget value, Widget? child) {
+                  return value;
+                }),
+          );
         } else if (snapshot.hasError) {
           child = Center(
               child: Column(
