@@ -297,7 +297,7 @@ class GradePageState extends State<CoursesPage> {
         return Scaffold(
           body: child,
           bottomNavigationBar: const Navbar(
-            selectedIndex: 0,
+            selectedIndex: 1,
           ),
         );
       },

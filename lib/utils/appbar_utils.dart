@@ -16,8 +16,8 @@ bool isBday(String bday) {
   }
 
   final bdayDay = DateTime.utc(2020, month.toInt(), day.toInt());
-  //final currentlyNow = DateTime.utc(2020, now.month, now.day);
-  final currentlyNow = DateTime.utc(2020, 7, 6);
+  final currentlyNow = DateTime.utc(2020, now.month, now.day);
+  //final currentlyNow = DateTime.utc(2020, 7, 6);
   bool isBday = bdayDay.isAtSameMomentAs(currentlyNow);
   return isBday;
 }

@@ -392,7 +392,7 @@ class Courses extends State<StudentPage> {
         }
         return Scaffold(
             bottomNavigationBar: const Navbar(
-              selectedIndex: 1,
+              selectedIndex: 0,
             ),
             body: child);
       },

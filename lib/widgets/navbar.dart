@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/screens/studentpage.dart';
+import 'package:zenesus/screens/schedule.dart';
 
 class Navbar extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -40,7 +41,7 @@ class NavBarState extends State<Navbar> {
     password = things[1];
     school = things[2];
 
-    if (index == 0) {
+    if (index == 1) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -51,7 +52,7 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
-    } else if (index == 1) {
+    } else if (index == 0) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -62,6 +63,12 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
+    } else if (index == 2) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Schedule()),
+      );
     }
   }
 
@@ -70,12 +77,16 @@ class NavBarState extends State<Navbar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.text_increase),
           label: 'Grades',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+          icon: Icon(Icons.schedule),
+          label: 'Schedule',
         ),
       ],
       currentIndex: _selectedIndex,

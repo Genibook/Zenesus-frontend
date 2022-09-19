@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:zenesus/widgets/navbar.dart';
 
-class Calender extends StatefulWidget {
+class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
-  const Calender({Key? key}) : super(key: key);
+  const Schedule({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
   _Calender createState() => _Calender();
 }
 
-class _Calender extends State<Calender> {
+class _Calender extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: const Navbar(
+          selectedIndex: 2,
+        ),
         body: SfCalendar(
-      view: CalendarView.month,
-      dataSource: MeetingDataSource(_getDataSource()),
-      // by default the month appointment display mode set as Indicator, we can
-      // change the display mode as appointment using the appointment display
-      // mode property
-      monthViewSettings: const MonthViewSettings(
-          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-    ));
+          view: CalendarView.month,
+          dataSource: MeetingDataSource(_getDataSource()),
+          // by default the month appointment display mode set as Indicator, we can
+          // change the display mode as appointment using the appointment display
+          // mode property
+          monthViewSettings: const MonthViewSettings(
+              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+        ));
   }
 
   List<Meeting> _getDataSource() {
