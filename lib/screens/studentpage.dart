@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenesus/utils/base64.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/widgets/appbar.dart';
 import 'package:zenesus/serializers/student.dart';
@@ -70,15 +71,21 @@ class Courses extends State<StudentPage> {
                   ),
                   child: Column(children: [
                     const Spacer(),
-                    //TODO finish this custom circle avatar to show stacks and stf
-                    CircleAvatar(
-                      radius: 65.0,
-                      backgroundImage: isbday
-                          ? const AssetImage("assets/user_bday.png")
-                          : const AssetImage("assets/user.png"),
-                      // NetworkImage()//snapshot.data!.image_url
-                      backgroundColor: isbday ? Colors.grey[200] : Colors.white,
-                    ),
+                    isbday
+                        ? CircleAvatar(
+                            radius: 65.0,
+                            backgroundImage: createImageFromImage64(snapshot),
+                            // NetworkImage()//snapshot.data!.image_url
+                            backgroundColor:
+                                isbday ? Colors.grey[200] : Colors.white,
+                          )
+                        : CircleAvatar(
+                            radius: 65.0,
+                            backgroundImage: createImageFromImage64(snapshot),
+                            // NetworkImage()//snapshot.data!.image_url
+                            backgroundColor:
+                                isbday ? Colors.grey[200] : Colors.white,
+                          ),
                     const Spacer(),
                     Text(snapshot.data!.name,
                         style: const TextStyle(
