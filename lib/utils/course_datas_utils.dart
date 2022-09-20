@@ -261,13 +261,13 @@ class GradePopupCard extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "Comment: ${course.comment}",
+                          "${course.description}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         Text(
-                          "Description: ${course.description}",
+                          "${course.comment}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),

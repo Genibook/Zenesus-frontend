@@ -67,7 +67,12 @@ class NavBarState extends State<Navbar> {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Schedule()),
+        MaterialPageRoute(
+            builder: (context) => Schedule(
+                  email: email,
+                  password: password,
+                  school: school,
+                )),
       );
     }
   }

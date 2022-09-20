@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:zenesus/widgets/navbar.dart';
+import 'package:zenesus/serializers/schedules.dart';
 
 class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
-  const Schedule({Key? key}) : super(key: key);
+  const Schedule({
+    Key? key,
+    required this.email,
+    required this.password,
+    required this.school,
+  }) : super(key: key);
+  final String email;
+  final String password;
+  final String school;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -12,21 +21,13 @@ class Schedule extends StatefulWidget {
 }
 
 class _Calender extends State<Schedule> {
+  Future<ScheduleCoursesDatas>? _futureScheduleCoursesData;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: const Navbar(
-          selectedIndex: 2,
-        ),
-        body: SfCalendar(
-          view: CalendarView.month,
-          dataSource: MeetingDataSource(_getDataSource()),
-          // by default the month appointment display mode set as Indicator, we can
-          // change the display mode as appointment using the appointment display
-          // mode property
-          monthViewSettings: const MonthViewSettings(
-              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-        ));
+    _futureScheduleCoursesData = createScheduleCoursesDatas(
+        widget.email, widget.password, widget.school);
+    return buildScheduleCoursesDatabuilder();
   }
 
   List<Meeting> _getDataSource() {
@@ -37,6 +38,84 @@ class _Calender extends State<Schedule> {
     meetings.add(Meeting(
         'Conference', startTime, endTime, const Color(0xFF0F8644), false));
     return meetings;
+  }
+
+  FutureBuilder<ScheduleCoursesDatas> buildScheduleCoursesDatabuilder() {
+    return FutureBuilder(
+        future: _futureScheduleCoursesData,
+        builder: (context, snapshot) {
+          Widget child;
+          if (snapshot.hasData) {
+            try {
+              child = SfCalendar(
+                view: CalendarView.month,
+                dataSource: MeetingDataSource(_getDataSource()),
+                // by default the month appointment display mode set as Indicator, we can
+                // change the display mode as appointment using the appointment display
+                // mode property
+                monthViewSettings: const MonthViewSettings(
+                    appointmentDisplayMode:
+                        MonthAppointmentDisplayMode.appointment),
+              );
+            } catch (e) {
+              print(e);
+              child = Center(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                    Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child:
+                          Text('Someone went wrong  - please refresh the app'),
+                    )
+                  ]));
+            }
+          } else if (snapshot.hasError) {
+            child = Center(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text('Error: ${snapshot.error}'),
+                  )
+                ]));
+          } else {
+            child = Center(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: CircularProgressIndicator(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Fetching your information...'),
+                  )
+                ]));
+          }
+          return Scaffold(
+            body: child,
+            bottomNavigationBar: const Navbar(
+              selectedIndex: 2,
+            ),
+          );
+        });
   }
 }
 
