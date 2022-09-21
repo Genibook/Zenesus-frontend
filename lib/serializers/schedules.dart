@@ -37,6 +37,15 @@ class ScheduleCoursesDatas {
 
   const ScheduleCoursesDatas({required this.datas});
 
+  int schedulesLength() {
+    return datas.length;
+  }
+
+  int oneScheduleLength(int index) {
+    List<ScheduleCoursesData> data = datas[index];
+    return data.length;
+  }
+
   factory ScheduleCoursesDatas.fromJson(Map<String, dynamic> json) {
     List<ScheduleCoursesData> items = [];
     List<List<ScheduleCoursesData>> allItems = [];
@@ -56,7 +65,7 @@ Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
   int numm = await numInCookies();
   try {
     final response = await http.post(
-      Uri.parse('${Constants.url}/api/courseinfos'),
+      Uri.parse('${Constants.url}/api/monthSchedule'),
       body: json.encode({
         'email': email,
         "password": password,

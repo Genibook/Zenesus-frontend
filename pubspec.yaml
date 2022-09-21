@@ -29,6 +29,7 @@ environment:
 dependencies:
   confetti: ^0.7.0
   http: ^0.13.4
+  intl: ^0.17.0
   vibration: ^1.7.5
   convert: 3.0.2
   flutter:

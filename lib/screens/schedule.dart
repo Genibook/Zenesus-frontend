@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:zenesus/serializers/schedules.dart';
+import 'package:zenesus/screens/error.dart';
 
 class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
@@ -21,7 +23,10 @@ class Schedule extends StatefulWidget {
 }
 
 class _Calender extends State<Schedule> {
+  CalendarController _calendarController = CalendarController();
   Future<ScheduleCoursesDatas>? _futureScheduleCoursesData;
+  String? _subjectText, _points, _assignment, _date = '';
+  Color? _viewHeaderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +35,87 @@ class _Calender extends State<Schedule> {
     return buildScheduleCoursesDatabuilder();
   }
 
-  List<Meeting> _getDataSource() {
+  List<Meeting> _getDataSource(AsyncSnapshot<ScheduleCoursesDatas> snapshot) {
     final List<Meeting> meetings = <Meeting>[];
+    List<CalendarResource> resources = <CalendarResource>[];
     final DateTime today = DateTime.now();
-    final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(Meeting(
-        'Conference', startTime, endTime, const Color(0xFF0F8644), false));
+    for (int i = 0; i < snapshot.data!.schedulesLength(); i++) {
+      for (int j = 0; j < snapshot.data!.oneScheduleLength(i); j++) {
+        ScheduleCoursesData oneSchedule = snapshot.data!.datas[i][j];
+        final DateTime startTime = DateTime(
+            today.year,
+            int.parse(oneSchedule.date.split("/")[0]),
+            int.parse(oneSchedule.date.split("/")[1]));
+        final DateTime endTime = startTime.add(const Duration(hours: 2));
+
+        meetings.add(Meeting(
+            oneSchedule.courseName,
+            startTime,
+            endTime,
+            const Color(0xFF0F8644),
+            true,
+            "Points: ${oneSchedule.points}|||||${oneSchedule.assignment}"));
+      }
+    }
+    // final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
+    // final DateTime endTime = startTime.add(const Duration(hours: 2));
+    // meetings.add(Meeting(
+    //     'Conference', startTime, endTime, const Color(0xFF0F8644), true));
     return meetings;
+  }
+
+  void calendarTapped(CalendarTapDetails details) {
+    if (details.targetElement == CalendarElement.appointment ||
+        details.targetElement == CalendarElement.agenda) {
+      final Meeting appointmentDetails = details.appointments![0];
+      _subjectText = appointmentDetails.eventName;
+      _assignment = appointmentDetails.notes.split("|||||")[1];
+      _points = appointmentDetails.notes.split("|||||")[0];
+      _date = DateFormat('MMMM dd, yyyy')
+          .format(appointmentDetails.from)
+          .toString();
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: SizedBox(child: Text('$_subjectText')),
+              content: SizedBox(
+                height: 150,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Assignment: $_assignment\nDate: $_date',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 17,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Row(
+                      children: const <Widget>[
+                        Text(''),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("$_points",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 15)),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('close'))
+              ],
+            );
+          });
+    }
   }
 
   FutureBuilder<ScheduleCoursesDatas> buildScheduleCoursesDatabuilder() {
@@ -47,16 +125,51 @@ class _Calender extends State<Schedule> {
           Widget child;
           if (snapshot.hasData) {
             try {
-              child = SfCalendar(
-                view: CalendarView.month,
-                dataSource: MeetingDataSource(_getDataSource()),
-                // by default the month appointment display mode set as Indicator, we can
-                // change the display mode as appointment using the appointment display
-                // mode property
-                monthViewSettings: const MonthViewSettings(
-                    appointmentDisplayMode:
-                        MonthAppointmentDisplayMode.appointment),
+              MeetingDataSource datasource =
+                  MeetingDataSource(_getDataSource(snapshot));
+              child = Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  Expanded(
+                    flex: 15,
+                    child: SfCalendar(
+                      controller: _calendarController,
+                      onTap: calendarTapped,
+                      view: CalendarView.month,
+                      allowedViews: const [
+                        CalendarView.week,
+                        CalendarView.month,
+                      ],
+                      dataSource: datasource,
+                      viewHeaderStyle:
+                          ViewHeaderStyle(backgroundColor: _viewHeaderColor),
+                      // by default the month appointment display mode set as Indicator, we can
+                      // change the display mode as appointment using the appointment display
+                      // mode property
+                      monthViewSettings: const MonthViewSettings(
+                          appointmentDisplayMode:
+                              MonthAppointmentDisplayMode.appointment),
+                    ),
+                  )
+                ],
               );
+              try {
+                if (snapshot.data!.datas[0][0].courseName == "N/A" &&
+                    snapshot.data!.datas[0][0].date == "N/A") {
+                  child = Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Center(child: createErrorPage(context))]);
+                }
+              } catch (e) {
+                //print(e);
+                if (snapshot.data!.datas[0].isEmpty) {
+                  child = Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Center(child: createErrorPage(context))]);
+                }
+              }
             } catch (e) {
               print(e);
               child = Center(
@@ -125,6 +238,7 @@ class _Calender extends State<Schedule> {
 class MeetingDataSource extends CalendarDataSource {
   /// Creates a meeting data source, which used to set the appointment
   /// collection to the calendar
+
   MeetingDataSource(List<Meeting> source) {
     appointments = source;
   }
@@ -154,6 +268,11 @@ class MeetingDataSource extends CalendarDataSource {
     return _getMeetingData(index).isAllDay;
   }
 
+  @override
+  String getNotes(int index) {
+    return _getMeetingData(index).notes;
+  }
+
   Meeting _getMeetingData(int index) {
     final dynamic meeting = appointments![index];
     late final Meeting meetingData;
@@ -169,7 +288,10 @@ class MeetingDataSource extends CalendarDataSource {
 /// information about the event data which will be rendered in calendar.
 class Meeting {
   /// Creates a meeting class with required details.
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay,
+      this.notes);
+
+  String notes;
 
   /// Event name which is equivalent to subject property of [Appointment].
   String eventName;
