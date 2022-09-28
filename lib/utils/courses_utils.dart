@@ -50,6 +50,8 @@ MaterialColor getColorFromGrade(dynamic grade) {
         return Colors.deepOrange;
       } else if (50 > grade && grade != 0.0) {
         return Colors.red;
+      } else if (grade == -1) {
+        return Colors.red;
       } else {
         return Colors.blue;
       }
@@ -68,6 +70,8 @@ MaterialColor getColorFromGrade(dynamic grade) {
     } else if ((60 > grade) && (grade >= 50)) {
       return Colors.deepOrange;
     } else if (50 > grade && grade != 0.0) {
+      return Colors.red;
+    } else if (grade == -1) {
       return Colors.red;
     } else {
       return Colors.blue;

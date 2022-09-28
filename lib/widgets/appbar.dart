@@ -76,6 +76,17 @@ class StudentAppBarState extends State<StudentAppBar> {
     super.dispose();
   }
 
+  void showStudents(Student_Name_and_ID futureNameandID) {
+    showDialog<Student_Name_and_ID>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+              backgroundColor: _isbday ? Colors.amberAccent[400] : null,
+              title: const Text('Select Student'),
+              children: createChildren(context, futureNameandID));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -134,13 +145,13 @@ class StudentAppBarState extends State<StudentAppBar> {
             ),
       actions: <Widget>[
         Tooltip(
-          message: "Change User",
+          message: "Settings",
           child: _ispressed
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [Text("Loading...")])
               : IconButton(
-                  icon: const Icon(Icons.person, color: Colors.white),
+                  icon: const Icon(Icons.settings, color: Colors.white),
                   onPressed: () async {
                     setState(() {
                       _ispressed = true;
@@ -155,16 +166,63 @@ class StudentAppBarState extends State<StudentAppBar> {
                         await createStudent_name_and_ID(
                             email, password, school);
 
-                    showDialog<Student_Name_and_ID>(
+                    showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SimpleDialog(
-                              backgroundColor:
-                                  _isbday ? Colors.amberAccent[400] : null,
-                              title: const Text('Select Student'),
-                              children:
-                                  createChildren(context, futureNameandID));
+                          return AlertDialog(
+                            content: Container(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          ListTile(
+                                            title: const Text("Change Student"),
+                                            trailing: IconButton(
+                                              icon: const Icon(
+                                                Icons.person,
+                                              ),
+                                              onPressed: () =>
+                                                  showStudents(futureNameandID),
+                                            ),
+                                            onTap: () {
+                                              showStudents(futureNameandID);
+                                            },
+                                          ),
+                                          const Divider(),
+                                          ListTile(
+                                              title: const Text("Logout"),
+                                              trailing: IconButton(
+                                                icon: const Icon(
+                                                  Icons.exit_to_app,
+                                                ),
+                                                onPressed: () {
+                                                  logout();
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const FirstScreen()),
+                                                  );
+                                                },
+                                              ),
+                                              onTap: () {
+                                                logout();
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const FirstScreen()),
+                                                );
+                                              }),
+                                        ]))),
+                          );
                         });
+
                     setState(() {
                       _ispressed = false;
                     });
@@ -185,21 +243,6 @@ class StudentAppBarState extends State<StudentAppBar> {
             },
           ),
         ),
-        Tooltip(
-            message: 'Log out',
-            child: IconButton(
-              icon: const Icon(
-                Icons.exit_to_app,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                logout();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                );
-              },
-            )),
       ],
     );
   }

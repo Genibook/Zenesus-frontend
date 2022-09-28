@@ -24,7 +24,7 @@ Future<void> main() async {
   if (UniversalPlatform.isWindows ||
       UniversalPlatform.isLinux ||
       UniversalPlatform.isMacOS) {
-    setWindowMinSize(const Size(400, 800));
+    setWindowMinSize(const Size(300, 600));
     setWindowMaxSize(Size.infinite);
   }
 

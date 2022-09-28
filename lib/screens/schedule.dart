@@ -67,12 +67,16 @@ class _Calender extends State<Schedule> {
 
   List<Widget> genLongPressed(List<Meeting> meetings) {
     List<Widget> widgets = [];
+
     for (Meeting meeting in meetings) {
       Widget widget = ListTile(
         enabled: true,
         selected: false,
         title: Text(meeting.eventName),
-        tileColor: const Color.fromRGBO(100, 100, 100, 0.7),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.blue, width: 1),
+          borderRadius: BorderRadius.circular(15),
+        ),
         trailing: Text(meeting.notes.split("|||||")[0]),
         subtitle: Text(meeting.notes.split("|||||")[1]),
       );
@@ -137,6 +141,9 @@ class _Calender extends State<Schedule> {
     } else if (details.targetElement == CalendarElement.calendarCell) {
       final List<Meeting> appointmentDetails =
           details.appointments!.cast<Meeting>();
+      if (appointmentDetails.isEmpty) {
+        return;
+      }
       final Meeting oneAss = details.appointments![0];
       showDialog(
           context: context,
