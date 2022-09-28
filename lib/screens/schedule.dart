@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:zenesus/serializers/schedules.dart';
 import 'package:zenesus/screens/error.dart';
+import 'dart:math' as math;
 
 class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
@@ -52,7 +53,7 @@ class _Calender extends State<Schedule> {
             oneSchedule.courseName,
             startTime,
             endTime,
-            const Color(0xFF0F8644),
+            Colors.primaries[math.Random().nextInt(Colors.primaries.length)],
             true,
             "Points: ${oneSchedule.points}|||||${oneSchedule.assignment}"));
       }
@@ -62,6 +63,24 @@ class _Calender extends State<Schedule> {
     // meetings.add(Meeting(
     //     'Conference', startTime, endTime, const Color(0xFF0F8644), true));
     return meetings;
+  }
+
+  List<Widget> genLongPressed(List<Meeting> meetings) {
+    List<Widget> widgets = [];
+    for (Meeting meeting in meetings) {
+      Widget widget = ListTile(
+        enabled: true,
+        selected: false,
+        title: Text(meeting.eventName),
+        tileColor: const Color.fromRGBO(100, 100, 100, 0.7),
+        trailing: Text(meeting.notes.split("|||||")[0]),
+        subtitle: Text(meeting.notes.split("|||||")[1]),
+      );
+
+      widgets.add(widget);
+    }
+
+    return widgets;
   }
 
   void calendarTapped(CalendarTapDetails details) {
@@ -106,6 +125,36 @@ class _Calender extends State<Schedule> {
                   ],
                 ),
               ),
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('close'))
+              ],
+            );
+          });
+    } else if (details.targetElement == CalendarElement.calendarCell) {
+      final List<Meeting> appointmentDetails =
+          details.appointments!.cast<Meeting>();
+      final Meeting oneAss = details.appointments![0];
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: SizedBox(
+                  child: Text(
+                      'Assignments due on ${DateFormat('MMMM dd, yyyy').format(oneAss.from).toString()}')),
+              // ignore: avoid_unnecessary_containers
+              content: Container(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: genLongPressed(appointmentDetails),
+                      ))),
               actions: <Widget>[
                 ElevatedButton(
                     onPressed: () {
