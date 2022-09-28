@@ -26,7 +26,7 @@ class Schedule extends StatefulWidget {
 class _Calender extends State<Schedule> {
   CalendarController _calendarController = CalendarController();
   Future<ScheduleCoursesDatas>? _futureScheduleCoursesData;
-  String? _subjectText, _points, _assignment, _date = '';
+  String? _subjectText, _points, _assignment, _date, _description = '';
   Color? _viewHeaderColor;
 
   @override
@@ -43,6 +43,9 @@ class _Calender extends State<Schedule> {
     for (int i = 0; i < snapshot.data!.schedulesLength(); i++) {
       for (int j = 0; j < snapshot.data!.oneScheduleLength(i); j++) {
         ScheduleCoursesData oneSchedule = snapshot.data!.datas[i][j];
+        if (oneSchedule.date == "") {
+          continue;
+        }
         final DateTime startTime = DateTime(
             today.year,
             int.parse(oneSchedule.date.split("/")[0]),
@@ -55,7 +58,7 @@ class _Calender extends State<Schedule> {
             endTime,
             Colors.primaries[math.Random().nextInt(Colors.primaries.length)],
             true,
-            "Points: ${oneSchedule.points}|||||${oneSchedule.assignment}"));
+            "Points: ${oneSchedule.points}|||||${oneSchedule.assignment}|||||${oneSchedule.description}"));
       }
     }
     // final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
@@ -94,6 +97,7 @@ class _Calender extends State<Schedule> {
       _subjectText = appointmentDetails.eventName;
       _assignment = appointmentDetails.notes.split("|||||")[1];
       _points = appointmentDetails.notes.split("|||||")[0];
+      _description = appointmentDetails.notes.split("|||||")[2];
       _date = DateFormat('MMMM dd, yyyy')
           .format(appointmentDetails.from)
           .toString();
@@ -101,33 +105,42 @@ class _Calender extends State<Schedule> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: SizedBox(child: Text('$_subjectText')),
-              content: SizedBox(
-                height: 150,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Assignment: $_assignment\nDate: $_date',
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '$_subjectText',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Divider(),
+                  Text(
+                    'Assignment: $_assignment',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 17,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Divider(),
+                  Text(
+                    "Date: $_date",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 17,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Divider(),
+                  Text("$_points",
                       style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 17,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    Row(
-                      children: const <Widget>[
-                        Text(''),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text("$_points",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 15)),
-                      ],
-                    )
-                  ],
-                ),
+                          fontWeight: FontWeight.w400, fontSize: 15)),
+                  const Divider(),
+                  Text("$_description",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 13))
+                ],
               ),
               actions: <Widget>[
                 ElevatedButton(

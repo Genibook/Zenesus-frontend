@@ -8,6 +8,8 @@ import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zenesus/utils/appbar_utils.dart';
+import 'package:zenesus/utils/confetti.dart';
+import 'package:confetti/confetti.dart';
 
 Future<void> _launchUrl(String url) async {
   if (!await launchUrl(Uri.parse(url))) {
@@ -32,10 +34,19 @@ class StudentPage extends StatefulWidget {
 
 class Courses extends State<StudentPage> {
   Future<Student>? _futureStudent;
+  int _hoverCounts = 0;
+  late ConfettiController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = ConfettiController(duration: const Duration(seconds: 16));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -69,31 +80,71 @@ class Courses extends State<StudentPage> {
                       colors: [Colors.blue[800]!, Colors.blueAccent],
                     ),
                   ),
-                  child: Column(children: [
-                    const Spacer(),
-                    isbday
-                        ? CircleAvatar(
-                            radius: 65.0,
-                            backgroundImage: createImageFromImage64(snapshot),
-                            // NetworkImage()//snapshot.data!.image_url
-                            backgroundColor:
-                                isbday ? Colors.grey[200] : Colors.white,
-                          )
-                        : CircleAvatar(
-                            radius: 65.0,
-                            backgroundImage: createImageFromImage64(snapshot),
-                            // NetworkImage()//snapshot.data!.image_url
-                            backgroundColor:
-                                isbday ? Colors.grey[200] : Colors.white,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        isbday
+                            ? CircleAvatar(
+                                radius: 65.0,
+                                backgroundImage:
+                                    createImageFromImage64(snapshot),
+                                // NetworkImage()//snapshot.data!.image_url
+                                backgroundColor:
+                                    isbday ? Colors.grey[200] : Colors.white,
+                              )
+                            : MouseRegion(
+                                onEnter: (event) {
+                                  _hoverCounts++;
+                                  print(_hoverCounts);
+                                  if (_hoverCounts == 20) {
+                                    _controller.play();
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const AlertDialog(
+                                            title: Text(
+                                                "Congratulations! You found an easter egg!"),
+                                          );
+                                        });
+                                  }
+                                },
+                                child: CircleAvatar(
+                                  radius: 65.0,
+                                  backgroundImage:
+                                      createImageFromImage64(snapshot),
+                                  // NetworkImage()//snapshot.data!.image_url
+                                  backgroundColor:
+                                      isbday ? Colors.grey[200] : Colors.white,
+                                ),
+                              ),
+                        const Spacer(),
+                        Text(snapshot.data!.name,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w800)),
+                        const Spacer(),
+                        Align(
+                          alignment: Alignment.center,
+                          child: ConfettiWidget(
+                            confettiController: _controller,
+                            blastDirectionality: BlastDirectionality
+                                .explosive, // don't specify a direction, blast randomly
+                            shouldLoop:
+                                false, // start again as soon as the animation is finished
+                            colors: const [
+                              Colors.green,
+                              Colors.blue,
+                              Colors.pink,
+                              Colors.orange,
+                              Colors.purple
+                            ], // manually specify the colors to be used
+                            createParticlePath:
+                                drawStar, // define a custom shape/path.
                           ),
-                    const Spacer(),
-                    Text(snapshot.data!.name,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w800)),
-                    const Spacer(),
-                  ])),
+                        )
+                      ])),
             ),
             Expanded(
                 flex: 5,

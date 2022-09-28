@@ -170,6 +170,8 @@ class StudentAppBarState extends State<StudentAppBar> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            backgroundColor:
+                                _isbday ? Colors.amberAccent[400] : null,
                             content: Container(
                                 child: Padding(
                                     padding: const EdgeInsets.all(10),
@@ -181,6 +183,9 @@ class StudentAppBarState extends State<StudentAppBar> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           ListTile(
+                                            tileColor: _isbday
+                                                ? Colors.amberAccent[400]
+                                                : null,
                                             title: const Text("Change Student"),
                                             trailing: IconButton(
                                               icon: const Icon(
@@ -195,6 +200,9 @@ class StudentAppBarState extends State<StudentAppBar> {
                                           ),
                                           const Divider(),
                                           ListTile(
+                                              tileColor: _isbday
+                                                  ? Colors.amberAccent[400]
+                                                  : null,
                                               title: const Text("Logout"),
                                               trailing: IconButton(
                                                 icon: const Icon(
