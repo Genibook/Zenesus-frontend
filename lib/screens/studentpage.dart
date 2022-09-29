@@ -96,7 +96,6 @@ class Courses extends State<StudentPage> {
                             : MouseRegion(
                                 onEnter: (event) {
                                   _hoverCounts++;
-                                  print(_hoverCounts);
                                   if (_hoverCounts == 20) {
                                     _controller.play();
                                     showDialog(
