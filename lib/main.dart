@@ -49,8 +49,13 @@ class MyApp extends StatelessWidget {
       title: 'Zenesus',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
       home: const FirstScreen(),
     );
   }

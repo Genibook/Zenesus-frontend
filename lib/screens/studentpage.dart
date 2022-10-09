@@ -154,7 +154,7 @@ class Courses extends State<StudentPage> {
                           color: isbday ? Colors.amber : null,
                           child: SizedBox(
                               width: 310.0,
-                              height: 280.0, //340 with bday
+                              height: 290.0, //340 with bday
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
