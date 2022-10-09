@@ -45,6 +45,10 @@ double getAvgofList(List<double> list) {
   int length = list.length;
   double gradeadded = 0;
   for (double grade in list) {
+    if (grade == 0.0) {
+      length--;
+      continue;
+    }
     gradeadded += grade;
   }
   if (list.isNotEmpty) {

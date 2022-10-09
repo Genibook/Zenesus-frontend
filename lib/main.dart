@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/services.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:zenesus/screens/firstscreen.dart';
