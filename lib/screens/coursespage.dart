@@ -1,6 +1,12 @@
+import 'dart:ui';
+
 import 'package:zenesus/serializers/courses.dart';
 import 'package:zenesus/serializers/mps.dart';
 import 'package:zenesus/serializers/gpas.dart';
+import 'package:zenesus/serializers/coursedata.dart';
+import 'package:zenesus/serializers/schedules.dart';
+import 'package:zenesus/serializers/student.dart';
+
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
@@ -160,6 +166,32 @@ class GradePageState extends State<CoursesPage> {
     );
   }
 
+  Future<void> refreshAll() async {
+    //Future.delayed(const Duration(seconds: 2));
+    String mp = await mpInCookies();
+    await createMPs(widget.email, widget.password, widget.school, true);
+    await createGpas(widget.email, widget.password, widget.school, true);
+    await createCourses(widget.email, widget.password, widget.school, true);
+    await createCoursesDatas(
+        widget.email, widget.password, widget.school, mp, true);
+    await createScheduleCoursesDatas(
+        widget.email, widget.password, widget.school, true);
+    await createStudent(widget.email, widget.password, widget.school, true);
+    bool done = true;
+    if (done) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CoursesPage(
+                  email: widget.email,
+                  password: widget.password,
+                  school: widget.school,
+                )),
+      );
+    }
+  }
+
   FutureBuilder<Courses> buildFutureCourseBuilder(
       String email, String password, String highschool) {
     return FutureBuilder(
@@ -258,9 +290,19 @@ class GradePageState extends State<CoursesPage> {
                       );
                     }),
               ]);
-          child = SingleChildScrollView(
-              physics: const ScrollPhysics(),
-              child: Padding(padding: const EdgeInsets.all(10), child: child));
+          child = RefreshIndicator(
+              onRefresh: refreshAll,
+              child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                    },
+                  ),
+                  child: SingleChildScrollView(
+                      physics: const ScrollPhysics(),
+                      child: Padding(
+                          padding: const EdgeInsets.all(10), child: child))));
           if (snapshot.data!.courseGrades[0][0] == "N/A") {
             child = createErrorPage(context);
           }

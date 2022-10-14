@@ -7,6 +7,8 @@ import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:material_you_colours/material_you_colours.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -51,6 +53,10 @@ class MyApp extends StatelessWidget {
             locale: DevicePreview.locale(context),
             builder: DevicePreview.appBuilder,
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate
+            ],
             title: 'Zenesus',
             theme: ThemeData(
               useMaterial3: true,

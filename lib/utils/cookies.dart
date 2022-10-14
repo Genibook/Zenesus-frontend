@@ -1,6 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 Future<void> writeBday(bool bday) async {
   final prefs = await SharedPreferences.getInstance();
@@ -84,4 +85,8 @@ Future<void> logout() async {
   await prefs.remove('mp');
   await prefs.remove("user");
   await prefs.remove('bday');
+
+  for (String name in names) {
+    await prefs.remove(name);
+  }
 }

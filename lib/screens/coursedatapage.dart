@@ -49,82 +49,78 @@ class CourseDatasState extends State<CourseDatasPage> {
       future: _futureCoursesData,
       builder: (context, snapshot) {
         Widget child;
+        List<Widget> children;
         if (snapshot.hasData) {
           try {
             List<List<CoursesData>> allData = snapshot.data!.datas;
             List<CoursesData> courseAssignments =
                 getCourse(allData, widget.courseName);
-            child = Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ListView.separated(
-                    separatorBuilder: (_, __) => const Divider(),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: getLength(allData, widget.courseName),
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        enabled: true,
-                        selected: false,
-                        title: Text(
-                          "${courseAssignments[index].assignment}",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400),
-                        ),
-                        subtitle: Text(
-                            "${courseAssignments[index].dayname} ${courseAssignments[index].date} - ${courseAssignments[index].mp}"),
-                        trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                  child: Text(
-                                "${courseAssignments[index].grade_percent}",
-                                textAlign: TextAlign.justify,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    color: getColorFromGrade(double.parse(
-                                        courseAssignments[index]
-                                            .grade_percent))),
-                              )),
-                              Expanded(
-                                  child: Text(
-                                      "${courseAssignments[index].grade_num}",
-                                      textAlign: TextAlign.justify,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: getColorFromGrade(double.parse(
-                                              courseAssignments[index]
-                                                  .grade_percent))))),
-                            ]),
-                        onTap: () {
-                          List<double> percentChange =
-                              getChangeBecauseOfGradePercent(allData,
-                                  courseAssignments[index].course_name, index);
+            children = [
+              ListView.separated(
+                  separatorBuilder: (_, __) => const Divider(),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: getLength(allData, widget.courseName),
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      enabled: true,
+                      selected: false,
+                      title: Text(
+                        "${courseAssignments[index].assignment}",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
+                      subtitle: Text(
+                          "${courseAssignments[index].dayname} ${courseAssignments[index].date} - ${courseAssignments[index].mp}"),
+                      trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                                child: Text(
+                              "${courseAssignments[index].grade_percent}",
+                              textAlign: TextAlign.justify,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  color: getColorFromGrade(double.parse(
+                                      courseAssignments[index].grade_percent))),
+                            )),
+                            Expanded(
+                                child: Text(
+                                    "${courseAssignments[index].grade_num}",
+                                    textAlign: TextAlign.justify,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: getColorFromGrade(double.parse(
+                                            courseAssignments[index]
+                                                .grade_percent))))),
+                          ]),
+                      onTap: () {
+                        List<double> percentChange =
+                            getChangeBecauseOfGradePercent(allData,
+                                courseAssignments[index].course_name, index);
 
-                          Navigator.of(context)
-                              .push(HeroDialogRoute(builder: (context) {
-                            return GradePopupCard(
-                              course: courseAssignments[index],
-                              percentChange: percentChange[0],
-                              currentAvg: percentChange[1],
-                              oldAvg: percentChange[2],
-                            );
-                          }));
-                        },
-                      );
-                    })
-              ],
-            );
-            child = SingleChildScrollView(
+                        Navigator.of(context)
+                            .push(HeroDialogRoute(builder: (context) {
+                          return GradePopupCard(
+                            course: courseAssignments[index],
+                            percentChange: percentChange[0],
+                            currentAvg: percentChange[1],
+                            oldAvg: percentChange[2],
+                          );
+                        }));
+                      },
+                    );
+                  })
+            ];
+            child = ListView(
                 physics: const ScrollPhysics(),
-                child:
-                    Padding(padding: const EdgeInsets.all(10), child: child));
+                // Padding(padding: const EdgeInsets.all(10), child: child)
+                children: children);
             try {
               if (snapshot.data!.datas[0][0].course_name == "N/A" &&
                   snapshot.data!.datas[0][0].mp == "N/A") {
