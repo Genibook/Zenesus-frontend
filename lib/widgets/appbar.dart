@@ -151,7 +151,7 @@ class StudentAppBarState extends State<StudentAppBar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [Text("Loading...")])
               : IconButton(
-                  icon: const Icon(Icons.settings, color: Colors.white),
+                  icon: const Icon(Icons.settings),
                   onPressed: () async {
                     setState(() {
                       _ispressed = true;
@@ -241,8 +241,8 @@ class StudentAppBarState extends State<StudentAppBar> {
           message: "FAQ page",
           child: IconButton(
             icon: _isbday
-                ? const Icon(Icons.cake, color: Colors.white)
-                : const Icon(Icons.question_mark, color: Colors.white),
+                ? const Icon(Icons.cake)
+                : const Icon(Icons.question_mark),
             onPressed: () {
               Navigator.push(
                 context,

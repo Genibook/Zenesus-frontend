@@ -46,10 +46,13 @@ class GradePageState extends State<CoursesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureMPs = createMPs(widget.email, widget.password, widget.school);
-      _futureGpas = createGpas(widget.email, widget.password, widget.school);
+      _futureMPs =
+          createMPs(widget.email, widget.password, widget.school, false);
+      _futureGpas =
+          createGpas(widget.email, widget.password, widget.school, false);
+
       _futureCourses =
-          createCourses(widget.email, widget.password, widget.school);
+          createCourses(widget.email, widget.password, widget.school, false);
 
       //_futureCourses = modelCourse();
       //_futureMPs = modelMPs();

@@ -53,7 +53,7 @@ class Courses extends State<StudentPage> {
   Widget build(BuildContext context) {
     setState(() {
       _futureStudent =
-          createStudent(widget.email, widget.password, widget.school);
+          createStudent(widget.email, widget.password, widget.school, false);
       //_futureStudent = modelStudent();
     });
 
@@ -317,41 +317,6 @@ class Courses extends State<StudentPage> {
                                         )
                                       ],
                                     ),
-                                    // const SizedBox(
-                                    //   height: 20.0,
-                                    // ),
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.start,
-                                    //   children: [
-                                    //     const Icon(
-                                    //       Icons.cake,
-                                    //       color: Colors.orangeAccent,
-                                    //       size: 35,
-                                    //     ),
-                                    //     const SizedBox(
-                                    //       width: 20.0,
-                                    //     ),
-                                    //     Column(
-                                    //       crossAxisAlignment:
-                                    //           CrossAxisAlignment.start,
-                                    //       children: [
-                                    //         const Text(
-                                    //           "Birthday",
-                                    //           style: TextStyle(
-                                    //             fontSize: 15.0,
-                                    //           ),
-                                    //         ),
-                                    //         Text(
-                                    //           snapshot.data!.birthday,
-                                    //           style: TextStyle(
-                                    //             fontSize: 12.0,
-                                    //             color: Colors.grey[400],
-                                    //           ),
-                                    //         )
-                                    //       ],
-                                    //     )
-                                    //   ],
-                                    // ),
                                     const SizedBox(
                                       height: 20.0,
                                     ),

@@ -24,15 +24,18 @@ class Schedule extends StatefulWidget {
 }
 
 class _Calender extends State<Schedule> {
-  CalendarController _calendarController = CalendarController();
+  final CalendarController _calendarController = CalendarController();
   Future<ScheduleCoursesDatas>? _futureScheduleCoursesData;
   String? _subjectText, _points, _assignment, _date, _description = '';
   Color? _viewHeaderColor;
 
   @override
   Widget build(BuildContext context) {
-    _futureScheduleCoursesData = createScheduleCoursesDatas(
-        widget.email, widget.password, widget.school);
+    setState(() {
+      _futureScheduleCoursesData = createScheduleCoursesDatas(
+          widget.email, widget.password, widget.school, false);
+    });
+
     return buildScheduleCoursesDatabuilder();
   }
 

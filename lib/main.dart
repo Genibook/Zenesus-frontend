@@ -6,6 +6,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:zenesus/screens/firstscreen.dart';
+import 'package:material_you_colours/material_you_colours.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -41,22 +42,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      debugShowCheckedModeBanner: false,
-      title: 'Zenesus',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: const FirstScreen(),
-    );
+    return FutureBuilder(
+        future: getMaterialYouColours(),
+        builder: (context, AsyncSnapshot<MaterialYouPalette?> snapshot) {
+          final primarySwatch = snapshot.data?.accent1 ?? Colors.blue;
+          return MaterialApp(
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            debugShowCheckedModeBanner: false,
+            title: 'Zenesus',
+            theme: ThemeData(
+              useMaterial3: true,
+              primarySwatch: primarySwatch,
+            ),
+            darkTheme: ThemeData.dark(
+              useMaterial3: true,
+            ),
+            home: const FirstScreen(),
+          );
+        });
   }
 }

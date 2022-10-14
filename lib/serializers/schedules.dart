@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 class ScheduleCoursesData {
   final String courseName;
@@ -29,6 +30,17 @@ class ScheduleCoursesData {
         category: json["category"],
         assignment: json["assignment"],
         description: json["description"]);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "date": date,
+      "category": category,
+      "assignment": assignment,
+      "description": description,
+      "course_name": courseName,
+      "points": points,
+    };
   }
 }
 
@@ -58,10 +70,33 @@ class ScheduleCoursesDatas {
     }
     return ScheduleCoursesDatas(datas: allItems);
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    List<Map<String, dynamic>> items = [];
+    Map<String, dynamic> allItems = {};
+    //List<CoursesData> data in datas
+    for (int i = 0; i < datas.length; i++) {
+      List<ScheduleCoursesData> data = datas[i];
+      for (ScheduleCoursesData smolData in data) {
+        items.add(jsonDecode(jsonEncode(smolData)));
+      }
+      allItems[i.toString()] = items;
+      items = [];
+    }
+    print(allItems);
+    return json;
+  }
 }
 
 Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
-    String email, String password, String school) async {
+    String email, String password, String school, bool forceReload) async {
+  int index = 2;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    ScheduleCoursesDatas courses = ScheduleCoursesDatas.fromJson(cachedJson);
+    return courses;
+  }
   int numm = await numInCookies();
   try {
     final response = await http.post(
@@ -75,7 +110,9 @@ Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
     );
 
     if (response.statusCode == 200) {
-      return ScheduleCoursesDatas.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      return ScheduleCoursesDatas.fromJson(json);
     } else {
       throw Exception('Server error');
     }

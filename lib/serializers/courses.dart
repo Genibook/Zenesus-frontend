@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 // the current grades/courses.
 class Courses {
@@ -19,10 +20,23 @@ class Courses {
   factory Courses.fromJson(Map<String, dynamic> json) {
     return Courses(courseGrades: json['grades']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "grades": courseGrades,
+    };
+  }
 }
 
 Future<Courses> createCourses(
-    String email, String password, String school) async {
+    String email, String password, String school, bool forceReload) async {
+  int index = 0;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    Courses courses = Courses.fromJson(cachedJson);
+    return courses;
+  }
+
   String mp = await mpInCookies();
   int numm = await numInCookies();
   try {
@@ -38,8 +52,9 @@ Future<Courses> createCourses(
     );
 
     if (response.statusCode == 200) {
-      //print(response.body);
-      return Courses.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      return Courses.fromJson(json);
     } else {
       throw Exception('Error');
     }

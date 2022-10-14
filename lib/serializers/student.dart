@@ -4,6 +4,7 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 import "package:zenesus/utils/base64.dart";
+import 'package:zenesus/utils/store_objects.dart';
 
 class Student {
   // ignore: non_constant_identifier_names
@@ -53,10 +54,32 @@ class Student {
         name: json['name'],
         image64: json['image64']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "age": age,
+      "img_url": img_url,
+      "state_id": state_id,
+      "birthday": birthday,
+      "schedule_link": schedule_link,
+      "name": name,
+      "grade": grade,
+      "locker": locker,
+      "counselor_name": counselor_name,
+      "id": id,
+      "image64": image64,
+    };
+  }
 }
 
 Future<Student> createStudent(
-    String email, String password, String school) async {
+    String email, String password, String school, bool forceReload) async {
+  int index = 3;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    Student courses = Student.fromJson(cachedJson);
+    return courses;
+  }
   int numm = await numInCookies();
   try {
     final response = await http.post(
@@ -69,9 +92,11 @@ Future<Student> createStudent(
       }),
     );
     if (response.statusCode == 200) {
-      return Student.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      return Student.fromJson(json);
     } else {
-      throw Exception('Error');
+      throw Exception('creating student error');
     }
   } catch (e) {
     print(e);

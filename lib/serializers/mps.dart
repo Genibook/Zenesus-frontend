@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 class MPs {
   final List<dynamic> mps;
@@ -20,9 +21,20 @@ class MPs {
   factory MPs.fromJson(Map<String, dynamic> json) {
     return MPs(mps: json['mps'], mp: json['curr_mp']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {"mps": mps, "curr_mp": mp};
+  }
 }
 
-Future<MPs> createMPs(String email, String password, String school) async {
+Future<MPs> createMPs(
+    String email, String password, String school, bool forceReload) async {
+  int index = 4;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    MPs courses = MPs.fromJson(cachedJson);
+    return courses;
+  }
   int numm = await numInCookies();
   try {
     final response = await http.post(
@@ -36,7 +48,9 @@ Future<MPs> createMPs(String email, String password, String school) async {
     );
 
     if (response.statusCode == 200) {
-      MPs mps = MPs.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      MPs mps = MPs.fromJson(json);
       String mp = await mpInCookies();
       if (mp == "") {
         writeMPintoCookies(mps.mp);

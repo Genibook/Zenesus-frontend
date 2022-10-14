@@ -35,9 +35,11 @@ class CourseDatasState extends State<CourseDatasPage> {
 
   @override
   Widget build(BuildContext context) {
-    _futureCoursesData = createCoursesDatas(
-        widget.email, widget.password, widget.school, widget.mp);
-    //_futureCoursesData = modelCourseDatas();
+    setState(() {
+      _futureCoursesData = createCoursesDatas(
+          widget.email, widget.password, widget.school, widget.mp, false);
+      //_futureCoursesData = modelCourseDatas();
+    });
 
     return buildFutureCoursesDataPage();
   }
@@ -76,22 +78,29 @@ class CourseDatasState extends State<CourseDatasPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
+                              Expanded(
+                                  child: Text(
                                 "${courseAssignments[index].grade_percent}",
+                                textAlign: TextAlign.justify,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
                                     color: getColorFromGrade(double.parse(
                                         courseAssignments[index]
                                             .grade_percent))),
-                              ),
-                              Text("${courseAssignments[index].grade_num}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                      color: getColorFromGrade(double.parse(
-                                          courseAssignments[index]
-                                              .grade_percent)))),
+                              )),
+                              Expanded(
+                                  child: Text(
+                                      "${courseAssignments[index].grade_num}",
+                                      textAlign: TextAlign.justify,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                          color: getColorFromGrade(double.parse(
+                                              courseAssignments[index]
+                                                  .grade_percent))))),
                             ]),
                         onTap: () {
                           List<double> percentChange =

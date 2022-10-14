@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.0+7
+version: 0.0.9+9
 
 environment:
   sdk: ">=2.17.1 <3.0.0"
@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  material_you_colours: ^0.0.1-pre1
   confetti: ^0.7.0
   http: ^0.13.4
   intl: ^0.17.0
@@ -99,16 +100,6 @@ flutter:
     - family:  CustomIcons
       fonts:
         - asset: fonts/CustomIcons.ttf
-    - family: Merriweather
-      fonts:
-        - asset: fonts/Merriweather-Black.ttf
-        - asset: fonts/Merriweather-BlackItalic.ttf
-        - asset: fonts/Merriweather-Bold.ttf
-        - asset: fonts/Merriweather-BoldItalic.ttf
-        - asset: fonts/Merriweather-Italic.ttf
-        - asset: fonts/Merriweather-Light.ttf
-        - asset: fonts/Merriweather-LightItalic.ttf
-        - asset: fonts/Merriweather-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

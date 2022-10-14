@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 class Gpas {
   final double weightedGPA;
@@ -19,9 +20,23 @@ class Gpas {
         weightedGPA: json['weighted gpa'],
         unweightedGPA: json['unweighted gpa']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "weighted gpa": weightedGPA,
+      "unweighted gpa": unweightedGPA,
+    };
+  }
 }
 
-Future<Gpas> createGpas(String email, String password, String school) async {
+Future<Gpas> createGpas(
+    String email, String password, String school, bool forceReload) async {
+  int index = 5;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    Gpas courses = Gpas.fromJson(cachedJson);
+    return courses;
+  }
   String mp = await mpInCookies();
   int numm = await numInCookies();
   try {
@@ -37,8 +52,9 @@ Future<Gpas> createGpas(String email, String password, String school) async {
     );
 
     if (response.statusCode == 200) {
-      //print(response.body);
-      return Gpas.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      return Gpas.fromJson(json);
     } else {
       throw Exception('Error');
     }

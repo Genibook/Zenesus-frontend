@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/store_objects.dart';
 
 class CoursesData {
   final String mp;
@@ -67,6 +68,26 @@ class CoursesData {
         prev: json['prev'],
         docs: json['docs']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "course_name": course_name,
+      "mp": mp,
+      "dayname": dayname,
+      "full_dayname": full_dayname,
+      "date": date,
+      "full_date": full_date,
+      "teacher": teacher,
+      "category": category,
+      "assignment": assignment,
+      "description": description,
+      "grade_percent": grade_percent,
+      "grade_num": grade_num,
+      "comment": comment,
+      "prev": prev,
+      "docs": docs
+    };
+  }
 }
 
 class CoursesDatas {
@@ -86,10 +107,34 @@ class CoursesDatas {
     }
     return CoursesDatas(datas: allItems);
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    List<Map<String, dynamic>> items = [];
+    Map<String, dynamic> allItems = {};
+    //List<CoursesData> data in datas
+    for (int i = 0; i < datas.length; i++) {
+      List<CoursesData> data = datas[i];
+      for (CoursesData smolData in data) {
+        items.add(jsonDecode(jsonEncode(smolData)));
+      }
+      allItems[i.toString()] = items;
+      items = [];
+    }
+    print(allItems);
+    return json;
+  }
 }
 
-Future<CoursesDatas> createCoursesDatas(
-    String email, String password, String school, String mp) async {
+Future<CoursesDatas> createCoursesDatas(String email, String password,
+    String school, String mp, bool forceReload) async {
+  int index = 1;
+  Map<String, dynamic> cachedJson = await readObject(index);
+  if (cachedJson.isNotEmpty && !forceReload) {
+    CoursesDatas courses = CoursesDatas.fromJson(cachedJson);
+    return courses;
+  }
+
   int numm = await numInCookies();
   try {
     final response = await http.post(
@@ -104,7 +149,9 @@ Future<CoursesDatas> createCoursesDatas(
     );
 
     if (response.statusCode == 200) {
-      return CoursesDatas.fromJson(jsonDecode(response.body));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      writeObject(json, index);
+      return CoursesDatas.fromJson(json);
     } else {
       throw Exception('Error');
     }
