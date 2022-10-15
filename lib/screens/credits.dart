@@ -33,7 +33,7 @@ class CreditsPageState extends State<CreditsPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                       QAItem(
-                          title: Text("What is this?",
+                          title: Text("What is this? ❓",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                           children: [
@@ -46,21 +46,51 @@ class CreditsPageState extends State<CreditsPage> {
                           ]),
                       QAItem(
                           title: Text(
-                            "Linux app compiler - Etaash Mathamsetty",
+                            "Etaash Mathamsetty 🧑",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           children: [
                             ListTile(
                                 title: Text(
-                                    "Etassh became my first beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
+                                    "Etassh became my first daily beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
                             ListTile(
-                              title: Text("Very cool dude 😎"),
+                              title: Text(
+                                  "He gave me a lot of valuble suggestions."),
+                            ),
+                            ListTile(
+                              title: Text("He's a very cool dude 😎"),
                             ),
                           ]),
                       QAItem(
                           title: Text(
-                            "The Unnamed Student",
+                            "First Android Beta Testing Group 🤖",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          children: [
+                            ListTile(
+                                title: Text(
+                                    "These people include Etassh, Justin, Jason, and Ann")),
+                          ]),
+                      QAItem(
+                          title: Text(
+                            "Windows testing group 💻",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          children: [
+                            ListTile(
+                                title: Text(
+                                    "Big thanks to Siddarth - who was one of the first people to test out the website I built to display Genesis data.")),
+                            ListTile(
+                              title: Text(
+                                  "He gave me ideas for the features in Zenesus today."),
+                            ),
+                          ]),
+                      QAItem(
+                          title: Text(
+                            "The Unnamed Student 👩‍🎓👨‍🎓",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -68,17 +98,6 @@ class CreditsPageState extends State<CreditsPage> {
                             ListTile(
                                 title: Text(
                                     "I give thanks to all the students who participated in beta testing, and all the student/parents who are using/used Zenesus.")),
-                          ]),
-                      QAItem(
-                          title: Text(
-                            "Parents and Sister",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          children: [
-                            ListTile(
-                                title: Text(
-                                    "They all supported me in the making of this app while urging me to also focus on my school work.")),
                           ]),
                     ])))));
   }
