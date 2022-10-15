@@ -31,7 +31,8 @@ Future<MPs> createMPs(
     String email, String password, String school, bool forceReload) async {
   int index = 4;
   Map<String, dynamic> cachedJson = await readObject(index);
-  if (cachedJson.isNotEmpty && !forceReload) {
+  if (cachedJson.isNotEmpty &&
+      (!forceReload || await logicUpdateCache(DateTime.now()))) {
     MPs courses = MPs.fromJson(cachedJson);
     return courses;
   }

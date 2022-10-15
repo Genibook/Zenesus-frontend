@@ -130,7 +130,9 @@ Future<CoursesDatas> createCoursesDatas(String email, String password,
     String school, String mp, bool forceReload) async {
   int index = 1;
   Map<String, dynamic> cachedJson = await readObject(index);
-  if (cachedJson.isNotEmpty && !forceReload) {
+
+  if (cachedJson.isNotEmpty &&
+      (!forceReload || await logicUpdateCache(DateTime.now()))) {
     CoursesDatas courses = CoursesDatas.fromJson(cachedJson);
     return courses;
   }

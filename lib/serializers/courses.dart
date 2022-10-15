@@ -32,7 +32,8 @@ Future<Courses> createCourses(
     String email, String password, String school, bool forceReload) async {
   int index = 0;
   Map<String, dynamic> cachedJson = await readObject(index);
-  if (cachedJson.isNotEmpty && !forceReload) {
+  if (cachedJson.isNotEmpty &&
+      (!forceReload || await logicUpdateCache(DateTime.now()))) {
     Courses courses = Courses.fromJson(cachedJson);
     return courses;
   }
