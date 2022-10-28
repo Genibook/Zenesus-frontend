@@ -131,10 +131,11 @@ Future<CoursesDatas> createCoursesDatas(String email, String password,
   int index = 1;
   Map<String, dynamic> cachedJson = await readObject(index);
 
-  if (cachedJson.isNotEmpty &&
-      (!forceReload || await logicUpdateCache(DateTime.now()))) {
-    CoursesDatas courses = CoursesDatas.fromJson(cachedJson);
-    return courses;
+  if (cachedJson.isNotEmpty && !forceReload) {
+    if (await logicUpdateCache(DateTime.now()) || !forceReload) {
+      CoursesDatas courses = CoursesDatas.fromJson(cachedJson);
+      return courses;
+    }
   }
 
   int numm = await numInCookies();

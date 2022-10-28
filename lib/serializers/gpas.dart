@@ -33,10 +33,11 @@ Future<Gpas> createGpas(
     String email, String password, String school, bool forceReload) async {
   int index = 5;
   Map<String, dynamic> cachedJson = await readObject(index);
-  if (cachedJson.isNotEmpty &&
-      (!forceReload || await logicUpdateCache(DateTime.now()))) {
-    Gpas courses = Gpas.fromJson(cachedJson);
-    return courses;
+  if (cachedJson.isNotEmpty && !forceReload) {
+    if (await logicUpdateCache(DateTime.now()) || !forceReload) {
+      Gpas courses = Gpas.fromJson(cachedJson);
+      return courses;
+    }
   }
   String mp = await mpInCookies();
   int numm = await numInCookies();

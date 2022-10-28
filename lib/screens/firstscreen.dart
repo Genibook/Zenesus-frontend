@@ -42,8 +42,12 @@ class Screen extends State<FirstScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                CoursesPage(email: email, password: password, school: school)),
+            builder: (context) => CoursesPage(
+                  email: email,
+                  password: password,
+                  school: school,
+                  refresh: false,
+                )),
       );
     }
   }

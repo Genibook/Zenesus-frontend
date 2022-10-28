@@ -50,6 +50,7 @@ class NavBarState extends State<Navbar> {
                   email: email,
                   password: password,
                   school: school,
+                  refresh: false,
                 )),
       );
     } else if (index == 0) {

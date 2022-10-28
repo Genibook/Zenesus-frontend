@@ -4,9 +4,9 @@ import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/screens/faq.dart';
 import 'package:zenesus/serializers/students_name_and_id.dart';
-import 'package:vibration/vibration.dart';
 import 'package:zenesus/screens/credits.dart';
 import 'package:zenesus/utils/confetti.dart';
+import 'package:zenesus/screens/coursespage.dart';
 
 import 'package:confetti/confetti.dart';
 
@@ -29,11 +29,9 @@ bool _ispressed = false;
 class StudentAppBarState extends State<StudentAppBar> {
   bool _isbday = false;
 
+  // store cookies, and return pass, school and cookies
   Future<List<String>> onPressedDoStuff(int i) async {
     await writeUserNumintoCookies(i);
-    if (await Vibration.hasVibrator() ?? false) {
-      Vibration.vibrate();
-    }
     List<String> things = await readEmailPassSchoolintoCookies();
     String email = things[0];
     String password = things[1];
@@ -41,19 +39,25 @@ class StudentAppBarState extends State<StudentAppBar> {
     return [email, password, school];
   }
 
+  // create the list of children for the dialog that shows the student name and ids.
   List<Widget> createChildren(BuildContext context, Student_Name_and_ID data) {
     List<Widget> myList = [];
     for (int i = 0; i < data.ids.length; i++) {
       myList.add(
         SimpleDialogOption(
           onPressed: () {
-            onPressedDoStuff(i).then((value) {
-              Navigator.of(context).pop();
-              const snackBar = SnackBar(
-                content: Text(
-                    "Success!😁 - go to grades and you will now see the other user's grades!"),
+            onPressedDoStuff(i).then((List<String> value) {
+              //Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CoursesPage(
+                          email: value[0],
+                          password: value[1],
+                          school: value[2],
+                          refresh: true,
+                        )),
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             });
           },
           child: Text('${data.names[i]} - ${data.ids[i]}'),
@@ -63,19 +67,23 @@ class StudentAppBarState extends State<StudentAppBar> {
     return myList;
   }
 
+// confetti controller for confetti when bday
   late ConfettiController _controller;
   @override
   void initState() {
     super.initState();
+    // init the controller
     _controller = ConfettiController(duration: const Duration(seconds: 10));
   }
 
   @override
   void dispose() {
+    //dispose it :D
     _controller.dispose();
     super.dispose();
   }
 
+  // show available students using a dialog
   void showStudents(Student_Name_and_ID futureNameandID) {
     showDialog<Student_Name_and_ID>(
         context: context,
@@ -90,6 +98,7 @@ class StudentAppBarState extends State<StudentAppBar> {
   @override
   Widget build(BuildContext context) {
     setState(() {
+      // get if it is the bday of person
       _isbday = isBday(widget.bday);
     });
 
@@ -143,6 +152,8 @@ class StudentAppBarState extends State<StudentAppBar> {
                     builder: (context) => const CreditsPage()));
               },
             ),
+
+      // right side actions icon buttons
       actions: <Widget>[
         Tooltip(
           message: "Settings",
@@ -157,15 +168,19 @@ class StudentAppBarState extends State<StudentAppBar> {
                       _ispressed = true;
                     });
 
+                    // get the email password and username
                     List<String> things =
                         await readEmailPassSchoolintoCookies();
                     String email = things[0];
                     String password = things[1];
                     String school = things[2];
+
+                    // create the object with api call
                     Student_Name_and_ID futureNameandID =
                         await createStudent_name_and_ID(
                             email, password, school);
 
+                    //show the settings dialog
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -182,6 +197,7 @@ class StudentAppBarState extends State<StudentAppBar> {
                                             MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
+                                          // students tile
                                           ListTile(
                                             tileColor: _isbday
                                                 ? Colors.amberAccent[400]
@@ -199,6 +215,8 @@ class StudentAppBarState extends State<StudentAppBar> {
                                             },
                                           ),
                                           const Divider(),
+
+                                          // logout listtile
                                           ListTile(
                                               tileColor: _isbday
                                                   ? Colors.amberAccent[400]

@@ -7,6 +7,7 @@ import 'package:zenesus/serializers/coursedata.dart';
 import 'package:zenesus/serializers/schedules.dart';
 import 'package:zenesus/serializers/student.dart';
 
+import 'package:zenesus/widgets/apitest.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
@@ -17,15 +18,17 @@ import 'package:zenesus/utils/courses_utils.dart';
 import 'package:zenesus/widgets/navbar.dart';
 
 class CoursesPage extends StatefulWidget {
-  const CoursesPage({
-    Key? key,
-    required this.email,
-    required this.password,
-    required this.school,
-  }) : super(key: key);
+  const CoursesPage(
+      {Key? key,
+      required this.email,
+      required this.password,
+      required this.school,
+      required this.refresh})
+      : super(key: key);
   final String email;
   final String password;
   final String school;
+  final bool refresh;
 
   @override
   State<StatefulWidget> createState() => GradePageState();
@@ -38,6 +41,7 @@ class GradePageState extends State<CoursesPage> {
   late List<DropdownMenuItem<String>> _dropdownMenuMPS;
   late String _selectedMP;
   String? _mp;
+  bool mpsLoading = false;
 
   @override
   void initState() {
@@ -52,13 +56,13 @@ class GradePageState extends State<CoursesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureMPs =
-          createMPs(widget.email, widget.password, widget.school, false);
-      _futureGpas =
-          createGpas(widget.email, widget.password, widget.school, false);
+      _futureMPs = createMPs(
+          widget.email, widget.password, widget.school, widget.refresh);
+      _futureGpas = createGpas(
+          widget.email, widget.password, widget.school, widget.refresh);
 
-      _futureCourses =
-          createCourses(widget.email, widget.password, widget.school, false);
+      _futureCourses = createCourses(
+          widget.email, widget.password, widget.school, widget.refresh);
 
       //_futureCourses = modelCourse();
       //_futureMPs = modelMPs();
@@ -81,11 +85,14 @@ class GradePageState extends State<CoursesPage> {
     return items;
   }
 
-  onChangeDropdownMP(String? selectedMP) {
+  onChangeDropdownMP(String? selectedMP) async {
     setState(() {
       _selectedMP = selectedMP!;
+      mpsLoading = true;
       writeMPintoCookies(selectedMP);
     });
+    await refreshAll();
+    mpsLoading = false;
   }
 
   FutureBuilder<MPs> buildFutureMPsBuilder() {
@@ -96,20 +103,28 @@ class GradePageState extends State<CoursesPage> {
           _dropdownMenuMPS = buildDropdownMenuMPS(snapshot.data!.mps);
           _selectedMP = getMP(_mp, snapshot);
           FocusScope.of(context).unfocus();
-          return Padding(
-              padding: const EdgeInsets.all(0),
-              child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.calendar_month),
-                    enabledBorder: InputBorder.none),
-                value: _selectedMP,
-                items: _dropdownMenuMPS,
-                onChanged: onChangeDropdownMP,
-                icon: const Visibility(
-                    visible: false, child: Icon(Icons.arrow_downward)),
-                isExpanded: false,
-                autofocus: false,
-              ));
+          if (!mpsLoading) {
+            return SizedBox(
+                height: 50,
+                width: 100,
+                child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.calendar_month),
+                          enabledBorder: InputBorder.none),
+                      value: _selectedMP,
+                      items: _dropdownMenuMPS,
+                      onChanged: onChangeDropdownMP,
+                      icon: const Visibility(
+                          visible: false, child: Icon(Icons.arrow_downward)),
+                      isExpanded: false,
+                      autofocus: false,
+                    )));
+          } else {
+            return const SizedBox(
+                height: 50, width: 50, child: CircularProgressIndicator());
+          }
         } else {
           return const SizedBox.shrink();
         }
@@ -187,6 +202,7 @@ class GradePageState extends State<CoursesPage> {
                   email: widget.email,
                   password: widget.password,
                   school: widget.school,
+                  refresh: false,
                 )),
       );
     }
@@ -212,11 +228,12 @@ class GradePageState extends State<CoursesPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 50,
-                  width: 100,
-                  child: buildFutureMPsBuilder(),
-                ),
+
+                buildFutureMPsBuilder(),
+
+                /// [COMMENT THIS WHEN IN PRODUCTION!!!!]
+                apitestingrow(widget, context),
+
                 ListView.separated(
                     separatorBuilder: (_, __) => const Divider(),
                     physics: const NeverScrollableScrollPhysics(),

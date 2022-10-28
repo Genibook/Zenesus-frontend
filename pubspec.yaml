@@ -30,8 +30,7 @@ dependencies:
   confetti: ^0.7.0
   http: ^0.13.4
   intl: ^0.17.0
-  vibration: ^1.7.5
-  convert: 3.0.2
+  convert: ^3.0.2
   flutter:
     sdk: flutter
   universal_platform: ^1.0.0-nullsafety
