@@ -51,9 +51,10 @@ Future<DateTime> readlastCache() async {
 
 Future<bool> logicUpdateCache(DateTime currDatetime) async {
   DateTime oldDateTime = await readlastCache();
-  if (oldDateTime.add(const Duration(hours: 1)).isAfter(currDatetime)) {
+  if (oldDateTime.add(const Duration(hours: 1)).isBefore(currDatetime)) {
     writeLastCache(DateTime.now());
-    return true;
+    //we need to update
+    return false;
   }
-  return false;
+  return true;
 }

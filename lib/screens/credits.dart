@@ -53,7 +53,7 @@ class CreditsPageState extends State<CreditsPage> {
                           children: [
                             ListTile(
                                 title: Text(
-                                    "Etassh became my first daily beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
+                                    "Etaash became my first daily beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
                             ListTile(
                               title: Text(
                                   "He gave me a lot of valuble suggestions."),
@@ -71,7 +71,7 @@ class CreditsPageState extends State<CreditsPage> {
                           children: [
                             ListTile(
                                 title: Text(
-                                    "These people include Etassh, Justin, Jason, and Ann")),
+                                    "These people include Etaash, Justin, Jason, and Ann")),
                           ]),
                       QAItem(
                           title: Text(
@@ -90,7 +90,7 @@ class CreditsPageState extends State<CreditsPage> {
                           ]),
                       QAItem(
                           title: Text(
-                            "The Unnamed Student 👩‍🎓👨‍🎓",
+                            "Students and Parents ❤",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),

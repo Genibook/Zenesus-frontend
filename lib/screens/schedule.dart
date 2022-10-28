@@ -236,11 +236,11 @@ class _Calender extends State<Schedule> {
                 }
               } catch (e) {
                 //print(e);
-                if (snapshot.data!.datas[0].isEmpty) {
-                  child = Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Center(child: createErrorPage(context))]);
-                }
+                // if (snapshot.data!.datas[0].isEmpty) {
+                //   child = Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [Center(child: createErrorPage(context))]);
+                // }
               }
             } catch (e) {
               print(e);

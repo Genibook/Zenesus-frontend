@@ -6,7 +6,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:zenesus/screens/firstscreen.dart';
-import 'package:material_you_colours/material_you_colours.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -44,29 +43,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getMaterialYouColours(),
-        builder: (context, AsyncSnapshot<MaterialYouPalette?> snapshot) {
-          final primarySwatch = snapshot.data?.accent1 ?? Colors.blue;
-          return MaterialApp(
-            useInheritedMediaQuery: true,
-            locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              GlobalWidgetsLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate
-            ],
-            title: 'Zenesus',
-            theme: ThemeData(
-              useMaterial3: true,
-              primarySwatch: primarySwatch,
-            ),
-            darkTheme: ThemeData.dark(
-              useMaterial3: true,
-            ),
-            home: const FirstScreen(),
-          );
-        });
+    return MaterialApp(
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      title: 'Zenesus',
+      theme: ThemeData(
+        // useMaterial3: true,
+        primarySwatch: Colors.blue,
+      ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
+      home: const FirstScreen(),
+    );
   }
 }
