@@ -61,7 +61,7 @@ Future<Courses> createCourses(
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return Courses.fromJson({
       'grades': [
         ["N/A", "N/A", "N/A", "100", "N/A"]

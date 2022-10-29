@@ -61,7 +61,7 @@ Future<Gpas> createGpas(
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return Gpas.fromJson({});
   }
 }

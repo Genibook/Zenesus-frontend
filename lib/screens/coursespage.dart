@@ -7,7 +7,6 @@ import 'package:zenesus/serializers/coursedata.dart';
 import 'package:zenesus/serializers/schedules.dart';
 import 'package:zenesus/serializers/student.dart';
 
-import 'package:zenesus/widgets/apitest.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';

@@ -185,58 +185,47 @@ class StudentAppBarState extends State<StudentAppBar> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            backgroundColor:
-                                _isbday ? Colors.amberAccent[400] : null,
-                            content: Container(
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // students tile
-                                          ListTile(
+                              backgroundColor:
+                                  _isbday ? Colors.amberAccent[400] : null,
+                              content: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        // students tile
+                                        ListTile(
+                                          tileColor: _isbday
+                                              ? Colors.amberAccent[400]
+                                              : null,
+                                          title: const Text("Change Student"),
+                                          trailing: IconButton(
+                                            icon: const Icon(
+                                              Icons.person,
+                                            ),
+                                            onPressed: () =>
+                                                showStudents(futureNameandID),
+                                          ),
+                                          onTap: () {
+                                            showStudents(futureNameandID);
+                                          },
+                                        ),
+                                        const Divider(),
+
+                                        // logout listtile
+                                        ListTile(
                                             tileColor: _isbday
                                                 ? Colors.amberAccent[400]
                                                 : null,
-                                            title: const Text("Change Student"),
+                                            title: const Text("Logout"),
                                             trailing: IconButton(
                                               icon: const Icon(
-                                                Icons.person,
+                                                Icons.exit_to_app,
                                               ),
-                                              onPressed: () =>
-                                                  showStudents(futureNameandID),
-                                            ),
-                                            onTap: () {
-                                              showStudents(futureNameandID);
-                                            },
-                                          ),
-                                          const Divider(),
-
-                                          // logout listtile
-                                          ListTile(
-                                              tileColor: _isbday
-                                                  ? Colors.amberAccent[400]
-                                                  : null,
-                                              title: const Text("Logout"),
-                                              trailing: IconButton(
-                                                icon: const Icon(
-                                                  Icons.exit_to_app,
-                                                ),
-                                                onPressed: () {
-                                                  logout();
-                                                  Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const FirstScreen()),
-                                                  );
-                                                },
-                                              ),
-                                              onTap: () {
+                                              onPressed: () {
                                                 logout();
                                                 Navigator.pushReplacement(
                                                   context,
@@ -244,9 +233,18 @@ class StudentAppBarState extends State<StudentAppBar> {
                                                       builder: (context) =>
                                                           const FirstScreen()),
                                                 );
-                                              }),
-                                        ]))),
-                          );
+                                              },
+                                            ),
+                                            onTap: () {
+                                              logout();
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const FirstScreen()),
+                                              );
+                                            }),
+                                      ])));
                         });
 
                     setState(() {

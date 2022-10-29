@@ -39,6 +39,7 @@ class _Login extends State<MyLoginPage> {
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_highschools);
     _selectedHighschool = _dropdownMenuItems[0].value!;
+    super.initState();
   }
 
   List<DropdownMenuItem<Highschool>> buildDropdownMenuItems(

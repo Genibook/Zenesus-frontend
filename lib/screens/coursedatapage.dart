@@ -137,7 +137,7 @@ class CourseDatasState extends State<CourseDatasPage> {
               }
             }
           } catch (e) {
-            print(e);
+            //print(e);
             child = Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

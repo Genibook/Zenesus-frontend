@@ -3,42 +3,43 @@ import 'package:zenesus/utils/courses_utils.dart';
 import 'package:flutter/material.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
-void PrintData(List<CoursesData> data) {
-  int idxx = 0;
+// void PrintData(List<CoursesData> data) {
+//   int idxx = 0;
 
-  for (CoursesData subdata in data) {
-    print("~~~~");
-    print(subdata.course_name);
-    print(subdata.assignment);
-    print("~~~~");
+//   for (CoursesData subdata in data) {
+//     print("~~~~");
+//     print(subdata.course_name);
+//     print(subdata.assignment);
+//     print("~~~~");
 
-    print(idxx);
-    print("~~~~");
-    idxx++;
-  }
-}
+//     print(idxx);
+//     print("~~~~");
+//     idxx++;
+//   }
+// }
 
-void PrintDatas(List<List<CoursesData>> datas) {
-  int idx = 0;
-  int idxx = 0;
+// void PrintDatas(List<List<CoursesData>> datas) {
+//   int idx = 0;
+//   int idxx = 0;
 
-  for (List<CoursesData> data in datas) {
-    print("^^^");
-    print(idx);
-    print("^^^");
-    idx++;
-    for (CoursesData subdata in data) {
-      print("~~~~");
-      print(subdata.course_name);
-      print(subdata.assignment);
-      print("~~~~");
+//   for (List<CoursesData> data in datas) {
 
-      print(idxx);
-      print("~~~~");
-      idxx++;
-    }
-  }
-}
+//     print("^^^");
+//     print(idx);
+//     print("^^^");
+//     idx++;
+//     for (CoursesData subdata in data) {
+//       print("~~~~");
+//       print(subdata.course_name);
+//       print(subdata.assignment);
+//       print("~~~~");
+
+//       print(idxx);
+//       print("~~~~");
+//       idxx++;
+//     }
+//   }
+// }
 
 double getAvgofList(List<double> list) {
   // if change is 0, grey, if change is +, green, if change is -, red

@@ -4,6 +4,7 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 
+// ignore: camel_case_types
 class Student_Name_and_ID {
   List<dynamic> names;
   List<dynamic> ids;
@@ -15,6 +16,7 @@ class Student_Name_and_ID {
   }
 }
 
+// ignore: non_constant_identifier_names
 Future<Student_Name_and_ID> createStudent_name_and_ID(
     String email, String password, String school) async {
   int numm = await numInCookies();
@@ -36,7 +38,7 @@ Future<Student_Name_and_ID> createStudent_name_and_ID(
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return Student_Name_and_ID.fromJson({
       "ids": ["N/A"],
       "names": ["N/A"]

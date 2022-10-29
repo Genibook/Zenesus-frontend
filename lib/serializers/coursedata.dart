@@ -121,6 +121,7 @@ class CoursesDatas {
       allItems[i.toString()] = items;
       items = [];
     }
+    // ignore: avoid_print
     print(allItems);
     return json;
   }
@@ -159,7 +160,7 @@ Future<CoursesDatas> createCoursesDatas(String email, String password,
       throw Exception('Error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return CoursesDatas.fromJson({
       '1': [
         {

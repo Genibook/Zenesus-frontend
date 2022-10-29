@@ -84,6 +84,7 @@ class ScheduleCoursesDatas {
       allItems[i.toString()] = items;
       items = [];
     }
+    // ignore: avoid_print
     print(allItems);
     return json;
   }
@@ -119,7 +120,7 @@ Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
       throw Exception('Server error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return ScheduleCoursesDatas.fromJson({
       "RANDOM COUSE NAME": [
         {

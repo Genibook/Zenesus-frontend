@@ -41,7 +41,7 @@ class _Calender extends State<Schedule> {
 
   List<Meeting> _getDataSource(AsyncSnapshot<ScheduleCoursesDatas> snapshot) {
     final List<Meeting> meetings = <Meeting>[];
-    List<CalendarResource> resources = <CalendarResource>[];
+    //List<CalendarResource> resources = <CalendarResource>[];
     final DateTime today = DateTime.now();
     for (int i = 0; i < snapshot.data!.schedulesLength(); i++) {
       for (int j = 0; j < snapshot.data!.oneScheduleLength(i); j++) {
@@ -243,7 +243,7 @@ class _Calender extends State<Schedule> {
                 // }
               }
             } catch (e) {
-              print(e);
+              //print(e);
               child = Center(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

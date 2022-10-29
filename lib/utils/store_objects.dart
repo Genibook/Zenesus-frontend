@@ -3,14 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-import 'package:zenesus/serializers/courses.dart';
-import 'package:zenesus/serializers/mps.dart';
-import 'package:zenesus/serializers/gpas.dart';
-import 'package:zenesus/serializers/coursedata.dart';
-import 'package:zenesus/serializers/schedules.dart';
-import 'package:zenesus/serializers/student.dart';
-import 'package:zenesus/utils/cookies.dart';
-
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 
 List<String> names = [
@@ -52,6 +44,7 @@ Future<DateTime> readlastCache() async {
 Future<bool> logicUpdateCache(DateTime currDatetime) async {
   DateTime oldDateTime = await readlastCache();
   if (oldDateTime.add(const Duration(hours: 1)).isBefore(currDatetime)) {
+    /// TODO [after one iter] (meaning one has updated), it will write this, then the others won't update [fix this]
     writeLastCache(DateTime.now());
     //we need to update
     return false;

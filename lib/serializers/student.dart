@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
-import "package:zenesus/utils/base64.dart";
 import 'package:zenesus/utils/store_objects.dart';
 
 class Student {
@@ -101,7 +100,7 @@ Future<Student> createStudent(
       throw Exception('creating student error');
     }
   } catch (e) {
-    print(e);
+    //print(e);
     return const Student(
         age: "15",
         img_url: "N/A",
