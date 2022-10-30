@@ -3,8 +3,8 @@ import 'package:zenesus/constants.dart';
 class TodoTileInfo {
   TodoTileInfo(
       {required this.title, required this.index, required this.isDone});
-  final String title;
-  final int index;
+  String title;
+  int index;
   bool isDone;
 }
 

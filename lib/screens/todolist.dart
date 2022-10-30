@@ -114,19 +114,19 @@ class TodoState extends State<TodoList> {
           }
           return Scaffold(
             body: child,
-            floatingActionButton: ShakeWidget(
-                // 4. pass the GlobalKey as an argument
-                key: _buttonshakeKey,
-                // 5. configure the animation parameters
-                shakeCount: 3,
-                shakeOffset: 10,
-                shakeDuration: const Duration(milliseconds: 400),
-                // 6. Add the child widget that will be animated
-                child: FloatingActionButton(
-                  onPressed: () => todoListSubmit("button"),
-                  tooltip: 'Add item',
-                  child: const Icon(Icons.add),
-                )),
+            // floatingActionButton: ShakeWidget(
+            //     // 4. pass the GlobalKey as an argument
+            //     key: _buttonshakeKey,
+            //     // 5. configure the animation parameters
+            //     shakeCount: 3,
+            //     shakeOffset: 10,
+            //     shakeDuration: const Duration(milliseconds: 400),
+            //     // 6. Add the child widget that will be animated
+            //     child: FloatingActionButton(
+            //       onPressed: () => todoListSubmit("button"),
+            //       tooltip: 'Add item',
+            //       child: const Icon(Icons.add),
+            //     )),
             bottomNavigationBar: Navbar(
               selectedIndex: todoNavNum,
             ),
@@ -168,73 +168,91 @@ class TodoState extends State<TodoList> {
   Widget _buildTodoItem(TodoTileInfo info) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    return ReorderableDragStartListener(
-        key: ValueKey("${info.index}_todoKey"),
-        index: info.index,
-        child: ListTile(
-          title: TextFormField(
-            enabled: !info.isDone,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-            ),
-            initialValue: Text(info.title,
-                    style: TextStyle(
-                        fontSize: 16,
-                        decoration:
-                            info.isDone ? TextDecoration.lineThrough : null))
-                .data,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          tileColor: isDarkMode
-              ? info.isDone
-                  ? Colors.grey[800]
-                  : Colors.grey[700]
-              : info.isDone
-                  ? Colors.grey[300]
-                  : Colors.grey[200],
-          leading: IconButton(
-            padding: const EdgeInsets.all(0),
-            icon: Icon(
-              info.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-              color: primaryColor,
-            ),
-            onPressed: () {
-              if (info.isDone) {
-                setState(() {
-                  todoList[info.index] = "${info.title}$splitConstant";
-                  info.isDone = false;
-                });
-              } else {
-                setState(() {
-                  todoList[info.index] = "${info.title}${splitConstant}done";
-                  info.isDone = true;
-                });
-              }
-
-              setTodo(todoList);
-            },
-          ),
-          trailing: Container(
-              padding: const EdgeInsets.all(0),
-              margin: const EdgeInsets.symmetric(vertical: 12),
-              height: 35,
-              width: 35,
-              decoration: BoxDecoration(
-                  color: todoDeleteRed, borderRadius: BorderRadius.circular(5)),
-              child: IconButton(
-                icon: const Icon(Icons.delete),
-                iconSize: 18,
-                onPressed: (() {
+    return Column(key: ValueKey("${info.index}_todoKey"), children: [
+      const SizedBox(
+        height: 10,
+      ),
+      ReorderableDragStartListener(
+          index: info.index,
+          child: ListTile(
+            title: TextFormField(
+              enabled: !info.isDone,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              initialValue: Text(info.title,
+                      style: TextStyle(
+                          fontSize: 16,
+                          decoration:
+                              info.isDone ? TextDecoration.lineThrough : null))
+                  .data,
+              onFieldSubmitted: ((value) {
+                if (info.isDone) {
                   setState(() {
-                    todoList.removeAt(info.index);
+                    todoList[info.index] = "$value${splitConstant}done";
+                    setTodo(todoList);
                   });
+                } else {
+                  setState(() {
+                    todoList[info.index] = "$value$splitConstant";
+                    setTodo(todoList);
+                  });
+                }
+              }),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            tileColor: isDarkMode
+                ? info.isDone
+                    ? Colors.grey[800]
+                    : Colors.grey[700]
+                : info.isDone
+                    ? Colors.grey[300]
+                    : Colors.grey[200],
+            leading: IconButton(
+              padding: const EdgeInsets.all(0),
+              icon: Icon(
+                info.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+                color: primaryColor,
+              ),
+              onPressed: () {
+                if (info.isDone) {
+                  setState(() {
+                    todoList[info.index] = "${info.title}$splitConstant";
+                    info.isDone = false;
+                  });
+                } else {
+                  setState(() {
+                    todoList[info.index] = "${info.title}${splitConstant}done";
+                    info.isDone = true;
+                  });
+                }
 
-                  deleteTodo(info.index);
-                }),
-              )),
-        ));
+                setTodo(todoList);
+              },
+            ),
+            trailing: Container(
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(
+                    color: todoDeleteRed,
+                    borderRadius: BorderRadius.circular(5)),
+                child: IconButton(
+                  icon: const Icon(Icons.delete),
+                  iconSize: 18,
+                  onPressed: (() {
+                    setState(() {
+                      todoList.removeAt(info.index);
+                    });
+
+                    deleteTodo(info.index);
+                  }),
+                )),
+          ))
+    ]);
   }
 
   List<Widget> _getItems() {
