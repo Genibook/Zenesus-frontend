@@ -75,12 +75,12 @@ List<Widget> genLongPressed(List<Meeting> meetings, dynamic context) {
       trailing: Text(meeting.notes.split("|||||")[0]),
       subtitle: Text(meeting.notes.split("|||||")[1]),
       onTap: () {
-        String _points = meeting.notes.split("|||||")[0];
-        String _subjectText = meeting.eventName;
-        String _date =
+        String points = meeting.notes.split("|||||")[0];
+        String subjectText = meeting.eventName;
+        String date =
             DateFormat('MMMM dd, yyyy').format(meeting.from).toString();
-        String _assignment = meeting.notes.split("|||||")[1];
-        String _description = meeting.notes.split("|||||")[2];
+        String assignment = meeting.notes.split("|||||")[1];
+        String description = meeting.notes.split("|||||")[2];
 
         showDialog(
             context: context,
@@ -92,12 +92,12 @@ List<Widget> genLongPressed(List<Meeting> meetings, dynamic context) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      _subjectText,
+                      subjectText,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const Divider(),
                     Text(
-                      'Assignment: $_assignment',
+                      'Assignment: $assignment',
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 17,
@@ -106,7 +106,7 @@ List<Widget> genLongPressed(List<Meeting> meetings, dynamic context) {
                     ),
                     const Divider(),
                     Text(
-                      "Date: $_date",
+                      "Date: $date",
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 17,
@@ -115,14 +115,14 @@ List<Widget> genLongPressed(List<Meeting> meetings, dynamic context) {
                     ),
                     const Divider(),
                     Text(
-                      _points,
+                      points,
                       style: const TextStyle(
                           fontWeight: FontWeight.w400, fontSize: 15),
                       textAlign: TextAlign.center,
                     ),
                     const Divider(),
                     Text(
-                      "$_description",
+                      description,
                       style: const TextStyle(
                           fontWeight: FontWeight.w400, fontSize: 13),
                       textAlign: TextAlign.center,
