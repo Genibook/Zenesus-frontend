@@ -1,7 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:zenesus/utils/store_objects.dart';
+import 'package:zenesus/constants.dart';
 
 Future<void> writeBday(bool bday) async {
   final prefs = await SharedPreferences.getInstance();
@@ -89,4 +89,31 @@ Future<void> logout() async {
   for (String name in names) {
     await prefs.remove(name);
   }
+
+  await prefs.remove("lastCache");
+  await prefs.remove("todos");
+}
+
+Future<void> writeTodo(String todo) async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> todos = prefs.getStringList("todos") ?? [];
+  todos.add(todo);
+  await prefs.setStringList("todos", todos);
+}
+
+Future<List<String>> readTodos() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getStringList("todos") ?? [];
+}
+
+Future<void> deleteTodo(int index) async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> todos = prefs.getStringList("todos") ?? [];
+  todos.removeAt(index);
+  await prefs.setStringList("todos", todos);
+}
+
+Future<void> setTodo(List<String> todos) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setStringList("todos", todos);
 }

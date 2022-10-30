@@ -3,7 +3,7 @@ import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/screens/faq.dart';
-import 'package:zenesus/serializers/students_name_and_id.dart';
+import 'package:zenesus/classes/students_name_and_id.dart';
 import 'package:zenesus/screens/credits.dart';
 import 'package:zenesus/utils/confetti.dart';
 import 'package:zenesus/screens/coursespage.dart';

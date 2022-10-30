@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:zenesus/constants.dart';
 import 'package:zenesus/utils/base64.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/widgets/appbar.dart';
-import 'package:zenesus/serializers/student.dart';
+import 'package:zenesus/classes/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
@@ -165,8 +166,57 @@ class Courses extends State<StudentPage> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Icon(
-                                          Icons.school,
+                                          Icons.calendar_month,
                                           color: Colors.blueAccent[400],
+                                          size: 35,
+                                        ),
+                                        const SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            InkWell(
+                                              child: Text(
+                                                "Schedule",
+                                                style: TextStyle(
+                                                    fontSize: 15.0,
+                                                    color: isbday
+                                                        ? Colors.white
+                                                        : null),
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            InkWell(
+                                              child: Text(
+                                                "click me",
+                                                style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: isbday
+                                                      ? Colors.grey[100]
+                                                      : Colors.grey[400],
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                _launchUrl(snapshot
+                                                    .data!.schedule_link);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.school,
+                                          color: Colors.yellowAccent[400],
                                           size: 35,
                                         ),
                                         const SizedBox(
@@ -206,7 +256,7 @@ class Courses extends State<StudentPage> {
                                       children: [
                                         Icon(
                                           Icons.key,
-                                          color: Colors.yellowAccent[400],
+                                          color: Colors.pinkAccent[400],
                                           size: 35,
                                         ),
                                         const SizedBox(
@@ -246,7 +296,7 @@ class Courses extends State<StudentPage> {
                                       children: [
                                         Icon(
                                           CustomIcons.id_badge,
-                                          color: Colors.pinkAccent[400],
+                                          color: Colors.lightGreen[400],
                                           size: 35,
                                         ),
                                         const SizedBox(
@@ -286,7 +336,7 @@ class Courses extends State<StudentPage> {
                                       children: [
                                         Icon(
                                           Icons.flag,
-                                          color: Colors.lightGreen[400],
+                                          color: Colors.purple[700],
                                           size: 35,
                                         ),
                                         const SizedBox(
@@ -313,52 +363,6 @@ class Courses extends State<StudentPage> {
                                                     : Colors.grey[400],
                                               ),
                                             )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Icon(
-                                          Icons.calendar_month,
-                                          color: Colors.purple,
-                                          size: 35,
-                                        ),
-                                        const SizedBox(
-                                          width: 20.0,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Schedule Link",
-                                              style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  color: isbday
-                                                      ? Colors.white
-                                                      : null),
-                                            ),
-                                            InkWell(
-                                              child: Text(
-                                                "click me",
-                                                style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: isbday
-                                                      ? Colors.grey[100]
-                                                      : Colors.grey[400],
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                _launchUrl(snapshot
-                                                    .data!.schedule_link);
-                                              },
-                                            ),
                                           ],
                                         )
                                       ],
@@ -406,8 +410,8 @@ class Courses extends State<StudentPage> {
               ]));
         }
         return Scaffold(
-            bottomNavigationBar: const Navbar(
-              selectedIndex: 0,
+            bottomNavigationBar: Navbar(
+              selectedIndex: profileNavNum,
             ),
             body: child);
       },

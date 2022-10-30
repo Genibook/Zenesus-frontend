@@ -1,9 +1,9 @@
-import 'package:zenesus/serializers/courses.dart';
-import 'package:zenesus/serializers/mps.dart';
-import 'package:zenesus/serializers/gpas.dart';
-import 'package:zenesus/serializers/coursedata.dart';
-import 'package:zenesus/serializers/schedules.dart';
-import 'package:zenesus/serializers/student.dart';
+import 'package:zenesus/classes/courses.dart';
+import 'package:zenesus/classes/mps.dart';
+import 'package:zenesus/classes/gpas.dart';
+import 'package:zenesus/classes/coursedata.dart';
+import 'package:zenesus/classes/schedules.dart';
+import 'package:zenesus/classes/student.dart';
 
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:zenesus/serializers/coursedata.dart';
+import 'package:zenesus/classes/coursedata.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
@@ -150,7 +150,7 @@ class CourseDatasState extends State<CourseDatasPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text('Someone went wrong  - please refresh the app'),
+                    child: Text('Someone went wrong  - please contact us'),
                   )
                 ]));
           }

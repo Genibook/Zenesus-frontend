@@ -33,7 +33,7 @@ class CreditsPageState extends State<CreditsPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                       QAItem(
-                          title: Text("What is this? ❓",
+                          title: Text("What is this?",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                           children: [
@@ -46,7 +46,7 @@ class CreditsPageState extends State<CreditsPage> {
                           ]),
                       QAItem(
                           title: Text(
-                            "Etaash Mathamsetty 🧑",
+                            "Etaash Mathamsetty and Justin",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -56,15 +56,12 @@ class CreditsPageState extends State<CreditsPage> {
                                     "Etaash became my first daily beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
                             ListTile(
                               title: Text(
-                                  "He gave me a lot of valuble suggestions."),
-                            ),
-                            ListTile(
-                              title: Text("He's a very cool dude 😎"),
+                                  "He gave me a lot of valuable suggestions."),
                             ),
                           ]),
                       QAItem(
                           title: Text(
-                            "First Android Beta Testing Group 🤖",
+                            "First Android Beta Testing Group",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -75,7 +72,7 @@ class CreditsPageState extends State<CreditsPage> {
                           ]),
                       QAItem(
                           title: Text(
-                            "Windows testing group 💻",
+                            "Windows testing group",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -85,12 +82,12 @@ class CreditsPageState extends State<CreditsPage> {
                                     "Big thanks to Siddarth - who was one of the first people to test out the website I built to display Genesis data.")),
                             ListTile(
                               title: Text(
-                                  "He gave me ideas for the features in Zenesus today."),
+                                  "Many features that Zenesus has today originated from him."),
                             ),
                           ]),
                       QAItem(
                           title: Text(
-                            "Students and Parents ❤",
+                            "Students and Parents",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),

@@ -2,17 +2,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:zenesus/constants.dart';
 
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-
-List<String> names = [
-  "courses",
-  "coursesData",
-  "schedule",
-  "student",
-  "mps",
-  "gpas"
-];
 
 void writeObject(Map<String, dynamic> json, int index) async {
   final prefs = await SharedPreferences.getInstance();
@@ -44,7 +36,7 @@ Future<DateTime> readlastCache() async {
 Future<bool> logicUpdateCache(DateTime currDatetime) async {
   DateTime oldDateTime = await readlastCache();
   if (oldDateTime.add(const Duration(hours: 1)).isBefore(currDatetime)) {
-    /// TODO [after one iter] (meaning one has updated), it will write this, then the others won't update [fix this]
+    /// TODO: [after one iter] (meaning one has updated), it will write this, then the others won't update [fix this]
     writeLastCache(DateTime.now());
     //we need to update
     return false;

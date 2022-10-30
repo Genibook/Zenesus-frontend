@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:window_size/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:zenesus/constants.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
   if (UniversalPlatform.isWindows ||
       UniversalPlatform.isLinux ||
       UniversalPlatform.isMacOS) {
-    setWindowMinSize(const Size(300, 600));
+    setWindowMinSize(const Size(300, 650));
     setWindowMaxSize(Size.infinite);
   }
 
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
       title: 'Zenesus',
       theme: ThemeData(
         // useMaterial3: true,
-        primarySwatch: Colors.blue,
+        primarySwatch: primaryColor,
       ),
       darkTheme: ThemeData.dark(
         useMaterial3: true,

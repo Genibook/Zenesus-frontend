@@ -3,6 +3,8 @@ import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/screens/studentpage.dart';
 import 'package:zenesus/screens/schedule.dart';
+import 'package:zenesus/screens/todolist.dart';
+import 'package:zenesus/constants.dart';
 
 class Navbar extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -41,7 +43,7 @@ class NavBarState extends State<Navbar> {
     password = things[1];
     school = things[2];
 
-    if (index == 1) {
+    if (index == gradesNavNum) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -53,7 +55,7 @@ class NavBarState extends State<Navbar> {
                   refresh: false,
                 )),
       );
-    } else if (index == 0) {
+    } else if (index == profileNavNum) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -64,7 +66,7 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
-    } else if (index == 2) {
+    } else if (index == scheduleNavNum) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -75,30 +77,39 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
+    } else if (index == todoNavNum) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const TodoList()),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.text_increase),
           label: 'Grades',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.schedule),
           label: 'Schedule',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.list),
+          label: 'Todo List',
         ),
       ],
       currentIndex: _selectedIndex,
       backgroundColor: _isbday ? Colors.amber[700] : null,
-      selectedItemColor:
-          _isbday ? Colors.white : const Color.fromARGB(255, 33, 168, 245),
+      selectedItemColor: _isbday ? Colors.white : primaryColorColor,
       onTap: _onItemTapped,
     );
   }

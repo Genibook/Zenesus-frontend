@@ -1,4 +1,4 @@
-import 'package:zenesus/serializers/coursedata.dart';
+import 'package:zenesus/classes/coursedata.dart';
 import 'package:zenesus/utils/courses_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -248,16 +248,19 @@ class GradePopupCard extends StatelessWidget {
                       "${course.category}",
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       "${course.assignment}",
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       "${course.teacher}",
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
                     ),
                     Text("${course.full_dayname} ${course.full_date}"),
                     const Divider(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:zenesus/constants.dart';
 import 'package:zenesus/widgets/navbar.dart';
-import 'package:zenesus/serializers/schedules.dart';
+import 'package:zenesus/classes/schedules.dart';
 import 'package:zenesus/screens/error.dart';
 import 'dart:math' as math;
+import "package:zenesus/routes/hero_dialog_route.dart";
+import 'package:zenesus/widgets/schedule_info.dart';
 
 class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
@@ -71,28 +74,6 @@ class _Calender extends State<Schedule> {
     return meetings;
   }
 
-  List<Widget> genLongPressed(List<Meeting> meetings) {
-    List<Widget> widgets = [];
-
-    for (Meeting meeting in meetings) {
-      Widget widget = ListTile(
-        enabled: true,
-        selected: false,
-        title: Text(meeting.eventName),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.blue, width: 1),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        trailing: Text(meeting.notes.split("|||||")[0]),
-        subtitle: Text(meeting.notes.split("|||||")[1]),
-      );
-
-      widgets.add(widget);
-    }
-
-    return widgets;
-  }
-
   void calendarTapped(CalendarTapDetails details) {
     if (details.targetElement == CalendarElement.appointment ||
         details.targetElement == CalendarElement.agenda) {
@@ -136,22 +117,21 @@ class _Calender extends State<Schedule> {
                     textAlign: TextAlign.center,
                   ),
                   const Divider(),
-                  Text("$_points",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: 15)),
+                  Text(
+                    "$_points",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
                   const Divider(),
-                  Text("$_description",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: 13))
+                  Text(
+                    "$_description",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 13),
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
-              actions: <Widget>[
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('close'))
-              ],
             );
           });
     } else if (details.targetElement == CalendarElement.calendarCell) {
@@ -161,32 +141,12 @@ class _Calender extends State<Schedule> {
         return;
       }
       final Meeting oneAss = details.appointments![0];
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: SizedBox(
-                  child: Text(
-                      'Assignments due on ${DateFormat('MMMM dd, yyyy').format(oneAss.from).toString()}')),
-              // ignore: avoid_unnecessary_containers
-              content: Container(
-                  child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: genLongPressed(appointmentDetails),
-                      ))),
-              actions: <Widget>[
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('close'))
-              ],
-            );
-          });
+      Navigator.of(context).push(HeroDialogRoute(builder: (context) {
+        return ScheduleInfosPopup(
+          oneAss: oneAss,
+          appointmentDetails: appointmentDetails,
+        );
+      }));
     }
   }
 
@@ -235,12 +195,24 @@ class _Calender extends State<Schedule> {
                       children: [Center(child: createErrorPage(context))]);
                 }
               } catch (e) {
-                //print(e);
-                // if (snapshot.data!.datas[0].isEmpty) {
-                //   child = Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [Center(child: createErrorPage(context))]);
-                // }
+                child = Center(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text(
+                          'Someone went wrong  - please contact us \n Error - $e',
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ]));
               }
             } catch (e) {
               //print(e);
@@ -248,16 +220,18 @@ class _Calender extends State<Schedule> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                    Icon(
+                      children: <Widget>[
+                    const Icon(
                       Icons.error_outline,
                       color: Colors.red,
                       size: 60,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child:
-                          Text('Someone went wrong  - please refresh the app'),
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Someone went wrong  - please contact us \n Error - $e',
+                        textAlign: TextAlign.center,
+                      ),
                     )
                   ]));
             }
@@ -296,8 +270,8 @@ class _Calender extends State<Schedule> {
           }
           return Scaffold(
             body: child,
-            bottomNavigationBar: const Navbar(
-              selectedIndex: 2,
+            bottomNavigationBar: Navbar(
+              selectedIndex: scheduleNavNum,
             ),
           );
         });

@@ -1,13 +1,14 @@
 import 'dart:ui';
 
-import 'package:zenesus/serializers/courses.dart';
-import 'package:zenesus/serializers/mps.dart';
-import 'package:zenesus/serializers/gpas.dart';
-import 'package:zenesus/serializers/coursedata.dart';
-import 'package:zenesus/serializers/schedules.dart';
-import 'package:zenesus/serializers/student.dart';
+import 'package:zenesus/classes/courses.dart';
+import 'package:zenesus/classes/mps.dart';
+import 'package:zenesus/classes/gpas.dart';
+import 'package:zenesus/classes/coursedata.dart';
+import 'package:zenesus/classes/schedules.dart';
+import 'package:zenesus/classes/student.dart';
 
 import 'package:flutter/material.dart';
+import 'package:zenesus/constants.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
 import 'package:zenesus/screens/coursedatapage.dart';
@@ -357,8 +358,8 @@ class GradePageState extends State<CoursesPage> {
         }
         return Scaffold(
           body: child,
-          bottomNavigationBar: const Navbar(
-            selectedIndex: 1,
+          bottomNavigationBar: Navbar(
+            selectedIndex: gradesNavNum,
           ),
         );
       },
