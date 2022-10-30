@@ -42,7 +42,7 @@ class ScheduleInfosPopup extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
-                          children: genLongPressed(appointmentDetails),
+                          children: genLongPressed(appointmentDetails, context),
                         )),
                     // ElevatedButton(
                     //     onPressed: () {
@@ -60,7 +60,7 @@ class ScheduleInfosPopup extends StatelessWidget {
   }
 }
 
-List<Widget> genLongPressed(List<Meeting> meetings) {
+List<Widget> genLongPressed(List<Meeting> meetings, dynamic context) {
   List<Widget> widgets = [];
 
   for (Meeting meeting in meetings) {
@@ -74,6 +74,64 @@ List<Widget> genLongPressed(List<Meeting> meetings) {
       ),
       trailing: Text(meeting.notes.split("|||||")[0]),
       subtitle: Text(meeting.notes.split("|||||")[1]),
+      onTap: () {
+        String _points = meeting.notes.split("|||||")[0];
+        String _subjectText = meeting.eventName;
+        String _date =
+            DateFormat('MMMM dd, yyyy').format(meeting.from).toString();
+        String _assignment = meeting.notes.split("|||||")[1];
+        String _description = meeting.notes.split("|||||")[2];
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      _subjectText,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const Divider(),
+                    Text(
+                      'Assignment: $_assignment',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 17,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(),
+                    Text(
+                      "Date: $_date",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 17,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(),
+                    Text(
+                      _points,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(),
+                    Text(
+                      "$_description",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 13),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              );
+            });
+      },
     );
 
     widgets.add(widget);

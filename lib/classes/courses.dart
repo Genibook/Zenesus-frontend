@@ -71,19 +71,20 @@ Future<Courses> createCourses(
 }
 
 Future<Courses> modelCourse() async {
-  await Future.delayed(const Duration(seconds: 1));
+  await Future.delayed(const Duration(milliseconds: 10));
   return const Courses(courseGrades: [
-    ["English 10 honors", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["AP Chemistry", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["AP Calculus AB", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
-    ["CP US History", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
     [
-      "Photography 3",
-      "Ms.AppleGate",
-      "appgate@mtsd.com",
-      "N/A",
-      "Not Graded MP2"
+      "Honors English Literature and Comp 10",
+      "Ms.Example",
+      "English@mtsd.com",
+      "100",
+      "N/A"
     ],
-    ["Spanish II", "Ms.AppleGate", "appgate@mtsd.com", "100", "N/A"],
+    ["AP Chemistry", "Ms.Example", "zenesus@mtsd.com", "60", "N/A"],
+    ["AP Calculus AB", "Mr.Example", "is@mtsd.com", "70", "N/A"],
+    ["US History I", "Ms.Example", "really@mtsd.com", "100", "N/A"],
+    ["Photography 2", "Ms.Example", "cool@mtsd.com", "N/A", "Not Graded MP2"],
+    ["Spanish II", "Mr.Example", "download@mtsd.com", "89", "N/A"],
+    ["Phys Ed 10", "Ms.Example", "now! :)@mtsd.com", "100", "N/A"],
   ]);
 }

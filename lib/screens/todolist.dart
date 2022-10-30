@@ -175,17 +175,21 @@ class TodoState extends State<TodoList> {
       ReorderableDragStartListener(
           index: info.index,
           child: ListTile(
-            title: TextFormField(
+            // ignore: avoid_unnecessary_containers
+            title: Container(
+                child: TextFormField(
+              maxLines: null,
               enabled: !info.isDone,
               decoration: const InputDecoration(
                 border: InputBorder.none,
               ),
-              initialValue: Text(info.title,
-                      style: TextStyle(
-                          fontSize: 16,
-                          decoration:
-                              info.isDone ? TextDecoration.lineThrough : null))
-                  .data,
+              initialValue: Text(
+                info.title,
+                style: TextStyle(
+                    fontSize: 16,
+                    decoration:
+                        info.isDone ? TextDecoration.lineThrough : null),
+              ).data,
               onFieldSubmitted: ((value) {
                 if (info.isDone) {
                   setState(() {
@@ -199,7 +203,7 @@ class TodoState extends State<TodoList> {
                   });
                 }
               }),
-            ),
+            )),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

@@ -64,7 +64,7 @@ class GradePageState extends State<CoursesPage> {
       _futureCourses = createCourses(
           widget.email, widget.password, widget.school, widget.refresh);
 
-      //_futureCourses = modelCourse();
+      _futureCourses = modelCourse();
       //_futureMPs = modelMPs();
     });
 
