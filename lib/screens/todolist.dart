@@ -10,6 +10,7 @@ class TodoList extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
+
   TodoState createState() => TodoState();
 }
 
@@ -42,6 +43,11 @@ class TodoState extends State<TodoList> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        const Text(
+                          "Todos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 50),
+                        ),
                         ReorderableListView(
                           buildDefaultDragHandles: false,
                           header: ShakeWidget(
@@ -107,13 +113,6 @@ class TodoState extends State<TodoList> {
             //child = const Center(child: CircularProgressIndicator());
           }
           return Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                "Todos",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 50),
-              ),
-              centerTitle: true,
-            ),
             body: child,
             floatingActionButton: ShakeWidget(
                 // 4. pass the GlobalKey as an argument

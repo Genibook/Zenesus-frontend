@@ -9,6 +9,7 @@ import 'package:zenesus/constants.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/services.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -28,7 +29,9 @@ Future<void> main() async {
     setWindowMinSize(const Size(300, 650));
     setWindowMaxSize(Size.infinite);
   }
-
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(
     //MyApp()
     DevicePreview(
