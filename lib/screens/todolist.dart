@@ -144,23 +144,16 @@ class TodoState extends State<TodoList> {
             child = Column();
             //child = const Center(child: CircularProgressIndicator());
           }
-          return Scaffold(
-            body: child,
-            // floatingActionButton: ShakeWidget(
-            //     // 4. pass the GlobalKey as an argument
-            //     key: _buttonshakeKey,
-            //     // 5. configure the animation parameters
-            //     shakeCount: 3,
-            //     shakeOffset: 10,
-            //     shakeDuration: const Duration(milliseconds: 400),
-            //     // 6. Add the child widget that will be animated
-            //     child: FloatingActionButton(
-            //       onPressed: () => todoListSubmit("button"),
-            //       tooltip: 'Add item',
-            //       child: const Icon(Icons.add),
-            //     )),
-            bottomNavigationBar: Navbar(
-              selectedIndex: todoNavNum,
+
+          return GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Scaffold(
+              body: child,
+              bottomNavigationBar: Navbar(
+                selectedIndex: todoNavNum,
+              ),
             ),
           );
         });
@@ -215,15 +208,7 @@ class TodoState extends State<TodoList> {
               decoration: const InputDecoration(
                 border: InputBorder.none,
               ),
-              // TODO: now with maxLines: null, i can't really allow for the user to submit in android phones
-              initialValue: Text(
-                info.title,
-                style: TextStyle(
-                    fontSize: 16,
-                    decoration:
-                        info.isDone ? TextDecoration.lineThrough : null),
-              ).data,
-              onFieldSubmitted: ((value) {
+              onChanged: (value) {
                 if (info.isDone) {
                   setState(() {
                     todoList[info.index] = "$value${splitConstant}done";
@@ -235,7 +220,15 @@ class TodoState extends State<TodoList> {
                     setTodo(todoList);
                   });
                 }
-              }),
+              },
+              initialValue: Text(
+                info.title,
+                style: TextStyle(
+                    fontSize: 16,
+                    decoration:
+                        info.isDone ? TextDecoration.lineThrough : null),
+              ).data,
+              // onFieldSubmitted: ((value) {}),
             )),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),

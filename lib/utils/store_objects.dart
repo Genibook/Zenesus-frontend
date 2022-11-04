@@ -47,10 +47,8 @@ Future<bool> logicUpdateCache(
     DateTime currDatetime, dynamic studentInfo) async {
   DateTime oldDateTime = await readlastCache();
   if (oldDateTime.add(const Duration(hours: 1)).isBefore(currDatetime)) {
-    /// TODO: [after one iter] (meaning one has updated), it will write this, then the others won't update [fix this]
     writeLastCache(DateTime.now());
     bool done = await refreshAll(studentInfo);
-    print("refreshed all");
     if (done) {
       return false;
     }
