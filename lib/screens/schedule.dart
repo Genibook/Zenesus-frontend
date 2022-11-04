@@ -304,7 +304,17 @@ class _Calender extends State<Schedule> {
                             );
                           }));
                     } else {
-                      testing();
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                              title: Text(
+                                "Currently developing google calendar integration!",
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          });
+                      // testing();
                     }
                   },
                 )),
