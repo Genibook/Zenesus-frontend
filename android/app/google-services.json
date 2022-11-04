@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "87963237392",
+    "project_id": "zenesus",
+    "storage_bucket": "zenesus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87963237392:android:f87291cb4acffcf3cade95",
+        "android_client_info": {
+          "package_name": "zenesus.on.top"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87963237392-c5a89rd230sumbl5p7963h8s9etnm8uj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBCM2zNXQqVQd8CV0yRLCivb7WHIZEDjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87963237392-c5a89rd230sumbl5p7963h8s9etnm8uj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "87963237392-jkllqqe9qupd0q22ra2cj5ued0n9k158.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.zenesus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

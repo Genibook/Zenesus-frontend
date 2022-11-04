@@ -39,7 +39,7 @@ Widget createErrorPage(dynamic context) {
               Tooltip(
                 message: "Sign into Genesis",
                 child: IconButton(
-                  icon: const Icon(CustomIcons.id_badge),
+                  icon: const Icon(CustomIcons.idBadge),
                   onPressed: () => _launchUrl(
                       "https://parents.mtsd.k12.nj.us/genesis/parents"),
                 ),

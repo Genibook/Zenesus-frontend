@@ -8,6 +8,17 @@ import 'package:zenesus/screens/error.dart';
 import 'dart:math' as math;
 import "package:zenesus/routes/hero_dialog_route.dart";
 import 'package:zenesus/widgets/schedule_info.dart';
+import 'package:zenesus/icons/custom_icons_icons.dart';
+
+import "package:googleapis_auth/auth_io.dart";
+import 'package:googleapis/calendar/v3.dart' as cal;
+import 'package:zenesus/secrets.dart';
+
+import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/calendar_client.dart';
+
+import 'package:universal_platform/universal_platform.dart';
 
 class Schedule extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
@@ -273,8 +284,49 @@ class _Calender extends State<Schedule> {
             bottomNavigationBar: Navbar(
               selectedIndex: scheduleNavNum,
             ),
+            floatingActionButton: SizedBox(
+                width: 40,
+                height: 40,
+                child: FloatingActionButton(
+                  child: const Icon(CustomIcons.calendar),
+                  onPressed: () {
+                    if (UniversalPlatform.isWindows ||
+                        UniversalPlatform.isLinux ||
+                        UniversalPlatform.isMacOS) {
+                      showDialog(
+                          context: context,
+                          builder: ((context) {
+                            return const AlertDialog(
+                              title: Text(
+                                "Only available for ios and android!",
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          }));
+                    } else {
+                      testing();
+                    }
+                  },
+                )),
           );
         });
+  }
+}
+
+void testing() async {
+  var clientID = ClientId(Secret.getId(), "");
+  const scopes = [cal.CalendarApi.calendarScope];
+  await clientViaUserConsent(clientID, scopes, prompt)
+      .then((AuthClient client) async {
+    CalendarClient.calendar = cal.CalendarApi(client);
+  });
+}
+
+void prompt(String url) async {
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    throw 'Could not launch $url';
   }
 }
 

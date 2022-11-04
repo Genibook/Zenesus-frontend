@@ -50,3 +50,4 @@ app.*.map.json
 /installers/
 /venv/
 /assets/ca
+lib/secrets.dart

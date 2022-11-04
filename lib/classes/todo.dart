@@ -22,6 +22,7 @@ List<String> todoTilesToStringList(List<TodoTileInfo> infos) {
 
 List<TodoTileInfo> stringListToTodoTiles(List<String> infos) {
   List<TodoTileInfo> tileInfos = [];
+  //print(infos);
   for (int i = 0; i < infos.length; i++) {
     tileInfos.add(TodoTileInfo(
         // ignore: unrelated_type_equality_checks
@@ -30,4 +31,12 @@ List<TodoTileInfo> stringListToTodoTiles(List<String> infos) {
         isDone: infos[i].split(splitConstant)[1] == "done"));
   }
   return tileInfos;
+}
+
+String genAStringOfTodos(List<String> todos) {
+  String todoString = "Todos:\n";
+  for (String todo in todos) {
+    todoString += "- ${todo.split(splitConstant)[0]} \n";
+  }
+  return todoString;
 }

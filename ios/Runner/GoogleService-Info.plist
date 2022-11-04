@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>87922380552-b11k4rfi05i1abi5rj0mlj3qflk31884.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.87922380552-b11k4rfi05i1abi5rj0mlj3qflk31884</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBG8lErwy2zHigf_6OiSJ5U6adVUaWgsC8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>87922380552</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.zenesus</string>
+	<key>PROJECT_ID</key>
+	<string>zenesus-8bdfc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zenesus-8bdfc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:87922380552:ios:9178fff717b810fa8a26bd</string>
+</dict>
+</plist>

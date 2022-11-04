@@ -12,6 +12,10 @@
 ///       - asset: fonts/CustomIcons.ttf
 ///
 ///
+/// * Elusive, Copyright (C) 2013 by Aristeides Stathopoulos
+///         Author:    Aristeides Stathopoulos
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://aristeides.com/
 /// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
@@ -29,9 +33,10 @@ class CustomIcons {
   static const _kFontFam = 'CustomIcons';
   static const String? _kFontPkg = null;
 
+  static const IconData calendar =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData binoculars =
       IconData(0xf1e5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  // ignore: constant_identifier_names
-  static const IconData id_badge =
+  static const IconData idBadge =
       IconData(0xf2c1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -11,6 +11,9 @@ import 'package:zenesus/screens/firstscreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -28,10 +31,15 @@ Future<void> main() async {
       UniversalPlatform.isMacOS) {
     setWindowMinSize(const Size(300, 650));
     setWindowMaxSize(Size.infinite);
+  } else {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+
   runApp(
     //MyApp()
     DevicePreview(

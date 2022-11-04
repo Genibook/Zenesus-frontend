@@ -90,6 +90,7 @@ class Courses extends State<StudentPage> {
                                 radius: 65.0,
                                 backgroundImage:
                                     createImageFromImage64(snapshot),
+
                                 // NetworkImage()//snapshot.data!.image_url
                                 backgroundColor:
                                     isbday ? Colors.grey[200] : Colors.white,
@@ -295,7 +296,7 @@ class Courses extends State<StudentPage> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Icon(
-                                          CustomIcons.id_badge,
+                                          CustomIcons.idBadge,
                                           color: Colors.lightGreen[400],
                                           size: 35,
                                         ),

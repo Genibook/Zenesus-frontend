@@ -120,9 +120,10 @@ Future<Student> modelStudent() async {
   await Future.delayed(const Duration(seconds: 1));
   return const Student(
       age: "15",
-      img_url: "https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif",
+      // img_url: "https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif",
+      img_url: "N/A",
       state_id: "12312312",
-      birthday: "06-07-2007",
+      birthday: "06/07/2007",
       schedule_link: "https://example.com",
       name: "Eddie Tang",
       grade: "10",

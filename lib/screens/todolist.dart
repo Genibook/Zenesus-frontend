@@ -4,6 +4,7 @@ import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/constants.dart';
 import 'package:zenesus/classes/todo.dart';
 import 'package:zenesus/widgets/navbar.dart';
+import 'package:flutter/services.dart';
 
 class TodoList extends StatefulWidget {
   const TodoList({super.key});
@@ -21,6 +22,7 @@ class TodoState extends State<TodoList> {
   Future<List<String>>? _futureTodos;
   final TextEditingController _todoController = TextEditingController();
   late List<Widget> todos;
+  List<TodoTileInfo> tileInfos = [];
 
   @override
   void initState() {
@@ -48,6 +50,31 @@ class TodoState extends State<TodoList> {
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 50),
                         ),
+                        SizedBox(
+                          width: 120,
+                          height: 30,
+                          child: ElevatedButton(
+                              onPressed: (() async {
+                                await Clipboard.setData(ClipboardData(
+                                    text: genAStringOfTodos(todoList)));
+                                SnackBar snackBar = SnackBar(
+                                  content: const Text(
+                                    'Exported your todos to your clipboard!',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  backgroundColor: primaryColorColor,
+                                );
+
+                                // Find the ScaffoldMessenger in the widget tree
+                                // and use it to show a SnackBar.
+                                // ignore: use_build_context_synchronously
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }),
+                              child: const Text("Export Todos")),
+                        ),
                         ReorderableListView(
                           buildDefaultDragHandles: false,
                           header: ShakeWidget(
@@ -69,10 +96,15 @@ class TodoState extends State<TodoList> {
                             setState(() {
                               if (newIndex > oldIndex) newIndex--;
                               final item = todoList.removeAt(oldIndex);
+
                               todoList.insert(newIndex, item);
-                              setTodo(todoList);
+
                               // final itemm = todos.removeAt(oldIndex);
                               // todos.insert(newIndex, itemm);
+
+                              //print(todoList);
+
+                              setTodo(todoList);
                             });
 
                             Navigator.of(context).pop();
@@ -183,6 +215,7 @@ class TodoState extends State<TodoList> {
               decoration: const InputDecoration(
                 border: InputBorder.none,
               ),
+              // TODO: now with maxLines: null, i can't really allow for the user to submit in android phones
               initialValue: Text(
                 info.title,
                 style: TextStyle(
@@ -248,11 +281,22 @@ class TodoState extends State<TodoList> {
                   icon: const Icon(Icons.delete),
                   iconSize: 18,
                   onPressed: (() {
+                    // print(todoList);
+                    // print(info.index);
                     setState(() {
                       todoList.removeAt(info.index);
                     });
-
-                    deleteTodo(info.index);
+                    setTodo(todoList);
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const TodoList(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                    // print(todoList);
                   }),
                 )),
           ))
@@ -261,7 +305,7 @@ class TodoState extends State<TodoList> {
 
   List<Widget> _getItems() {
     final List<Widget> todoWidgets = <Widget>[];
-    List<TodoTileInfo> tileInfos = stringListToTodoTiles(todoList);
+    tileInfos = stringListToTodoTiles(todoList);
     for (int i = 0; i < tileInfos.length; i++) {
       todoWidgets.add(_buildTodoItem(tileInfos[i]));
     }

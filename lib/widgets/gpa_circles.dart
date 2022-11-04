@@ -54,7 +54,10 @@ Widget unweightedCircle(BuildContext context, dynamic snapshot) {
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold)),
                   const Text("tap me to change modes",
-                      style: TextStyle(fontSize: 8))
+                      style: TextStyle(fontSize: 9)),
+                  const SizedBox(height: 1.5),
+                  const Text("pull down to refresh",
+                      style: TextStyle(fontSize: 8)),
                 ])),
           ),
         )
@@ -114,7 +117,10 @@ Widget weightedCircle(BuildContext context, dynamic snapshot) {
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold)),
                   const Text("tap me to change modes",
-                      style: TextStyle(fontSize: 8))
+                      style: TextStyle(fontSize: 9)),
+                  const SizedBox(height: 1.5),
+                  const Text("pull down to refresh",
+                      style: TextStyle(fontSize: 8)),
                 ])),
           ),
         )

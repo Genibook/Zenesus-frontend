@@ -80,11 +80,11 @@ Future<Courses> modelCourse() async {
       "100",
       "N/A"
     ],
-    ["AP Chemistry", "Ms.Example", "zenesus@mtsd.com", "60", "N/A"],
-    ["AP Calculus AB", "Mr.Example", "is@mtsd.com", "70", "N/A"],
+    ["AP Chemistry", "Ms.Example", "zenesus@mtsd.com", "96", "N/A"],
+    ["AP Counting", "Mr.Example", "is@mtsd.com", "76", "N/A"],
     ["US History I", "Ms.Example", "really@mtsd.com", "100", "N/A"],
     ["Photography 2", "Ms.Example", "cool@mtsd.com", "N/A", "Not Graded MP2"],
-    ["Spanish II", "Mr.Example", "download@mtsd.com", "89", "N/A"],
+    ["Spanish X", "Mr.Example", "download@mtsd.com", "89", "N/A"],
     ["Phys Ed 10", "Ms.Example", "now! :)@mtsd.com", "100", "N/A"],
   ]);
 }

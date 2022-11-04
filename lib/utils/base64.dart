@@ -17,7 +17,9 @@ String base64String(Uint8List data) {
 ImageProvider<Object>? createImageFromImage64(dynamic snapshot) {
   if (snapshot.data!.image64 != "N/A") {
     return imageFromBase64String(snapshot.data!.image64).image;
+  } else if (snapshot.data!.img_url != "N/A") {
+    return NetworkImage(snapshot.data!.img_url);
+  } else {
+    return const AssetImage("assets/user.png");
   }
-
-  return const AssetImage("assets/user.png");
 }
