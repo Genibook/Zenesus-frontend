@@ -133,7 +133,11 @@ Future<CoursesDatas> createCoursesDatas(String email, String password,
   Map<String, dynamic> cachedJson = await readObject(index);
 
   if (cachedJson.isNotEmpty && !forceReload) {
-    if (await logicUpdateCache(DateTime.now()) || !forceReload) {
+    if (await logicUpdateCache(
+            DateTime.now(),
+            BasicStudentInfo(
+                email: email, password: password, school: school)) ||
+        !forceReload) {
       CoursesDatas courses = CoursesDatas.fromJson(cachedJson);
       return courses;
     }

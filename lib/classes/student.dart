@@ -76,7 +76,11 @@ Future<Student> createStudent(
   int index = 3;
   Map<String, dynamic> cachedJson = await readObject(index);
   if (cachedJson.isNotEmpty && !forceReload) {
-    if (await logicUpdateCache(DateTime.now()) || !forceReload) {
+    if (await logicUpdateCache(
+            DateTime.now(),
+            BasicStudentInfo(
+                email: email, password: password, school: school)) ||
+        !forceReload) {
       Student courses = Student.fromJson(cachedJson);
       return courses;
     }

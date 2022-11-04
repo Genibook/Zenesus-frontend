@@ -91,7 +91,20 @@ class GradePageState extends State<CoursesPage> {
       mpsLoading = true;
       writeMPintoCookies(selectedMP);
     });
-    await refreshAll();
+    bool done = await refreshAll(widget);
+    if (done) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CoursesPage(
+                  email: widget.email,
+                  password: widget.password,
+                  school: widget.school,
+                  refresh: false,
+                )),
+      );
+    }
     mpsLoading = false;
   }
 
@@ -179,33 +192,6 @@ class GradePageState extends State<CoursesPage> {
         return child;
       },
     );
-  }
-
-  Future<void> refreshAll() async {
-    //Future.delayed(const Duration(seconds: 2));
-    String mp = await mpInCookies();
-    await createMPs(widget.email, widget.password, widget.school, true);
-    await createGpas(widget.email, widget.password, widget.school, true);
-    await createCourses(widget.email, widget.password, widget.school, true);
-    await createCoursesDatas(
-        widget.email, widget.password, widget.school, mp, true);
-    await createScheduleCoursesDatas(
-        widget.email, widget.password, widget.school, true);
-    await createStudent(widget.email, widget.password, widget.school, true);
-    bool done = true;
-    if (done) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CoursesPage(
-                  email: widget.email,
-                  password: widget.password,
-                  school: widget.school,
-                  refresh: false,
-                )),
-      );
-    }
   }
 
   FutureBuilder<Courses> buildFutureCourseBuilder(
@@ -308,7 +294,22 @@ class GradePageState extends State<CoursesPage> {
                     }),
               ]);
           child = RefreshIndicator(
-              onRefresh: refreshAll,
+              onRefresh: () async {
+                bool done = await refreshAll(widget);
+                if (done) {
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CoursesPage(
+                              email: widget.email,
+                              password: widget.password,
+                              school: widget.school,
+                              refresh: false,
+                            )),
+                  );
+                }
+              },
               child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(
                     dragDevices: {
@@ -365,4 +366,19 @@ class GradePageState extends State<CoursesPage> {
       },
     );
   }
+}
+
+Future<bool> refreshAll(dynamic widget) async {
+  //Future.delayed(const Duration(seconds: 2));
+
+  String mp = await mpInCookies();
+  await createMPs(widget.email, widget.password, widget.school, true);
+  await createGpas(widget.email, widget.password, widget.school, true);
+  await createCourses(widget.email, widget.password, widget.school, true);
+  await createCoursesDatas(
+      widget.email, widget.password, widget.school, mp, true);
+  await createScheduleCoursesDatas(
+      widget.email, widget.password, widget.school, true);
+  await createStudent(widget.email, widget.password, widget.school, true);
+  return true;
 }

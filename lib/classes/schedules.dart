@@ -95,7 +95,11 @@ Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
   int index = 2;
   Map<String, dynamic> cachedJson = await readObject(index);
   if (cachedJson.isNotEmpty && !forceReload) {
-    if (await logicUpdateCache(DateTime.now()) || !forceReload) {
+    if (await logicUpdateCache(
+            DateTime.now(),
+            BasicStudentInfo(
+                email: email, password: password, school: school)) ||
+        !forceReload) {
       ScheduleCoursesDatas courses = ScheduleCoursesDatas.fromJson(cachedJson);
       return courses;
     }
