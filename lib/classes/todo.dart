@@ -34,9 +34,23 @@ List<TodoTileInfo> stringListToTodoTiles(List<String> infos) {
 }
 
 String genAStringOfTodos(List<String> todos) {
+  List<String> dones = [];
+  List<String> notDones = [];
   String todoString = "Todos:\n";
   for (String todo in todos) {
-    todoString += "- ${todo.split(splitConstant)[0]} \n";
+    String title = todo.split(splitConstant)[0];
+    String done = todo.split(splitConstant)[1];
+    if (done == "done") {
+      dones.add("- $title ✅");
+    } else {
+      notDones.add("- $title ❌");
+    }
+  }
+  for (String done in dones) {
+    todoString += "$done \n";
+  }
+  for (String notDone in notDones) {
+    todoString += "$notDone \n";
   }
   return todoString;
 }
