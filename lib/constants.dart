@@ -21,6 +21,10 @@ final List<String> names = [
   "gpaHistory",
 ];
 
+bool UPDATE = false;
+String UPDATE_DRIVE_URL =
+    "https://drive.google.com/file/d/1WyIHZfJH1hGt8FFGzwpOEKAuFVM4ziKb/view";
+
 String splitConstant = "|||||";
 
 int gradesNavNum = 0;

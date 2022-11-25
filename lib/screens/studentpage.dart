@@ -12,6 +12,7 @@ import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/utils/confetti.dart';
 import 'package:confetti/confetti.dart';
 import 'package:zenesus/screens/gpahistory.dart';
+import 'package:zenesus/constants.dart';
 
 Future<void> _launchUrl(String url) async {
   if (!await launchUrl(Uri.parse(url))) {
@@ -121,11 +122,25 @@ class Courses extends State<StudentPage> {
                                 ),
                               ),
                         const Spacer(),
-                        Text(snapshot.data!.name,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w800)),
+                        UPDATE
+                            ? InkWell(
+                                child: const Text(
+                                    "Click me: Windows users please download a new release here",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w800)),
+                                onTap: () {
+                                  _launchUrl(UPDATE_DRIVE_URL);
+                                },
+                              )
+                            : Text(snapshot.data!.name,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w800)),
                         const Spacer(),
                         Align(
                           alignment: Alignment.center,
