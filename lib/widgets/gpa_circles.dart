@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zenesus/utils/courses_utils.dart';
+import 'package:zenesus/utils/gpa_utils.dart';
 import 'dart:math';
 
 Widget unweightedCircle(BuildContext context, dynamic snapshot) {

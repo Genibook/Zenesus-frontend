@@ -137,7 +137,9 @@ class TodoState extends State<TodoList> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
-                        'Error: ${snapshot.error} \n Please report this to zenesus.gradebook@gmail.com'),
+                      'Error: ${snapshot.error} \n Please report this to zenesus.gradebook@gmail.com',
+                      textAlign: TextAlign.center,
+                    ),
                   )
                 ]));
           } else {

@@ -16,6 +16,24 @@ class BasicStudentInfo {
       {required this.email, required this.password, required this.school});
 }
 
+void writeListObject(List<Map<String, dynamic>> json, int index) async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> allEncoded = [];
+  for (Map<String, dynamic> obj in json) {
+    allEncoded.add(jsonEncode(obj));
+  }
+  await prefs.setStringList(names[index], allEncoded);
+}
+
+Future<List<Map<String, dynamic>>> readListObject(int index) async {
+  final prefs = await SharedPreferences.getInstance();
+
+  List<Map<String, dynamic>> listObjectMap =
+      jsonDecode(prefs.getString(names[index]) ?? "{}");
+  // dynamic objectObject = object.fromJson(objectMap);
+  return listObjectMap;
+}
+
 void writeObject(Map<String, dynamic> json, int index) async {
   final prefs = await SharedPreferences.getInstance();
   String stringJson = jsonEncode(json);

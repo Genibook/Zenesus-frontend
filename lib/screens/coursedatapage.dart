@@ -2,7 +2,7 @@ import 'package:zenesus/classes/coursedata.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
-import 'package:zenesus/utils/courses_utils.dart';
+import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:zenesus/screens/error.dart';
 import "package:zenesus/routes/hero_dialog_route.dart";
 

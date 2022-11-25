@@ -17,7 +17,8 @@ final List<String> names = [
   "schedule",
   "student",
   "mps",
-  "gpas"
+  "gpas",
+  "gpaHistory",
 ];
 
 String splitConstant = "|||||";
@@ -26,3 +27,5 @@ int gradesNavNum = 0;
 int profileNavNum = 1;
 int scheduleNavNum = 2;
 int todoNavNum = 3;
+
+int gpaHistoryJsonNum = 0;

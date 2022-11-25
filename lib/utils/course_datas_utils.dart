@@ -1,5 +1,5 @@
 import 'package:zenesus/classes/coursedata.dart';
-import 'package:zenesus/utils/courses_utils.dart';
+import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:flutter/material.dart';
 
 const String _heroAddTodo = 'add-todo-hero';

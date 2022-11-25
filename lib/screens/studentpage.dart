@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/utils/confetti.dart';
 import 'package:confetti/confetti.dart';
+import 'package:zenesus/screens/gpahistory.dart';
 
 Future<void> _launchUrl(String url) async {
   if (!await launchUrl(Uri.parse(url))) {
@@ -167,7 +168,7 @@ class Courses extends State<StudentPage> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Icon(
-                                          Icons.calendar_month,
+                                          Icons.timer_outlined,
                                           color: Colors.blueAccent[400],
                                           size: 35,
                                         ),
@@ -180,14 +181,26 @@ class Courses extends State<StudentPage> {
                                           children: [
                                             InkWell(
                                               child: Text(
-                                                "Schedule",
+                                                "GPA history",
                                                 style: TextStyle(
                                                     fontSize: 15.0,
                                                     color: isbday
                                                         ? Colors.white
                                                         : null),
                                               ),
-                                              onTap: () {},
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            GpaHistoryPage(
+                                                              email:
+                                                                  widget.email,
+                                                              password: widget
+                                                                  .password,
+                                                              school:
+                                                                  widget.school,
+                                                            )));
+                                              },
                                             ),
                                             InkWell(
                                               child: Text(
@@ -200,8 +213,19 @@ class Courses extends State<StudentPage> {
                                                 ),
                                               ),
                                               onTap: () {
-                                                _launchUrl(snapshot
-                                                    .data!.schedule_link);
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            GpaHistoryPage(
+                                                              email:
+                                                                  widget.email,
+                                                              password: widget
+                                                                  .password,
+                                                              school:
+                                                                  widget.school,
+                                                            )));
+                                                // _launchUrl(snapshot
+                                                //     .data!.schedule_link);
                                               },
                                             ),
                                           ],

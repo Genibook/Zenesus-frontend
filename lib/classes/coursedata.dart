@@ -109,7 +109,6 @@ class CoursesDatas {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> json = {};
     List<Map<String, dynamic>> items = [];
     Map<String, dynamic> allItems = {};
     //List<CoursesData> data in datas
@@ -123,7 +122,7 @@ class CoursesDatas {
     }
     // ignore: avoid_print
     print(allItems);
-    return json;
+    return allItems;
   }
 }
 

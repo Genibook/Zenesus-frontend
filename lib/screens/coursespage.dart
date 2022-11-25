@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:zenesus/screens/coursedatapage.dart';
 import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/utils/cookies.dart';
-import 'package:zenesus/utils/courses_utils.dart';
+import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:zenesus/widgets/navbar.dart';
 
 class CoursesPage extends StatefulWidget {
