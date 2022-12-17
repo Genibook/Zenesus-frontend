@@ -33,5 +33,5 @@ const int todoNavNum = 3;
 const int gpaHistoryJsonNum = 0;
 const bool WINDOWS_UPDATE = false;
 
-const bool TEST_DATA = false;
-const bool SHOWOFF = false;
+const bool TEST_DATA = true;
+const bool SHOWOFF = true;
