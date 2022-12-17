@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>87922380552-b11k4rfi05i1abi5rj0mlj3qflk31884.apps.googleusercontent.com</string>
+	<string>87963237392-pv0vh2esu0q8dhmi0pqrj6v1b9elrfla.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.87922380552-b11k4rfi05i1abi5rj0mlj3qflk31884</string>
+	<string>com.googleusercontent.apps.87963237392-pv0vh2esu0q8dhmi0pqrj6v1b9elrfla</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>87963237392-m0ukce4spn0hsp82ri39l55jtcu4m9ao.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBG8lErwy2zHigf_6OiSJ5U6adVUaWgsC8</string>
+	<string>AIzaSyDmm8TfJt3qYNt2ev8g2y9NCFFpYAnttUs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>87922380552</string>
+	<string>87963237392</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.zenesus</string>
+	<string>zenesus.on.top</string>
 	<key>PROJECT_ID</key>
-	<string>zenesus-8bdfc</string>
+	<string>zenesus</string>
 	<key>STORAGE_BUCKET</key>
-	<string>zenesus-8bdfc.appspot.com</string>
+	<string>zenesus.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:87922380552:ios:9178fff717b810fa8a26bd</string>
+	<string>1:87963237392:ios:d658a670241173e9cade95</string>
 </dict>
 </plist>
