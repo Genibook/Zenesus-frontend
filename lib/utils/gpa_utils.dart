@@ -83,7 +83,7 @@ MaterialColor getColorFromGrade(dynamic grade) {
 List<double> getTotalGpas(GPAHistorys history) {
   // [weighted, unweighted]
 
-  
+  //TODO fix this thing lol
 
   int totalLength = history.datas.length;
   double unweightedTotal = 0;
