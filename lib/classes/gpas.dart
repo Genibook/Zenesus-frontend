@@ -4,7 +4,7 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/store_objects.dart';
-import 'package:zenesus/utils/http_utils.dart';
+import 'package:zenesus/utils/api_utils.dart';
 
 class Gpas {
   final double weightedGPA;
@@ -60,6 +60,7 @@ Future<Gpas> createGpas(
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      //print(json);
       writeObject(json, index);
       return Gpas.fromJson(json);
     } else {
@@ -69,4 +70,9 @@ Future<Gpas> createGpas(
     //print(e);
     return Gpas.fromJson({});
   }
+}
+
+Future<Gpas> modelGpas() async {
+  await Future.delayed(const Duration(seconds: 1));
+  return Gpas.fromJson({"unweighted gpa": 100.0, "weighted gpa": 100.0});
 }

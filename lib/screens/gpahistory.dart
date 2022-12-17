@@ -29,8 +29,12 @@ class GpaHistoryPageState extends State<GpaHistoryPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureGPAhistorys = createHistoryGpas(
-          widget.email, widget.password, widget.school, false);
+      if (TEST_DATA) {
+        _futureGPAhistorys = modelHistoryGpas();
+      } else {
+        _futureGPAhistorys = createHistoryGpas(
+            widget.email, widget.password, widget.school, false);
+      }
     });
     return buildGPAhistoryFutureBuilder();
   }
@@ -76,7 +80,7 @@ class GpaHistoryPageState extends State<GpaHistoryPage> {
                         );
                       } else if (index == 1) {
                         return ListTile(
-                          title: Text(
+                          title: const Text(
                             "All Years GPA",
                             style: TextStyle(fontSize: 18, color: primaryColor),
                           ),

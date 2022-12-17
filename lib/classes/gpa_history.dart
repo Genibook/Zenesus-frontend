@@ -1,10 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/store_objects.dart';
-import 'package:zenesus/utils/http_utils.dart';
+import 'package:zenesus/utils/api_utils.dart';
 
 class GPAHistory {
   final String grade;
@@ -98,6 +97,7 @@ Future<GPAHistorys> createHistoryGpas(
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      print(json);
       writeObject(json, index);
       return GPAHistorys.fromJson(json);
     } else {
@@ -107,4 +107,24 @@ Future<GPAHistorys> createHistoryGpas(
     //print(e);
     return GPAHistorys.fromJson({"data": []});
   }
+}
+
+Future<GPAHistorys> modelHistoryGpas() async {
+  await Future.delayed(const Duration(seconds: 1));
+  return GPAHistorys.fromJson({
+    "data": [
+      {
+        "grade": "9",
+        "schoolYear": "2021 - 22",
+        "unweightedGPA": "100.0",
+        "weightedGPA": "100.0"
+      },
+      {
+        "grade": "8",
+        "schoolYear": " 2020 - 21",
+        "unweightedGPA": "94.75",
+        "weightedGPA": "69.0"
+      }
+    ]
+  });
 }

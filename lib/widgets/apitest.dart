@@ -4,7 +4,7 @@ import 'package:zenesus/classes/gpas.dart';
 import 'package:zenesus/classes/coursedata.dart';
 import 'package:zenesus/classes/schedules.dart';
 import 'package:zenesus/classes/student.dart';
-
+import 'package:zenesus/classes/gpa_history.dart';
 import 'package:zenesus/screens/coursespage.dart';
 import 'package:flutter/material.dart';
 import 'package:zenesus/utils/cookies.dart';
@@ -14,6 +14,18 @@ Widget apitestingrow(dynamic widget, dynamic context) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
+      ElevatedButton(
+          onPressed: (() async {
+            await createHistoryGpas(
+                widget.email, widget.password, widget.school, false);
+          }),
+          child: const SizedBox(
+              height: 50,
+              width: 70,
+              child: Text(
+                "gpahistory",
+                textAlign: TextAlign.center,
+              ))),
       ElevatedButton(
           onPressed: (() async {
             await createScheduleCoursesDatas(

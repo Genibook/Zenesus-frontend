@@ -46,6 +46,7 @@ class _Calender extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     setState(() {
+      // no need for TEST_data cuz no grades or smth
       _futureScheduleCoursesData = createScheduleCoursesDatas(
           widget.email, widget.password, widget.school, false);
     });

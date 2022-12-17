@@ -21,9 +21,7 @@ final List<String> names = [
   "gpaHistory",
 ];
 
-
-const String UPDATE_DRIVE_URL =
-    "";
+const String UPDATE_DRIVE_URL = "";
 
 const String splitConstant = "|||||";
 
@@ -36,4 +34,4 @@ const int gpaHistoryJsonNum = 0;
 const bool WINDOWS_UPDATE = false;
 
 const bool TEST_DATA = true;
-
+const bool SHOWOFF = true;

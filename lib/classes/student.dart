@@ -4,7 +4,7 @@ import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/store_objects.dart';
-import 'package:zenesus/utils/http_utils.dart';
+import 'package:zenesus/utils/api_utils.dart';
 
 class Student {
   // ignore: non_constant_identifier_names
@@ -125,8 +125,7 @@ Future<Student> modelStudent() async {
   await Future.delayed(const Duration(seconds: 1));
   return const Student(
       age: "15",
-      // img_url: "https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif",
-      img_url: "N/A",
+      img_url: "https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif",
       state_id: "12312312",
       birthday: "06/07/2007",
       schedule_link: "https://example.com",

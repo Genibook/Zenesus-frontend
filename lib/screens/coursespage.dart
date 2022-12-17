@@ -9,6 +9,7 @@ import 'package:zenesus/classes/student.dart';
 
 import 'package:flutter/material.dart';
 import 'package:zenesus/constants.dart';
+import 'package:zenesus/utils/api_utils.dart';
 import 'package:zenesus/widgets/gpa_circles.dart';
 import 'dart:async';
 import 'package:zenesus/screens/coursedatapage.dart';
@@ -16,8 +17,6 @@ import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:zenesus/widgets/navbar.dart';
-
-//import 'package:zenesus/widgets/apitest.dart';
 
 class CoursesPage extends StatefulWidget {
   const CoursesPage(
@@ -58,16 +57,19 @@ class GradePageState extends State<CoursesPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureMPs = createMPs(
-          widget.email, widget.password, widget.school, widget.refresh);
-      _futureGpas = createGpas(
-          widget.email, widget.password, widget.school, widget.refresh);
+      if (TEST_DATA) {
+        _futureCourses = modelCourse();
+        _futureMPs = modelMPs();
+        _futureGpas = modelGpas();
+      } else {
+        _futureMPs = createMPs(
+            widget.email, widget.password, widget.school, widget.refresh);
+        _futureGpas = createGpas(
+            widget.email, widget.password, widget.school, widget.refresh);
 
-      _futureCourses = createCourses(
-          widget.email, widget.password, widget.school, widget.refresh);
-
-      //_futureCourses = modelCourse();
-      //_futureMPs = modelMPs();
+        _futureCourses = createCourses(
+            widget.email, widget.password, widget.school, widget.refresh);
+      }
     });
 
     return buildFutureCourseBuilder(
@@ -216,12 +218,8 @@ class GradePageState extends State<CoursesPage> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 buildFutureMPsBuilder(),
-
-                /// [COMMENT THIS WHEN IN PRODUCTION!!!!]
-                //apitestingrow(widget, context),
-
+                apiRowLogic(widget, context),
                 ListView.separated(
                     separatorBuilder: (_, __) => const Divider(),
                     physics: const NeverScrollableScrollPhysics(),

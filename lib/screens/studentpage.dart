@@ -55,9 +55,12 @@ class Courses extends State<StudentPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureStudent =
-          createStudent(widget.email, widget.password, widget.school, false);
-      //_futureStudent = modelStudent();
+      if (TEST_DATA) {
+        _futureStudent = modelStudent();
+      } else {
+        _futureStudent =
+            createStudent(widget.email, widget.password, widget.school, false);
+      }
     });
 
     return buildFutureBuilder();

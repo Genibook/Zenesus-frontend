@@ -37,14 +37,12 @@ class CourseDatasState extends State<CourseDatasPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      if(TEST_DATA){
-          _futureCoursesData = modelCourseDatas();
-      }else{
+      if (TEST_DATA) {
+        _futureCoursesData = modelCourseDatas();
+      } else {
         _futureCoursesData = createCoursesDatas(
-          widget.email, widget.password, widget.school, widget.mp, false);
+            widget.email, widget.password, widget.school, widget.mp, false);
       }
-      
-      
     });
 
     return buildFutureCoursesDataPage();
