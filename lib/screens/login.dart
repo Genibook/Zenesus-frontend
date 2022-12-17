@@ -183,7 +183,7 @@ class _Login extends State<MyLoginPage> {
                                       email: usernameController.text,
                                       password: passwordController.text,
                                       school: finalSchool,
-                                      refresh: false,
+                                      refresh: true,
                                     )),
                           );
                         } else if (connection.code == 401) {

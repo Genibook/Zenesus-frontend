@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/http_utils.dart';
 
 // ignore: camel_case_types
 class Student_Name_and_ID {
@@ -22,7 +23,7 @@ Future<Student_Name_and_ID> createStudent_name_and_ID(
   int numm = await numInCookies();
   try {
     final response = await http.post(
-      Uri.parse('${Constants.url}/api/studentNameandIds'),
+      getCorrectUri("/api/studentNameandIds"),
       body: json.encode({
         'email': email,
         "password": password,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/utils/http_utils.dart';
 
 class LoginConnection {
   final int code;
@@ -16,10 +17,9 @@ class LoginConnection {
 
 Future<LoginConnection> checkLoginConnection(
     String email, String password, String school) async {
-
   int numm = await numInCookies();
   final response = await http.post(
-    Uri.parse('${Constants.url}/api/loginConnection'),
+    getCorrectUri('/api/loginConnection'),
     body: json.encode({
       'email': email,
       "password": password,
@@ -36,10 +36,9 @@ Future<LoginConnection> checkLoginConnection(
     }
     return LoginConnection.fromJson(jsonDecode(response.body));
   } else {
-    
     print(Constants.url);
     print(response.statusCode);
-    print(response.headers["location"] );
+    print(response.headers["location"]);
     throw Exception('Login Error');
   }
 }
