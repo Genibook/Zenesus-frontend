@@ -1,5 +1,6 @@
 import 'package:zenesus/classes/coursedata.dart';
 import 'package:flutter/material.dart';
+import 'package:zenesus/constants.dart';
 import 'package:zenesus/utils/course_datas_utils.dart';
 import 'dart:async';
 import 'package:zenesus/utils/gpa_utils.dart';
@@ -36,9 +37,14 @@ class CourseDatasState extends State<CourseDatasPage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      _futureCoursesData = createCoursesDatas(
+      if(TEST_DATA){
+          _futureCoursesData = modelCourseDatas();
+      }else{
+        _futureCoursesData = createCoursesDatas(
           widget.email, widget.password, widget.school, widget.mp, false);
-      //_futureCoursesData = modelCourseDatas();
+      }
+      
+      
     });
 
     return buildFutureCoursesDataPage();

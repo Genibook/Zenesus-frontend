@@ -122,7 +122,7 @@ class Courses extends State<StudentPage> {
                                 ),
                               ),
                         const Spacer(),
-                        UPDATE
+                        WINDOWS_UPDATE
                             ? InkWell(
                                 child: const Text(
                                     "Click me: Windows users please download a new release here",
