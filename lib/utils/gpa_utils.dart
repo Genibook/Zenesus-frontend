@@ -88,34 +88,21 @@ List<double> getTotalGpas(GPAHistorys history) {
   int totalLength = history.datas.length;
   double unweightedTotal = 0;
   double weightedTotal = 0;
-
-  int lessTotalLength = 0;
-  double lessUnweightedTotal = 0;
-  double lessWeightedTotal = 0;
+  int total = 0;
   for (int i = 0; i < totalLength; i++) {
-    if (double.parse(history.datas[i].grade) >= 9) {
+    double studentGradeForThatIndex = double.parse(history.datas[i].grade);
+    if (studentGradeForThatIndex >= 9) {
+      total += 1;
       unweightedTotal += history.datas[i].unweightedGPA;
       weightedTotal += history.datas[i].weightedGPA;
-    } else {
-      lessUnweightedTotal += history.datas[i].unweightedGPA;
-      lessWeightedTotal += history.datas[i].weightedGPA;
-      totalLength -= 1;
-      lessTotalLength += 1;
     }
   }
-
   if (totalLength > 0) {
     return [
-      roundDouble(weightedTotal / totalLength, 2),
-      roundDouble(unweightedTotal / totalLength, 2)
+      roundDouble(weightedTotal / total, 2),
+      roundDouble(unweightedTotal / total, 2)
     ];
   } else {
-    if (lessTotalLength == 0) {
-      return [0, 0];
-    }
-    return [
-      roundDouble(lessWeightedTotal / lessTotalLength, 2),
-      roundDouble(lessUnweightedTotal / lessTotalLength, 2)
-    ];
+    return [0.0, 0.0];
   }
 }

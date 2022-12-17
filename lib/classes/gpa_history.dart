@@ -114,6 +114,12 @@ Future<GPAHistorys> modelHistoryGpas() async {
   return GPAHistorys.fromJson({
     "data": [
       {
+        "grade": "10",
+        "schoolYear": " 2022 - 23",
+        "unweightedGPA": "99",
+        "weightedGPA": "102"
+      },
+      {
         "grade": "9",
         "schoolYear": "2021 - 22",
         "unweightedGPA": "100.0",
@@ -122,8 +128,14 @@ Future<GPAHistorys> modelHistoryGpas() async {
       {
         "grade": "8",
         "schoolYear": " 2020 - 21",
-        "unweightedGPA": "94.75",
+        "unweightedGPA": "69.0",
         "weightedGPA": "69.0"
+      },
+      {
+        "grade": "7",
+        "schoolYear": " 2019 - 20",
+        "unweightedGPA": "420.0",
+        "weightedGPA": "420.0"
       }
     ]
   });
