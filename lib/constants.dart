@@ -27,8 +27,8 @@ String UPDATE_DRIVE_URL =
 
 String splitConstant = "|||||";
 
-int gradesNavNum = 0;
-int profileNavNum = 1;
+int gradesNavNum = 1;
+int profileNavNum = 0;
 int scheduleNavNum = 2;
 int todoNavNum = 3;
 

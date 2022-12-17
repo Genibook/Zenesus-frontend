@@ -77,12 +77,13 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
-    } else if (index == todoNavNum) {
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const TodoList()),
-      );
     }
+    // else if (index == todoNavNum) {
+    //   // ignore: use_build_context_synchronously
+    //   Navigator.of(context).push(
+    //     MaterialPageRoute(builder: (context) => const TodoList()),
+    //   );
+    // }
   }
 
   @override
@@ -91,21 +92,21 @@ class NavBarState extends State<Navbar> {
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.text_increase),
-          label: 'Grades',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.text_increase),
+          label: 'Grades',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.schedule),
           label: 'Schedule',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.list),
-          label: 'Todo List',
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.list),
+        //   label: 'Todo List',
+        // ),
       ],
       currentIndex: _selectedIndex,
       backgroundColor: _isbday ? Colors.amber[700] : null,
