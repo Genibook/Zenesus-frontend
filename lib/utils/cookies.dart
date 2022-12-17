@@ -117,3 +117,13 @@ Future<void> setTodo(List<String> todos) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setStringList("todos", todos);
 }
+
+Future<bool> readFirstTime() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(firstTimeName) ?? true;
+}
+
+Future<void> writeFirstTime() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool(firstTimeName, false);
+}

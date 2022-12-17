@@ -21,6 +21,8 @@ final List<String> names = [
   "gpaHistory",
 ];
 
+const firstTimeName = "firstTime?";
+
 const String UPDATE_DRIVE_URL = "";
 
 const String splitConstant = "|||||";

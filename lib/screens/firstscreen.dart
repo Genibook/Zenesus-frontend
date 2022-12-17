@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/screens/login.dart';
+import 'package:zenesus/screens/welcomeScreenForFirstTimers.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/screens/coursespage.dart';
 
@@ -32,11 +33,20 @@ class Screen extends State<FirstScreen> {
     // await prefs.remove('counter');
 
     if (email == "" || password == "" || school == "") {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MyLoginPage()),
-      );
+      if (await readFirstTime()) {
+        writeFirstTime();
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyLoginPage()),
+        );
+      }
     } else {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
