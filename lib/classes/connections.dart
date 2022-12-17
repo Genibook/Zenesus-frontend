@@ -16,7 +16,6 @@ class LoginConnection {
 
 Future<LoginConnection> checkLoginConnection(
     String email, String password, String school) async {
-
   int numm = await numInCookies();
   final response = await http.post(
     Uri.parse('${Constants.url}/api/loginConnection'),
@@ -36,10 +35,6 @@ Future<LoginConnection> checkLoginConnection(
     }
     return LoginConnection.fromJson(jsonDecode(response.body));
   } else {
-    
-    print(Constants.url);
-    print(response.statusCode);
-    print(response.headers["location"] );
     throw Exception('Login Error');
   }
 }
