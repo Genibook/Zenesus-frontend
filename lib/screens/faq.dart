@@ -31,7 +31,7 @@ class HelpPageState extends State<HelpPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children:  [
                       QAItem(
                           title: Text(
                             "Why is it saying that Genesis is not returning any data?",

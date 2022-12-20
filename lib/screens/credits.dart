@@ -31,7 +31,7 @@ class CreditsPageState extends State<CreditsPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children:  [
                       QAItem(
                           title: Text("What is this?",
                               style: TextStyle(

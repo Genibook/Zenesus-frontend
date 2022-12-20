@@ -8,6 +8,7 @@ class Constants {
 }
 
 const MaterialColor primaryColor = Colors.blue;
+Color? bdayColor = Colors.amberAccent[400];
 Color primaryColorColor = const Color.fromARGB(255, 33, 168, 245);
 Color todoDeleteRed = Colors.red[800] ?? Colors.red;
 
