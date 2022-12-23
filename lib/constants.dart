@@ -23,15 +23,28 @@ final List<String> names = [
 ];
 
 const firstTimeName = "firstTime?";
+const todosCookieName = "todos";
+const todoListVisibilityCookieName = "todos-vis";
+const gradeProjectToggleCookieName = "grade-projection";
 
 const String UPDATE_DRIVE_URL = "";
 
 const String splitConstant = "|||||";
 
-const int gradesNavNum = 1;
-const int profileNavNum = 0;
-const int scheduleNavNum = 2;
-const int todoNavNum = 3;
+// TODO update the navbar thing
+const int noTodoListGradesNavNum = 1;
+const int noTodoListProfileNavNum = 0;
+const int noTodoListScheduleNavNum = 2;
+
+const int hasTodoListGradesNavNum = 0;
+const int hasTodoListProfileNavNum = 1;
+const int hasTodoListScheduleNavNum = 2;
+const int hasTodoListTodoNavNum = 3;
+
+int gradesNavNum = 1;
+int profileNavNum = 0;
+int scheduleNavNum = 2;
+int todoNavNum = 3;
 
 const int gpaHistoryJsonNum = 0;
 const bool WINDOWS_UPDATE = false;

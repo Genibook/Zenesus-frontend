@@ -67,8 +67,7 @@ Future<Gpas> createGpas(
       throw Exception('Error');
     }
   } catch (e) {
-    //print(e);
-    return Gpas.fromJson({});
+    return Gpas.fromJson({"weighted gpa": 0.0, "unweighted gpa": 0.0});
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:zenesus/screens/coursespage.dart';
 import 'package:zenesus/screens/firstscreen.dart';
 import 'package:zenesus/widgets/qaitem.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'dart:async';
 
 class Settings extends StatefulWidget {
   const Settings({
@@ -23,9 +24,61 @@ class Settings extends StatefulWidget {
 }
 
 class SettingState extends State<Settings> {
-    bool forAndroid = false;
-    bool forIos = false;
+  Future<bool>? _todoListVis;
+  Future<bool>? _gradeProjectToggle;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void updateToggle(bool value, String name) {
+    // setState(() => _todoListVis = value);
+    if (name == todoListVisibilityCookieName) {
+      setState(() {
+        _todoListVis = Future.value(value);
+        updateTodoListVisiblity(value);
+      });
+
+      //means todo list show
+      if (value) {
+        setState(() {
+          gradesNavNum = hasTodoListGradesNavNum;
+          profileNavNum = hasTodoListProfileNavNum;
+          scheduleNavNum = hasTodoListScheduleNavNum;
+          todoNavNum = hasTodoListTodoNavNum;
+        });
+      } else {
+        setState(() {
+          gradesNavNum = noTodoListGradesNavNum;
+          profileNavNum = noTodoListProfileNavNum;
+          scheduleNavNum = noTodoListScheduleNavNum;
+        });
+      }
+    } else if (name == gradeProjectToggleCookieName) {
+      setState(() {
+        _gradeProjectToggle = Future.value(value);
+        updateGradeProjectionsToggleCookie(value);
+      });
+    }
+    // readEmailPassSchoolintoCookies().then((value) {
+    //   List<String> things = value;
+    //   String email = things[0];
+    //   String password = things[1];
+    //   String school = things[2];
+    //   // Navigator.pop(context);
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => CoursesPage(
+    //               email: email,
+    //               password: password,
+    //               school: school,
+    //               refresh: false,
+    //             )),
+    //   );
+    // });
+  }
 
   // store cookies, and return pass, school and cookies
   Future<List<String>> onPressedDoStuff(int i) async {
@@ -37,75 +90,82 @@ class SettingState extends State<Settings> {
     return [email, password, school];
   }
 
+  FutureBuilder<bool> buildTodoListToggleFutureBuilder() {
+    return FutureBuilder(
+        future: _todoListVis,
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return (UniversalPlatform.isIOS ||
+                    UniversalPlatform.isMacOS ||
+                    UniversalPlatform.isLinux)
+                ? CupertinoSwitch(
+                    activeColor: primaryColor,
+                    value: snapshot.data!,
+                    // changes the state of the switch
+                    onChanged: (value) {
+                      updateToggle(value, todoListVisibilityCookieName);
+                    },
+                  )
+                : Switch(
+                    // thumb color (round icon)
+                    activeColor: primaryColor,
+                    value: snapshot.data!,
+                    // changes the state of the switch
+                    onChanged: (value) {
+                      updateToggle(value, todoListVisibilityCookieName);
+                    },
+                  );
+          } else {
+            return const SizedBox();
+          }
+        }));
+  }
+
+  FutureBuilder<bool> buildGradeProjToggleFutureBuilder() {
+    return FutureBuilder(
+        future: _gradeProjectToggle,
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return (UniversalPlatform.isIOS ||
+                    UniversalPlatform.isMacOS ||
+                    UniversalPlatform.isLinux)
+                ? CupertinoSwitch(
+                    activeColor: primaryColor,
+                    value: snapshot.data!,
+                    // changes the state of the switch
+                    onChanged: (value) {
+                      updateToggle(value, gradeProjectToggleCookieName);
+                    },
+                  )
+                : Switch(
+                    // thumb color (round icon)
+                    activeColor: primaryColor,
+                    value: snapshot.data!,
+                    // changes the state of the switch
+                    onChanged: (value) {
+                      updateToggle(value, gradeProjectToggleCookieName);
+                    },
+                  );
+          } else {
+            return const SizedBox();
+          }
+        }));
+  }
+
   //genearte list of children for experimental features
   List<Widget> createExperimentalChildren() {
-    // get the actual values
-    
-
     List<Widget> myList = [
       ListTile(
         tileColor: widget.isBday ? bdayColor : null,
         title: const Text("Todo-list"),
         // onTap: (() {}),
-        trailing: (UniversalPlatform.isIOS ||
-                UniversalPlatform.isMacOS ||
-                UniversalPlatform.isLinux)
-            ? CupertinoSwitch(
-                // overrides the default green color of the track
-                activeColor: primaryColor,
-                // // color of the round icon, which moves from right to left
-                // thumbColor: Colors.green.shade900,
-                // // when the switch is off
-                // trackColor: Colors.black12,
-                // boolean variable value
-                value: forIos,
-                // changes the state of the switch
-                onChanged: (value) => setState(() => forIos = value),
-              )
-            : Switch(
-                // thumb color (round icon)
-                // activeColor: Colors.amber,
-                // activeTrackColor: Colors.cyan,
-                // inactiveThumbColor: Colors.blueGrey.shade600,
-                // inactiveTrackColor: Colors.grey.shade400,
-                // splashRadius: 50.0,
-                // boolean variable value
-                value: forAndroid,
-                // changes the state of the switch
-                onChanged: (value) => setState(() => forAndroid = value),
-              ),
+        trailing: buildTodoListToggleFutureBuilder(),
       ),
       ListTile(
-        tileColor: widget.isBday ? bdayColor: null,
+        tileColor: widget.isBday ? bdayColor : null,
         title: const Text("Grade Projections"),
-       // onTap: (() {}),
-        trailing: (UniversalPlatform.isIOS ||
-                UniversalPlatform.isMacOS ||
-                UniversalPlatform.isLinux)
-            ? CupertinoSwitch(
-                // overrides the default green color of the track
-                activeColor: primaryColor,
-                // color of the round icon, which moves from right to left
-                // thumbColor: Colors.green.shade900,
-                // when the switch is off
-                // trackColor: Colors.black12,
-                // boolean variable value
-                value: forIos,
-                // changes the state of the switch
-                onChanged: (value) => setState(() => forIos = value),
-              )
-            : Switch(
-                // thumb color (round icon)
-                // activeColor: Colors.amber,
-                // activeTrackColor: Colors.cyan,
-                // inactiveThumbColor: Colors.blueGrey.shade600,
-                // inactiveTrackColor: Colors.grey.shade400,
-                // splashRadius: 50.0,
-                // boolean variable value
-                value: forAndroid,
-                // changes the state of the switch
-                onChanged: (value) => setState(() => forAndroid = value),
-              ),
+        // onTap: (() {}),
+        trailing: buildGradeProjToggleFutureBuilder(),
       ),
     ];
     return myList;
@@ -144,7 +204,7 @@ class SettingState extends State<Settings> {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-              backgroundColor: widget.isBday ? bdayColor: null,
+              backgroundColor: widget.isBday ? bdayColor : null,
               title: const Text('Select Student'),
               children: createChildren(context, futureNameandID));
         });
@@ -152,8 +212,10 @@ class SettingState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    _todoListVis = readTodoListVisiblity();
+    _gradeProjectToggle = readGradeProjectionsToggle();
     return AlertDialog(
-        backgroundColor: widget.isBday ? bdayColor: null,
+        backgroundColor: widget.isBday ? bdayColor : null,
         content: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -163,8 +225,7 @@ class SettingState extends State<Settings> {
                 children: [
                   //exp items
                   QAItem(
-                      
-                      color: widget.isBday ? bdayColor: null,
+                      color: widget.isBday ? bdayColor : null,
                       title: const Text(
                         "Experimental Features",
                       ),
@@ -172,7 +233,7 @@ class SettingState extends State<Settings> {
 
                   // students tile
                   ListTile(
-                    tileColor: widget.isBday ? bdayColor: null,
+                    tileColor: widget.isBday ? bdayColor : null,
                     title: const Text("Change Student"),
                     trailing: IconButton(
                       icon: const Icon(
@@ -187,7 +248,7 @@ class SettingState extends State<Settings> {
 
                   // logout listtile
                   ListTile(
-                      tileColor: widget.isBday ? bdayColor: null,
+                      tileColor: widget.isBday ? bdayColor : null,
                       title: const Text("Logout"),
                       trailing: IconButton(
                         icon: const Icon(

@@ -20,6 +20,7 @@ class NavBarState extends State<Navbar> {
   late String password;
   late String school;
   bool _isbday = false;
+  Future<bool>? _todoListVis;
 
   @override
   void initState() {
@@ -77,41 +78,83 @@ class NavBarState extends State<Navbar> {
                   school: school,
                 )),
       );
+    } else if (index == todoNavNum) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const TodoList()),
+      );
     }
-    // else if (index == todoNavNum) {
-    //   // ignore: use_build_context_synchronously
-    //   Navigator.of(context).push(
-    //     MaterialPageRoute(builder: (context) => const TodoList()),
-    //   );
-    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.text_increase),
-          label: 'Grades',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.schedule),
-          label: 'Schedule',
-        ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.list),
-        //   label: 'Todo List',
-        // ),
-      ],
-      currentIndex: _selectedIndex,
-      backgroundColor: _isbday ? Colors.amber[700] : null,
-      selectedItemColor: _isbday ? Colors.white : primaryColorColor,
-      onTap: _onItemTapped,
-    );
+    _todoListVis = readTodoListVisiblity();
+    return buildFutureNavbarBuilder();
+  }
+
+  FutureBuilder<bool> buildFutureNavbarBuilder() {
+    return FutureBuilder(
+        future: _todoListVis,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            // print(snapshot.data!);
+            // means todo list show is true
+            if (snapshot.data!) {
+              return BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.text_increase),
+                    label: 'Grades',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.schedule),
+                    label: 'Schedule',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.list),
+                    label: 'Todo List',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                backgroundColor: _isbday ? Colors.amber[700] : null,
+                selectedItemColor: _isbday ? Colors.white : primaryColorColor,
+                onTap: _onItemTapped,
+              );
+            } else {
+              return BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.text_increase),
+                    label: 'Grades',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.schedule),
+                    label: 'Schedule',
+                  ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.list),
+                  //   label: 'Todo List',
+                  // ),
+                ],
+                currentIndex: _selectedIndex,
+                backgroundColor: _isbday ? Colors.amber[700] : null,
+                selectedItemColor: _isbday ? Colors.white : primaryColorColor,
+                onTap: _onItemTapped,
+              );
+            }
+          } else {
+            return const SizedBox();
+          }
+        });
   }
 }

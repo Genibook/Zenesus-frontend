@@ -81,41 +81,43 @@ Future<void> logout() async {
       key: const String.fromEnvironment('EMAILKEY', defaultValue: ''));
   await storage.delete(
       key: const String.fromEnvironment('PASSKEY', defaultValue: ''));
-  await prefs.remove('school');
-  await prefs.remove('mp');
-  await prefs.remove("user");
-  await prefs.remove('bday');
+  // await prefs.remove('school');
+  // await prefs.remove('mp');
+  // await prefs.remove("user");
+  // await prefs.remove('bday');
 
-  for (String name in names) {
-    await prefs.remove(name);
-  }
+  // for (String name in names) {
+  //   await prefs.remove(name);
+  // }
 
-  await prefs.remove("lastCache");
-  await prefs.remove("todos");
+  // await prefs.remove("lastCache");
+  // await prefs.remove("todos");
+
+  await prefs.clear();
 }
 
 Future<void> writeTodo(String todo) async {
   final prefs = await SharedPreferences.getInstance();
-  List<String> todos = prefs.getStringList("todos") ?? [];
+  List<String> todos = prefs.getStringList(todosCookieName) ?? [];
   todos.add(todo);
-  await prefs.setStringList("todos", todos);
+  await prefs.setStringList(todosCookieName, todos);
 }
 
 Future<List<String>> readTodos() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getStringList("todos") ?? [];
+  return prefs.getStringList(todosCookieName) ?? [];
 }
 
 Future<void> deleteTodo(int index) async {
   final prefs = await SharedPreferences.getInstance();
-  List<String> todos = prefs.getStringList("todos") ?? [];
+  List<String> todos = prefs.getStringList(todosCookieName) ?? [];
   todos.removeAt(index);
-  await prefs.setStringList("todos", todos);
+  await prefs.setStringList(todosCookieName, todos);
 }
 
 Future<void> setTodo(List<String> todos) async {
   final prefs = await SharedPreferences.getInstance();
-  await prefs.setStringList("todos", todos);
+  await prefs.setStringList(todosCookieName, todos);
 }
 
 Future<bool> readFirstTime() async {
@@ -126,4 +128,24 @@ Future<bool> readFirstTime() async {
 Future<void> writeFirstTime() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool(firstTimeName, false);
+}
+
+Future<void> updateTodoListVisiblity(bool status) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool(todoListVisibilityCookieName, status);
+}
+
+Future<bool> readTodoListVisiblity() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(todoListVisibilityCookieName) ?? false;
+}
+
+Future<void> updateGradeProjectionsToggleCookie(bool status) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool(gradeProjectToggleCookieName, status);
+}
+
+Future<bool> readGradeProjectionsToggle() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(gradeProjectToggleCookieName) ?? false;
 }
