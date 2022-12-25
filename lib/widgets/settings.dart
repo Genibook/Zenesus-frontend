@@ -61,6 +61,7 @@ class SettingState extends State<Settings> {
         updateGradeProjectionsToggleCookie(value);
       });
     }
+
     // readEmailPassSchoolintoCookies().then((value) {
     //   List<String> things = value;
     //   String email = things[0];

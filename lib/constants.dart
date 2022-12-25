@@ -30,7 +30,7 @@ const gradeProjectToggleCookieName = "grade-projection";
 const String UPDATE_DRIVE_URL = "";
 
 const String splitConstant = "|||||";
-
+const String NONE_STRING = "N/A";
 // TODO update the navbar thing
 const int noTodoListGradesNavNum = 1;
 const int noTodoListProfileNavNum = 0;

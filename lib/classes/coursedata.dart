@@ -14,10 +14,10 @@ class CoursesData {
   final String date;
   // ignore: non_constant_identifier_names
   final String full_date;
-  final dynamic teacher;
-  final dynamic category;
-  final dynamic assignment;
-  final dynamic description;
+  final String teacher;
+  final String category;
+  final String assignment;
+  final String description;
   // ignore: non_constant_identifier_names
   final dynamic grade_percent;
   // ignore: non_constant_identifier_names

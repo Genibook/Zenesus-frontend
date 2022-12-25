@@ -1,6 +1,11 @@
 import 'package:zenesus/classes/coursedata.dart';
 import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:zenesus/classes/coursedata.dart';
+import "package:zenesus/routes/hero_dialog_route.dart";
+import 'package:zenesus/utils/gpa_utils.dart';
+
+import '../constants.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
 // void PrintData(List<CoursesData> data) {
@@ -80,8 +85,10 @@ List<double> getChangeBecauseOfGradePercent(
     if (allData[i][0].course_name == courseName) {
       //first index (0) is always the most recent grade/assignment graded
       for (CoursesData courseData in allData[i]) {
-        double doubleGrade = double.parse(courseData.grade_percent);
-        allcoursegrades.add(doubleGrade);
+        if (courseData.grade_percent != NONE_STRING) {
+          double doubleGrade = double.parse(courseData.grade_percent);
+          allcoursegrades.add(doubleGrade);
+        }
       }
     }
   }
@@ -103,26 +110,26 @@ List<double> getChangeBecauseOfGradePercent(
 
 // first index is the coursework
 // second index is the length of the coursework
-int getLength(List<List<CoursesData>> allData, String courseName) {
-  // print("getting length");
-  if (allData[0].isEmpty) {
-    // print("returned 0");
-    return 0;
-  }
-  for (List<CoursesData> courseWork in allData) {
-    if (courseWork.isNotEmpty) {
-      if (courseWork[0].course_name == courseName) {
-        // print("found it!");
-        return courseWork.length;
-      }
-    }
-  }
-  // print("weird...");
-  return 0;
-}
+// int getLength(List<List<CoursesData>> allData, String courseName) {
+//   // print("getting length");
+//   if (allData[0].isEmpty) {
+//     // print("returned 0");
+//     return 0;
+//   }
+//   for (List<CoursesData> courseWork in allData) {
+//     if (courseWork.isNotEmpty) {
+//       if (courseWork[0].course_name == courseName) {
+//         // print("found it!");
+//         return courseWork.length;
+//       }
+//     }
+//   }
+//   // print("weird...");
+//   return 0;
+// }
 
 List<CoursesData> getCourse(
-    List<List<CoursesData>> allData, String courseName) {
+    List<List<CoursesData>> allData, String courseName, bool gradeToggole) {
   if (allData[0].isEmpty) {
     return [
       CoursesData.fromJson(
@@ -146,34 +153,52 @@ List<CoursesData> getCourse(
       )
     ];
   }
+  List<CoursesData> courseWorkk = [];
   for (List<CoursesData> courseWork in allData) {
+    CoursesData classs = courseWork[0];
     if (courseWork.isNotEmpty) {
-      if (courseWork[0].course_name == courseName) {
-        return courseWork;
+      if (gradeToggole) {
+        if (classs.course_name == courseName) {
+          return courseWork;
+        }
+      } else {
+        if (classs.course_name == courseName) {
+          for (CoursesData classs in courseWork) {
+            if (classs.full_dayname == NONE_STRING &&
+                classs.teacher == NONE_STRING &&
+                classs.grade_percent == NONE_STRING &&
+                classs.comment == NONE_STRING) {
+            } else {
+              courseWorkk.add(classs);
+            }
+          }
+        }
+        //print("no toggled");
       }
     }
   }
-  return [
-    CoursesData.fromJson(
-      {
-        "course_name": "N/A",
-        "mp": "N/A",
-        "dayname": "N/A",
-        "full_dayname": "N/A",
-        "date": "N/A",
-        "full_date": "N/A",
-        "teacher": "N/A",
-        "category": "N/A",
-        "assignment": "N/A",
-        "description": "N/A",
-        "grade_percent": "N/A",
-        "grade_num": "N/A",
-        "comment": "N/A",
-        "prev": "N/A",
-        "docs": "N/A"
-      },
-    )
-  ];
+  return courseWorkk;
+  // return [
+  //   CoursesData.fromJson(
+  //     {
+  //       "course_name": "N/A",
+  //       "mp": "N/A",
+  //       "dayname": "N/A",
+  //       "full_dayname": "N/A",
+  //       "date": "N/A",
+  //       "full_date": "N/A",
+  //       "teacher": "N/A",
+  //       "category": "N/A",
+  //       "assignment": "N/A",
+  //       "description": "N/A",
+  //       "grade_percent": "N/A",
+  //       "grade_num": "N/A",
+  //       "comment": "N/A",
+  //       "prev": "N/A",
+  //       "docs": "N/A"
+  //     },
+  //   )
+  // ];
 }
 
 Widget getFromPercent(double percentChange, String mode) {
@@ -291,4 +316,97 @@ class GradePopupCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget createCourseDataNotGradedTile(
+    List<CoursesData> courseAssignments, int index) {
+  return ListTile(
+    enabled: true,
+    selected: false,
+    title: Text(
+      courseAssignments[index].assignment,
+      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+    ),
+    subtitle: Text(
+        "${courseAssignments[index].dayname} ${courseAssignments[index].date} - ${courseAssignments[index].mp}"),
+    trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+              child: Text("${courseAssignments[index].grade_num}",
+                  textAlign: TextAlign.justify,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    // color: getColorFromGrade(double.parse(
+                    //     courseAssignments[index].grade_percent))
+                  ))),
+          Expanded(
+              child: Text(
+            "${courseAssignments[index].grade_percent}",
+            textAlign: TextAlign.justify,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              // color: getColorFromGrade(
+              //     double.parse(courseAssignments[index].grade_percent))
+            ),
+          )),
+        ]),
+  );
+}
+
+Widget createCourseDataTile(List<CoursesData> courseAssignments, int index,
+    dynamic context, dynamic allData) {
+  return ListTile(
+    enabled: true,
+    selected: false,
+    title: Text(
+      courseAssignments[index].assignment,
+      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+    ),
+    subtitle: Text(
+        "${courseAssignments[index].dayname} ${courseAssignments[index].date} - ${courseAssignments[index].mp}"),
+    trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+              child: Text(
+            "${courseAssignments[index].grade_percent}",
+            textAlign: TextAlign.justify,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: getColorFromGrade(
+                    double.parse(courseAssignments[index].grade_percent))),
+          )),
+          Expanded(
+              child: Text("${courseAssignments[index].grade_num}",
+                  textAlign: TextAlign.justify,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: getColorFromGrade(double.parse(
+                          courseAssignments[index].grade_percent))))),
+        ]),
+    onTap: () {
+      List<double> percentChange = getChangeBecauseOfGradePercent(
+          allData, courseAssignments[index].course_name, index);
+
+      Navigator.of(context).push(HeroDialogRoute(builder: (context) {
+        return GradePopupCard(
+          course: courseAssignments[index],
+          percentChange: percentChange[0],
+          currentAvg: percentChange[1],
+          oldAvg: percentChange[2],
+        );
+      }));
+    },
+  );
 }
