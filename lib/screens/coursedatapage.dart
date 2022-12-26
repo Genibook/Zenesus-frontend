@@ -60,7 +60,6 @@ class CourseDatasState extends State<CourseDatasPage> {
 
             Future<bool> gradeProjToggle = readGradeProjectionsToggle();
             children = [
-              //TODO the logic is flawwed
               FutureBuilder(
                   future: gradeProjToggle,
                   builder: ((context, AsyncSnapshot<bool?> snapshot) {

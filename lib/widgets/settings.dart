@@ -134,18 +134,23 @@ class SettingState extends State<Settings> {
                     activeColor: primaryColor,
                     value: snapshot.data!,
                     // changes the state of the switch
-                    onChanged: (value) {
-                      updateToggle(value, gradeProjectToggleCookieName);
-                    },
+                    onChanged: null,
+                    // onChanged: (value) {
+                    //   updateToggle(value, gradeProjectToggleCookieName);
+                    // },
                   )
                 : Switch(
+                    //inactiveTrackColor: primaryColor.withOpacity(0.5),
+                    //activeTrackColor: primaryColor,
                     // thumb color (round icon)
+                    // inactiveThumbColor: primaryColor,
                     activeColor: primaryColor,
                     value: snapshot.data!,
                     // changes the state of the switch
-                    onChanged: (value) {
-                      updateToggle(value, gradeProjectToggleCookieName);
-                    },
+                    onChanged: null,
+                    // onChanged: (value) {
+                    //   updateToggle(value, gradeProjectToggleCookieName);
+                    // },
                   );
           } else {
             return const SizedBox();
