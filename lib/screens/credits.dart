@@ -31,12 +31,12 @@ class CreditsPageState extends State<CreditsPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:  [
+                        children: [
                       QAItem(
-                          title: Text("What is this?",
+                          title: const Text("What is this?",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
-                          children: [
+                          children: const [
                             ListTile(
                                 title: Text(
                                     "This page is dedicated for all the people who helped me build/test this app, and my words for them.")),
@@ -45,12 +45,12 @@ class CreditsPageState extends State<CreditsPage> {
                                     "Btw - Congrats!!! You found a / the first easter egg made for this app!")),
                           ]),
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "Etaash Mathamsetty and Justin",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(
                                 title: Text(
                                     "Etaash became my first daily beta tester on 8/31/2022. Since he used linux, he helped me compile and format the different versions of the app so that other linux users can use Zenesus.")),
@@ -60,23 +60,23 @@ class CreditsPageState extends State<CreditsPage> {
                             ),
                           ]),
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "First Android Beta Testing Group",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(
                                 title: Text(
                                     "These people include Etaash, Justin, Jason, and Ann")),
                           ]),
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "Windows testing group",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(
                                 title: Text(
                                     "Big thanks to Siddarth - who was one of the first people to test out the website I built to display Genesis data.")),
@@ -86,12 +86,12 @@ class CreditsPageState extends State<CreditsPage> {
                             ),
                           ]),
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "Students and Parents",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(
                                 title: Text(
                                     "I give thanks to all the students who participated in beta testing, and all the student/parents who are using/used Zenesus.")),

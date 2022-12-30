@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import "package:zenesus/constants.dart";
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/utils/api_utils.dart';
 
@@ -36,9 +35,9 @@ Future<LoginConnection> checkLoginConnection(
     }
     return LoginConnection.fromJson(jsonDecode(response.body));
   } else {
-    print(Constants.url);
-    print(response.statusCode);
-    print(response.headers["location"]);
+    //print(Constants.url);
+    //print(response.statusCode);
+    //print(response.headers["location"]);
     throw Exception('Login Error');
   }
 }

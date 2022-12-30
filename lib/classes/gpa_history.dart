@@ -44,8 +44,6 @@ class GPAHistory {
 }
 
 class GPAHistorys {
-  //TODO some people may not even have a year of this so it will be empty; i need to check if it is empty somewhere, then i won't display anything; i think an empty list in the seperated list builder would alr handle that if the list is empty which is good.
-
   final List<GPAHistory> datas;
   const GPAHistorys({required this.datas});
 
@@ -97,7 +95,7 @@ Future<GPAHistorys> createHistoryGpas(
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      print(json);
+      //print(json);
       writeObject(json, index);
       return GPAHistorys.fromJson(json);
     } else {

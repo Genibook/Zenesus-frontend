@@ -3,8 +3,8 @@ import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/classes/connections.dart';
 // import 'package:zenesus/screens/studentpage.dart';
 import 'package:zenesus/screens/coursespage.dart';
-import 'package:zenesus/screens/privacypolicy.dart';
 import 'package:zenesus/utils/cookies.dart';
+import 'package:zenesus/screens/welcome_screen.dart';
 
 class Highschool {
   late int id;
@@ -175,17 +175,30 @@ class _Login extends State<MyLoginPage> {
                             _isLoading = false;
                           });
 
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CoursesPage(
+                          if (await readFirstTime()) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacement(
+                              context,
+                              //MaterialPageRoute(builder: (context) => const MyLoginPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => WelcomeScreen(
                                       email: usernameController.text,
                                       password: passwordController.text,
-                                      school: finalSchool,
-                                      refresh: true,
-                                    )),
-                          );
+                                      school: finalSchool)),
+                            );
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CoursesPage(
+                                        email: usernameController.text,
+                                        password: passwordController.text,
+                                        school: finalSchool,
+                                        refresh: true,
+                                      )),
+                            );
+                          }
                         } else if (connection.code == 401) {
                           // ignore: use_build_context_synchronously
                           setState(() {
@@ -268,17 +281,31 @@ class _Login extends State<MyLoginPage> {
                               _isLoading = false;
                             });
 
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CoursesPage(
+                            //print(await readFirstTime());
+                            if (await readFirstTime()) {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacement(
+                                context,
+                                //MaterialPageRoute(builder: (context) => const MyLoginPage()),
+                                MaterialPageRoute(
+                                    builder: (context) => WelcomeScreen(
                                         email: usernameController.text,
                                         password: passwordController.text,
-                                        school: finalSchool,
-                                        refresh: false,
-                                      )),
-                            );
+                                        school: finalSchool)),
+                              );
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CoursesPage(
+                                          email: usernameController.text,
+                                          password: passwordController.text,
+                                          school: finalSchool,
+                                          refresh: true,
+                                        )),
+                              );
+                            }
                           } else if (connection.code == 401) {
                             // ignore: use_build_context_synchronously
                             setState(() {
@@ -325,24 +352,6 @@ class _Login extends State<MyLoginPage> {
                   ],
                 ),
               ),
-              InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TOSpage(),
-                        ));
-                  },
-                  child: SizedBox(
-                      height: 20,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "By logging in, you agree with our privacy policy",
-                              style: TextStyle(fontSize: 10),
-                            )
-                          ]))),
             ],
           ),
         ),

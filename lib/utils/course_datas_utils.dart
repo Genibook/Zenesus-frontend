@@ -1,9 +1,7 @@
 import 'package:zenesus/classes/coursedata.dart';
 import 'package:zenesus/utils/gpa_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:zenesus/classes/coursedata.dart';
 import "package:zenesus/routes/hero_dialog_route.dart";
-import 'package:zenesus/utils/gpa_utils.dart';
 
 import '../constants.dart';
 
@@ -270,19 +268,19 @@ class GradePopupCard extends StatelessWidget {
                       thickness: 3,
                     ),
                     Text(
-                      "${course.category}",
+                      course.category,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "${course.assignment}",
+                      course.assignment,
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "${course.teacher}",
+                      course.teacher,
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
@@ -294,7 +292,7 @@ class GradePopupCard extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "${course.description}",
+                          course.description,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),

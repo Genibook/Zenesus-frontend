@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:zenesus/constants.dart";
 import 'package:zenesus/widgets/apitest.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Uri getCorrectUri(String ending) {
   Uri url;
@@ -21,5 +22,11 @@ Widget apiRowLogic(dynamic widget, dynamic context) {
     return apitestingrow(widget, context);
   } else {
     return const SizedBox();
+  }
+}
+
+Future<void> llaunchUrl(String url) async {
+  if (!await launchUrl(Uri.parse(url))) {
+    throw 'Could not launch $url';
   }
 }

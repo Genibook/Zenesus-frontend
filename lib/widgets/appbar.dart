@@ -28,17 +28,13 @@ bool _ispressed = false;
 class StudentAppBarState extends State<StudentAppBar> {
   bool _isbday = false;
 
-  
-
-  
-
 // confetti controller for confetti when bday
   late ConfettiController _controller;
   @override
   void initState() {
     super.initState();
     // init the controller
-    _controller = ConfettiController(duration: const Duration(seconds: 10));
+    _controller = ConfettiController(duration: const Duration(seconds: 5));
   }
 
   @override
@@ -49,7 +45,6 @@ class StudentAppBarState extends State<StudentAppBar> {
   }
 
   // show available students using a dialog
-  
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +135,9 @@ class StudentAppBarState extends State<StudentAppBar> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Settings(isBday: _isbday, futureNameandID:futureNameandID);
+                          return Settings(
+                              isBday: _isbday,
+                              futureNameandID: futureNameandID);
                         });
 
                     setState(() {

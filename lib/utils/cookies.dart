@@ -81,6 +81,9 @@ Future<void> logout() async {
       key: const String.fromEnvironment('EMAILKEY', defaultValue: ''));
   await storage.delete(
       key: const String.fromEnvironment('PASSKEY', defaultValue: ''));
+
+  bool acceptedPP = await readAcceptedPP();
+  bool firstTime = await readFirstTime();
   // await prefs.remove('school');
   // await prefs.remove('mp');
   // await prefs.remove("user");
@@ -94,6 +97,9 @@ Future<void> logout() async {
   // await prefs.remove("todos");
 
   await prefs.clear();
+
+  writeFirstTime(firstTime);
+  writeAcceptedPP(acceptedPP);
 }
 
 Future<void> writeTodo(String todo) async {
@@ -125,9 +131,9 @@ Future<bool> readFirstTime() async {
   return prefs.getBool(firstTimeName) ?? true;
 }
 
-Future<void> writeFirstTime() async {
+Future<void> writeFirstTime(bool state) async {
   final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool(firstTimeName, false);
+  await prefs.setBool(firstTimeName, state);
 }
 
 Future<void> updateTodoListVisiblity(bool status) async {
@@ -148,4 +154,14 @@ Future<void> updateGradeProjectionsToggleCookie(bool status) async {
 Future<bool> readGradeProjectionsToggle() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getBool(gradeProjectToggleCookieName) ?? false;
+}
+
+Future<void> writeAcceptedPP(bool value) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool(readPPCookieName, value);
+}
+
+Future<bool> readAcceptedPP() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(readPPCookieName) ?? false;
 }

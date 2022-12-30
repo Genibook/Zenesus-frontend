@@ -31,14 +31,14 @@ class HelpPageState extends State<HelpPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:  [
+                        children: [
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "Why is it saying that Genesis is not returning any data?",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(title: Text("Solutions")),
                             ListTile(
                                 title: Text(
@@ -54,12 +54,12 @@ class HelpPageState extends State<HelpPage> {
                                     "4. It may be a server error, please contact me at zenesus.gradebook@gmail.com!")),
                           ]),
                       QAItem(
-                          title: Text(
+                          title: const Text(
                             "Where is the github repo/source code?",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          children: [
+                          children: const [
                             ListTile(title: Text("https://github.com/Zenesus")),
                           ]),
                     ])))));

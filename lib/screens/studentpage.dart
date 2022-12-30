@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenesus/constants.dart';
+import 'package:zenesus/utils/api_utils.dart';
 import 'package:zenesus/utils/base64.dart';
 import 'package:zenesus/utils/cookies.dart';
 import 'package:zenesus/widgets/appbar.dart';
@@ -7,18 +8,10 @@ import 'package:zenesus/classes/student.dart';
 import 'package:zenesus/icons/custom_icons_icons.dart';
 import 'package:zenesus/screens/error.dart';
 import 'package:zenesus/widgets/navbar.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:zenesus/utils/appbar_utils.dart';
 import 'package:zenesus/utils/confetti.dart';
 import 'package:confetti/confetti.dart';
 import 'package:zenesus/screens/gpahistory.dart';
-import 'package:zenesus/constants.dart';
-
-Future<void> _launchUrl(String url) async {
-  if (!await launchUrl(Uri.parse(url))) {
-    throw 'Could not launch $url';
-  }
-}
 
 class StudentPage extends StatefulWidget {
   const StudentPage(
@@ -135,7 +128,7 @@ class Courses extends State<StudentPage> {
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.w800)),
                                 onTap: () {
-                                  _launchUrl(UPDATE_DRIVE_URL);
+                                  llaunchUrl(UPDATE_DRIVE_URL);
                                 },
                               )
                             : Text(snapshot.data!.name,

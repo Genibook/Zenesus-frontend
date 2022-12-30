@@ -121,7 +121,7 @@ class GpaHistoryPageState extends State<GpaHistoryPage> {
                         return ListTile(
                           title: Text(
                             data.schoolYear,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w700,
                                 color: primaryColor),

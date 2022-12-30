@@ -26,12 +26,16 @@ const firstTimeName = "firstTime?";
 const todosCookieName = "todos";
 const todoListVisibilityCookieName = "todos-vis";
 const gradeProjectToggleCookieName = "grade-projection";
+const readPPCookieName = "acceptedPP";
 
+// ignore: constant_identifier_names
 const String UPDATE_DRIVE_URL = "";
+// ignore: constant_identifier_names
+const String PRIVACY_POLICY_LINK = "https://zenesus-backend.vercel.app/pp";
 
 const String splitConstant = "|||||";
+// ignore: constant_identifier_names
 const String NONE_STRING = "N/A";
-// TODO update the navbar thing
 const int noTodoListGradesNavNum = 1;
 const int noTodoListProfileNavNum = 0;
 const int noTodoListScheduleNavNum = 2;
@@ -47,7 +51,10 @@ int scheduleNavNum = 2;
 int todoNavNum = 3;
 
 const int gpaHistoryJsonNum = 0;
+// ignore: constant_identifier_names
 const bool WINDOWS_UPDATE = false;
 
+// ignore: constant_identifier_names
 const bool TEST_DATA = false;
+// ignore: constant_identifier_names
 const bool SHOWOFF = false;
