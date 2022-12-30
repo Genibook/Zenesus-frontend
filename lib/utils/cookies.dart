@@ -2,6 +2,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:zenesus/constants.dart';
+import 'package:zenesus/secrets.dart';
 
 Future<void> writeBday(bool bday) async {
   final prefs = await SharedPreferences.getInstance();
@@ -53,10 +54,10 @@ Future<void> writeEmailPassSchoolintoCookies(
   final prefs = await SharedPreferences.getInstance();
   const storage = FlutterSecureStorage();
   await storage.write(
-      key: const String.fromEnvironment('EMAILKEY', defaultValue: ''),
+      key: EMAILKEYY,
       value: email);
   await storage.write(
-      key: const String.fromEnvironment('PASSKEY', defaultValue: ''),
+      key: PASSKEYY,
       value: password);
   await prefs.setString('school', school);
 }
@@ -65,10 +66,10 @@ Future<List<String>> readEmailPassSchoolintoCookies() async {
   final prefs = await SharedPreferences.getInstance();
   const storage = FlutterSecureStorage();
   final String email = await storage.read(
-          key: const String.fromEnvironment('EMAILKEY', defaultValue: '')) ??
+          key: EMAILKEYY) ??
       "";
   final String password = await storage.read(
-          key: const String.fromEnvironment('PASSKEY', defaultValue: '')) ??
+         key:PASSKEYY) ??
       "";
   final school = prefs.getString('school') ?? "";
   return [email, password, school];

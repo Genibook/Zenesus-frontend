@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:zenesus/secrets.dart';
 
 class Constants {
   Constants._();
 
   static String url =
-      const String.fromEnvironment('URL', defaultValue: '192.168.0.224:5000');
+      URL;
 }
 
 const MaterialColor primaryColor = Colors.blue;
