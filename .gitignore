@@ -51,3 +51,4 @@ app.*.map.json
 /venv/
 /assets/ca
 lib/secrets.dart
+--dart-define=URL=zenesus-backend.vercel.app
