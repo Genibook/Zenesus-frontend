@@ -4,8 +4,7 @@ import 'package:zenesus/secrets.dart';
 class Constants {
   Constants._();
 
-  static String url =
-      URL;
+  static String url = URL;
 }
 
 const MaterialColor primaryColor = Colors.blue;
@@ -56,6 +55,6 @@ const int gpaHistoryJsonNum = 0;
 const bool WINDOWS_UPDATE = false;
 
 // ignore: constant_identifier_names
-const bool TEST_DATA = false;
+const bool TEST_DATA = true;
 // ignore: constant_identifier_names
 const bool SHOWOFF = false;

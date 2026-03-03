@@ -85,7 +85,7 @@ class ScheduleCoursesDatas {
       items = [];
     }
     // ignore: avoid_print
-    print(allItems);
+    //print(allItems);
     return json;
   }
 }
@@ -115,9 +115,10 @@ Future<ScheduleCoursesDatas> createScheduleCoursesDatas(
         'user': numm
       }),
     );
-
+    //print("hi");
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      //print(json);
       writeObject(json, index);
       return ScheduleCoursesDatas.fromJson(json);
     } else {
